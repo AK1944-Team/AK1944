@@ -32,23 +32,18 @@ We are a team of young developers who are developing this project on a charitabl
 
 ## 🚀 How to run the project locally?
 
-```bash
 git clone https://github.com/Delicadency/AK1944.git
 cd AK1944
 npm install
 npm run dev
-# Open http://localhost:3000 in browser.
-```
 
-````
+# Open http://localhost:3000 in browser.
 
 ## 🔧 Environment Variables
 
 Copy the `.env.example` file to `.env.local` and fill in the required values.
 
-```bash
 cp .env.example .env.local
-```
 
 ### Required Variables
 
@@ -241,14 +236,4 @@ All content, logos, and materials are protected by copyright and are the propert
 
 ```
 
-Główne poprawki w formatowaniu:
-
-1. **Usunięcie podwójnych znaczników kodu** - które powodowały nieprawidłowe wyświetlanie
-2. **Poprawne odseparowanie bloków kodu** - każdy blok kodu ma właściwe oznakowanie
-3. **Zachowanie spójności** w strukturze markdown
-4. **Prawidłowe formatowanie tabel** - bez dodatkowych znaczników
-5. **Usunięcie konfliktujących znaczników** które mogły powodować błędy renderowania
-
-Teraz kod powinien się prawidłowo wyświetlać na GitHubie z odpowiednim podświetlaniem składni i formatowaniem.
 ```
-````
