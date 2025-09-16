@@ -1,4 +1,4 @@
-# Światowy Związek Żołnierzy Armii Krajowej – Official Website
+# Światowy Związek Żołnierzy Armii Krajowej — Official Website
 
 <a href="https://ak1944.pl">
   <img src="https://ak1944.pl/_next/image?url=%2Fimages%2FLogo_SZZAK.png&w=256&q=75" alt="Logo AK 1944">
@@ -8,13 +8,14 @@
 
 ## About the project
 
-This project is a modern version of the official website for the World Union of Home Army Soldiers (ŚZŻAK). The goal is:
-Commemorating AK heroes and promoting history
-Making valuable historical content accessible in an approachable form
-Preserving memory of the past using modern technologies
-Creating an engaging, responsive, and easy-to-navigate website
+This project is a modern version of the official website for the World Union of Home Army Soldiers (ŚŻŻAK). The goal is:
 
-are a team of young developers who are developing this project on a charitable basis, using our skills so that the history of the Home Army is accessible to future generations.
+- Commemorating AK heroes and promoting history
+- Making valuable historical content accessible in an approachable form
+- Preserving memory of the past using modern technologies
+- Creating an engaging, responsive, and easy-to-navigate website
+
+We are a team of young developers who are developing this project on a charitable basis, using our skills so that the history of the Home Army is accessible to future generations.
 
 ## 🛠️ Technologies
 
@@ -36,8 +37,109 @@ git clone https://github.com/Delicadency/AK1944.git
 cd AK1944
 npm install
 npm run dev
-Open http://localhost:3000 in browser.
+# Open http://localhost:3000 in browser.
 ```
+
+````
+
+## 🔧 Environment Variables
+
+Copy the `.env.example` file to `.env.local` and fill in the required values.
+
+```bash
+cp .env.example .env.local
+```
+
+### Required Variables
+
+#### Database Configuration
+
+| Variable       | Description                               | Required |
+| -------------- | ----------------------------------------- | -------- |
+| `DATABASE_URI` | MongoDB connection string or database URL | ✅ Yes   |
+
+#### Security Configuration
+
+| Variable         | Description                               | Required |
+| ---------------- | ----------------------------------------- | -------- |
+| `PAYLOAD_SECRET` | Secret key for Payload CMS authentication | ✅ Yes   |
+
+#### Stripe Configuration
+
+Variables needed for Stripe payment processing:
+
+| Variable                             | Description                                    | Required |
+| ------------------------------------ | ---------------------------------------------- | -------- |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key - used on the frontend  | ✅ Yes   |
+| `STRIPE_SECRET_KEY`                  | Stripe secret key - used in backend/API routes | ✅ Yes   |
+
+#### Vercel Analytics (Optional)
+
+If you're using Vercel Analytics and Speed Insights:
+
+| Variable                 | Description               | Required |
+| ------------------------ | ------------------------- | -------- |
+| `NEXT_PUBLIC_VERCEL_URL` | Application URL on Vercel | ❌ No    |
+
+### Environment Setup
+
+#### 1. Development (.env.local)
+
+```bash
+# Database Configuration
+DATABASE_URI=mongodb://localhost:27017/ak1944
+
+# Security Configuration
+PAYLOAD_SECRET=your_payload_secret_key_here
+
+# Stripe Configuration
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+```
+
+#### 2. Production
+
+For production environment, remember to:
+
+- Use production database URL for `DATABASE_URI`
+- Generate a secure random string for `PAYLOAD_SECRET` (minimum 32 characters)
+- Use live Stripe keys (`pk_live_...` and `sk_live_...`)
+- Configure variables in your hosting platform (Vercel, Netlify, etc.)
+
+#### 3. Getting Required Values
+
+**Database URI**
+
+- For MongoDB: Use connection string format `mongodb://username:password@host:port/database`
+- For MongoDB Atlas: Get connection string from your cluster dashboard
+- For local development: `mongodb://localhost:27017/ak1944`
+
+**Payload Secret**
+Generate a secure random string for authentication:
+
+```bash
+# Generate secure random string
+openssl rand -base64 32
+```
+
+**Stripe Keys**
+
+1. Log in to [Stripe Dashboard](https://dashboard.stripe.com/)
+2. Go to **Developers** → **API keys**
+3. Copy the publishable key to `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+4. Copy the secret key to `STRIPE_SECRET_KEY`
+
+> ⚠️ **Security Warning**: Never commit the `.env.local` file to your repository. It's automatically ignored by `.gitignore`. Keep your `DATABASE_URI`, `PAYLOAD_SECRET`, and `STRIPE_SECRET_KEY` confidential.
+
+### Verifying Configuration
+
+After setting up the variables, you can verify everything works correctly:
+
+```bash
+npm run dev
+```
+
+The application should start without any environment variable related errors. Check the console for any missing or invalid configuration warnings.
 
 ## ♿ Accessibility (WCAG 2.1 Level AA)
 
@@ -101,10 +203,10 @@ We welcome contributions to help preserve and share the history! If you'd like t
 - **Linting** - Code must pass ESLint checks without errors (run `npm run lint`)
 - **Styling** - Use only Tailwind CSS utility classes as defined in our `tailwind.config.ts`
 - **Accessibility** - All new features must be WCAG 2.1 Level AA compliant:
-- Test with keyboard navigation
-- Verify proper ARIA attributes
-- Check contrast ratios
-- Test with screen readers
+  - Test with keyboard navigation
+  - Verify proper ARIA attributes
+  - Check contrast ratios
+  - Test with screen readers
 
 ### Before submitting PR:
 
@@ -114,74 +216,11 @@ npm run format
 npm run test
 ```
 
-# 🔧 Environment Variables
-
-To run this project locally, you need to set up the required environment variables. Copy the `.env.example` file to `.env.local` and fill in the required values.
-
-```bash
-cp .env.example .env.local
-```
-
-## Required Variables
-
-### Stripe Configuration
-
-Variables needed for Stripe payment processing:
-
-| Variable                             | Description                                    | Required |
-| ------------------------------------ | ---------------------------------------------- | -------- |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key - used on the frontend  | ✅ Yes   |
-| `STRIPE_SECRET_KEY`                  | Stripe secret key - used in backend/API routes | ✅ Yes   |
-
-### Vercel Analytics (Optional)
-
-If you're using Vercel Analytics and Speed Insights:
-
-| Variable                 | Description               | Required |
-| ------------------------ | ------------------------- | -------- |
-| `NEXT_PUBLIC_VERCEL_URL` | Application URL on Vercel | ❌ No    |
-
-## Environment Setup
-
-### 1. Development (.env.local)
-
-```bash
-# Stripe Configuration
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
-STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
-```
-
-### 2. Production
-
-For production environment, remember to:
-
-- Use live Stripe keys (`pk_live_...` and `sk_live_...`)
-- Configure variables in your hosting platform (Vercel, Netlify, etc.)
-
-### 3. Getting Stripe Keys
-
-1. Log in to [Stripe Dashboard](https://dashboard.stripe.com/)
-2. Go to **Developers** → **API keys**
-3. Copy the publishable key to `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-4. Copy the secret key to `STRIPE_SECRET_KEY`
-
-> ⚠️ **Important**: Never commit the `.env.local` file to your repository. It's automatically ignored by `.gitignore`.
-
-## Verifying Configuration
-
-After setting up the variables, you can verify everything works correctly:
-
-```bash
-npm run dev
-```
-
-The application should start without any environment variable related errors.
-
 ## 📄 License
 
 This project is proprietary software. All rights reserved.
 
-**Copyright © 2025 Światowy Związek Żołnierzy Armii Krajowej (ŚZŻAK)**
+**Copyright © 2025 Światowy Związek Żołnierzy Armii Krajowej (ŚŻŻAK)**
 
 ### Restrictions:
 
@@ -193,8 +232,9 @@ This project is proprietary software. All rights reserved.
 ### Permitted use:
 
 - Viewing the code for educational purposes only
-- Contributing to this repository via Pull Requests (contributions become property of ŚZŻAK)
+- Contributing to this repository via Pull Requests (contributions become property of ŚŻŻAK)
 
 For any questions regarding the use of this code, please contact the Światowy Związek Żołnierzy Armii Krajowej.
 
-All content, logos, and materials are protected by copyright and are the property of ŚZŻAK.
+All content, logos, and materials are protected by copyright and are the property of ŚŻŻAK.
+````
