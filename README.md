@@ -216,7 +216,7 @@ npm run test
 
 ## 👥 Contributors & Supporters
 
-We are grateful to all the people who have contributed to this project and helped preserve the history of the Home Army.
+We are grateful to all the people who have contributed to this project and helped preserve the history of the AK.
 
 ### 🎨 UX/UI Design Team
 
@@ -226,24 +226,24 @@ We are grateful to all the people who have contributed to this project and helpe
 
 ### 💻 Development Team
 
-- [Agata Kamińska](https://www.linkedin.com/in/agata-kuklinska/) - Developer
-- [Jakub Wąsik](https://www.linkedin.com/in/jacob-wasik/) - Developer
+- [Agata Kamińska](https://www.linkedin.com/in/agata-kuklinska/) - Lead Developer
+- [Jakub Wąsik](https://www.linkedin.com/in/jacob-wasik/) - Lead Developer
 - [Vincent Słomiński](https://www.linkedin.com/in/vincent-slominski/) - Developer
 - [Bartek Brański](https://www.linkedin.com/in/barteknr1/) - Developer
 - [Bartosz Jarzyło](https://www.linkedin.com/in/bartosz-jarzylo/) - Developer
 - [Agnieszka Iwan](https://www.linkedin.com/in/agnieszka-iwan2/) - Developer
 - [Jakub Pawlak](https://www.linkedin.com/in/jakub-pawlak-frontend-dev/) - Developer
+- [Piotr Drechsler](https://www.linkedin.com/in/piotr-drechsler/) - Developer
 
 ### 🧪 Quality Assurance Team
 
 - [Edyta Malicka](https://www.linkedin.com/in/edytamalicka/) - QA Tester
 - [Anna Oszkodar-Balcer](https://linkedin.com/in/anna-szczesna) - QA Tester
 - [Wojciech Kasprzyk](https://www.linkedin.com/in/wojciech-kasprzyk88/) - QA Tester
-- [Wojciech Kasperek](https://linkedin.com/in/wojciech-kasperek) - QA Tester
 
 ### 📦 Product Management
 
-- [Maciej Małożyć](https://linkedin.com/in/maciej-malozyc) - Product Owner
+- [Maciej Małozięć](https://www.linkedin.com/in/maloziec/) - Product Owner
 
 _Want to contribute? Check out our [Contributing Guidelines](#-contributing) and join our mission to preserve history through technology._
 
