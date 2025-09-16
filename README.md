@@ -214,6 +214,39 @@ npm run format
 npm run test
 ```
 
+## 👥 Contributors & Supporters
+
+We are grateful to all the people who have contributed to this project and helped preserve the history of the Home Army.
+
+### 🎨 UX/UI Design Team
+
+- [Karolina Bożemska](https://www.linkedin.com/in/karolina-bo%C5%BCemska/) - UX/UI Designer
+- [Julia Luksa](https://linkedin.com/in/julia-luksa) - UX/UI Designer
+- [Olga Skibińska](https://linkedin.com/in/olga-skibinska) - UX/UI Designer
+
+### 💻 Development Team
+
+- [Agata Kamińska](https://www.linkedin.com/in/agata-kuklinska/) - Developer
+- [Jakub Wąsik](https://www.linkedin.com/in/jacob-wasik/) - Developer
+- [Vincent Słomiński](https://www.linkedin.com/in/vincent-slominski/) - Developer
+- [Bartek Brański](https://www.linkedin.com/in/barteknr1/) - Developer
+- [Bartosz Jarzyło](https://www.linkedin.com/in/bartosz-jarzylo/) - Developer
+- [Agnieszka Iwan](https://www.linkedin.com/in/agnieszka-iwan2/) - Developer
+- [Jakub Pawlak](https://www.linkedin.com/in/jakub-pawlak-frontend-dev/) - Developer
+
+### 🧪 Quality Assurance Team
+
+- [Edyta Malicka](https://www.linkedin.com/in/edytamalicka/) - QA Tester
+- [Anna Oszkodar-Balcer](https://linkedin.com/in/anna-szczesna) - QA Tester
+- [Wojciech Kasprzyk](https://www.linkedin.com/in/wojciech-kasprzyk88/) - QA Tester
+- [Wojciech Kasperek](https://linkedin.com/in/wojciech-kasperek) - QA Tester
+
+### 📦 Product Management
+
+- [Maciej Małożyć](https://linkedin.com/in/maciej-malozyc) - Product Owner
+
+_Want to contribute? Check out our [Contributing Guidelines](#-contributing) and join our mission to preserve history through technology._
+
 ## 📄 License
 
 This project is proprietary software. All rights reserved.
