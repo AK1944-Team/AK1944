@@ -238,7 +238,7 @@ We are grateful to all the people who have contributed to this project and helpe
 ### 🧪 Quality Assurance Team
 
 - [Edyta Malicka](https://www.linkedin.com/in/edytamalicka/) - QA Tester
-- [Anna Oszkodar-Balcer](https://linkedin.com/in/anna-szczesna) - QA Tester
+- [Anna Oszkodar-Balcer](https://www.linkedin.com/in/annaob/) - QA Tester
 - [Wojciech Kasprzyk](https://www.linkedin.com/in/wojciech-kasprzyk88/) - QA Tester
 
 ### 📦 Product Management
