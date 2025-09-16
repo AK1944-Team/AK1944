@@ -6,6 +6,37 @@
 
 **🌐 <a href="https://ak1944.pl">Visit page: ak1944.pl</a>**
 
+## 📋 Table of Contents
+
+- [About the project](#about-the-project)
+- [🛠️ Technologies](#️-technologies)
+- [🚀 How to run the project locally?](#-how-to-run-the-project-locally)
+- [🔧 Environment Variables](#-environment-variables)
+  - [Required Variables](#required-variables)
+    - [Database Configuration](#database-configuration)
+    - [Security Configuration](#security-configuration)
+    - [Stripe Configuration](#stripe-configuration)
+    - [Vercel Analytics (Optional)](#vercel-analytics-optional)
+  - [Environment Setup](#environment-setup)
+    - [1. Development (.env.local)](#1-development-envlocal)
+    - [2. Production](#2-production)
+    - [3. Getting Required Values](#3-getting-required-values)
+  - [Verifying Configuration](#verifying-configuration)
+- [♿ Accessibility (WCAG 2.1 Level AA)](#-accessibility-wcag-21-level-aa)
+- [📁 Project Structure](#-project-structure)
+  - [Naming Convention](#naming-convention)
+- [🤝 Contributing](#-contributing)
+  - [Code Quality Requirements](#code-quality-requirements)
+  - [Before submitting PR](#before-submitting-pr)
+- [👥 Contributors & Supporters](#-contributors--supporters)
+  - [🎨 UX/UI Design Team](#-uxui-design-team)
+  - [💻 Development Team](#-development-team)
+  - [🧪 Quality Assurance Team](#-quality-assurance-team)
+  - [📦 Product Management](#-product-management)
+- [📄 License](#-license)
+  - [Restrictions](#restrictions)
+  - [Permitted use](#permitted-use)
+
 ## About the project
 
 This project is a modern version of the official website for the World Union of Home Army Soldiers (ŚŻŻAK). The goal is:
