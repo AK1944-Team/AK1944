@@ -268,7 +268,3 @@ This project is proprietary software. All rights reserved.
 For any questions regarding the use of this code, please contact the Światowy Związek Żołnierzy Armii Krajowej.
 
 All content, logos, and materials are protected by copyright and are the property of ŚŻŻAK.
-
-```
-
-```
