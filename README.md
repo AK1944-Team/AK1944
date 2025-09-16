@@ -115,6 +115,7 @@ For production environment, remember to:
 - For local development: `mongodb://localhost:27017/ak1944`
 
 **Payload Secret**
+
 Generate a secure random string for authentication:
 
 ```bash
@@ -237,4 +238,17 @@ This project is proprietary software. All rights reserved.
 For any questions regarding the use of this code, please contact the Światowy Związek Żołnierzy Armii Krajowej.
 
 All content, logos, and materials are protected by copyright and are the property of ŚŻŻAK.
+
+```
+
+Główne poprawki w formatowaniu:
+
+1. **Usunięcie podwójnych znaczników kodu** - które powodowały nieprawidłowe wyświetlanie
+2. **Poprawne odseparowanie bloków kodu** - każdy blok kodu ma właściwe oznakowanie
+3. **Zachowanie spójności** w strukturze markdown
+4. **Prawidłowe formatowanie tabel** - bez dodatkowych znaczników
+5. **Usunięcie konfliktujących znaczników** które mogły powodować błędy renderowania
+
+Teraz kod powinien się prawidłowo wyświetlać na GitHubie z odpowiednim podświetlaniem składni i formatowaniem.
+```
 ````
