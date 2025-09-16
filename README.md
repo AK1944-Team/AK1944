@@ -32,12 +32,14 @@ We are a team of young developers who are developing this project on a charitabl
 
 ## 🚀 How to run the project locally?
 
+```bash
 git clone https://github.com/Delicadency/AK1944.git
 cd AK1944
 npm install
 npm run dev
 
 # Open http://localhost:3000 in browser.
+```
 
 ## 🔧 Environment Variables
 
