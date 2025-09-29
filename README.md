@@ -41,12 +41,12 @@
 
 This project is a modern version of the official website for the World Union of Home Army Soldiers (ŚŻŻAK). The goal is:
 
-- Commemorating AK heroes and promoting history
+- Commemorating the heroes of the Home Army and promoting history
 - Making valuable historical content accessible in an approachable form
 - Preserving memory of the past using modern technologies
 - Creating an engaging, responsive, and easy-to-navigate website
 
-We are a team of young developers who are developing this project on a charitable basis, using our skills so that the history of the Home Army is accessible to future generations.
+We are a team of young developers working voluntarily to preserve the history of the Home Army and make it accessible for future generations.
 
 ## 🛠️ Technologies
 
@@ -170,9 +170,9 @@ npm run dev
 
 The application should start without any environment variable related errors. Check the console for any missing or invalid configuration warnings.
 
-## ♿ Accessibility (WCAG 2.1 Level AA)
+## ♿ Accessibility (Web Content Accessibility Guidelines (WCAG) 2.1 Level AA)
 
-We ensure our website is accessible to all users by implementing:
+We ensure that our website is accessible to all users by implementing:
 
 - **Semantic HTML & ARIA attributes** - proper HTML5 tags and ARIA labels for better screen reader support
 - **High contrast mode** - toggle between light/dark themes with WCAG-compliant contrast ratios
@@ -257,7 +257,7 @@ We are grateful to all the people who have contributed to this project and helpe
 
 ### 💻 Development Team
 
-- [Agata Kamińska](https://www.linkedin.com/in/agata-kuklinska/) - Lead Developer
+- [Agata Kuklińska](https://www.linkedin.com/in/agata-kuklinska/) - Lead Developer
 - [Jakub Wąsik](https://www.linkedin.com/in/jacob-wasik/) - Lead Developer
 - [Vincent Słomiński](https://www.linkedin.com/in/vincent-slominski/) - Developer
 - [Bartek Brański](https://www.linkedin.com/in/barteknr1/) - Developer
@@ -296,6 +296,6 @@ This project is proprietary software. All rights reserved.
 - Viewing the code for educational purposes only
 - Contributing to this repository via Pull Requests (contributions become property of ŚŻŻAK)
 
-For any questions regarding the use of this code, please contact the Światowy Związek Żołnierzy Armii Krajowej.
+For any questions regarding the use of this code, please contact [Światowy Związek Żołnierzy Armii Krajowej (ŚŻŻAK)](https://ak1944.pl)
 
 All content, logos, and materials are protected by copyright and are the property of ŚŻŻAK.
