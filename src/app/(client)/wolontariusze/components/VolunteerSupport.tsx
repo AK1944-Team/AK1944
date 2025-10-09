@@ -38,7 +38,7 @@ export const VolunteerSupport = () => (
 
     <div className="flex items-center justify-center">
       <Image
-        src="/images/volunteers.png"
+        src="/images/volunteers/volunteers.png"
         alt="Ludzie"
         width={480}
         height={280}

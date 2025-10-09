@@ -37,22 +37,16 @@ export const volunteersData: Volunteer[] = [
     linkedin: "https://www.linkedin.com/in/agnieszka-iwan2/",
   },
   {
-    name: "Agata Kamińska",
+    name: "Agata Kuklińska",
     role: "Frontend Developer",
     photo: "/images/volunteers/A.Kaminska.jpg",
-    linkedin: "https://www.linkedin.com/in/agata--kaminska/",
+    linkedin: "https://www.linkedin.com/in/agata-kuklinska/",
   },
   {
     name: "Wojciech Kasprzyk",
     role: "QA Tester",
     photo: "/images/volunteers/W.Kasprzyk.jpg",
     linkedin: "https://www.linkedin.com/in/wojciech-kasprzyk88/",
-  },
-  {
-    name: "Dawid Kraszewski",
-    role: "UX Writer",
-    photo: "/images/volunteers/D.Kraszewski.jpg",
-    linkedin: "https://www.linkedin.com/in/dawid-kraszewski/",
   },
   {
     name: "Edyta Malicka",
@@ -95,12 +89,6 @@ export const volunteersData: Volunteer[] = [
     role: "Frontend Developer",
     photo: "/images/volunteers/J.Wasik.jpg",
     linkedin: "https://www.linkedin.com/in/jacob-wasik/",
-  },
-  {
-    name: "Wojciech Polar",
-    role: "spec. SEO i WCAG",
-    photo: "/images/volunteers/W.Polar.jpg",
-    linkedin: "https://www.linkedin.com/in/wojciechpolar/",
   },
   {
     name: "Bartosz Jarzyło",

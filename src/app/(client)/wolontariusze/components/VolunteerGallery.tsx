@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import IconLinkedIn from "@/icons/IconLinkedIn";
-import { Volunteer } from "../../../../data/volunteersData";
+import { Volunteer } from "@/data/volunteersData";
 import { Heading } from "@/components/shared/Heading/Heading";
 
 type Props = {
@@ -43,7 +43,7 @@ export const VolunteerGallery = ({ volunteers }: Props) => {
         {volunteers.map((person) => (
           <div
             key={person.name}
-            className="mb-10 flex flex-col font-courier desktop:ml-14"
+            className="mb-10 flex flex-col font-courier desktop:items-start"
           >
             <div className="group relative max-h-[200px] w-full max-w-[200px] overflow-hidden rounded shadow-md">
               <Link href={person.linkedin || "#"} target="_blank">
