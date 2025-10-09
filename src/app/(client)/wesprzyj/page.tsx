@@ -7,6 +7,7 @@ import { DonationSection } from "./_components/DonationSection";
 import { PartnerSection } from "./_components/PartnerSection";
 import { SupportNav } from "./_components/SupportNav";
 import { TaxSection } from "./_components/TaxSection";
+import { VolunteerSection } from "./_components/VolunteerSection";
 import { ThankYou } from "@/components/shared/ThankYou";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function SupportPage() {
         <TaxSection />
         <DonationSection />
         <PartnerSection />
+        <VolunteerSection />
         <ContactSection />
         <ThankYou title="Z głębi serca dziękujemy za okazane wsparcie!" />
       </Container>
