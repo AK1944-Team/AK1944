@@ -1,4 +1,4 @@
-module.exports = {
+const babelConfig = {
   presets: [
     [
       "@babel/preset-env",
@@ -11,3 +11,5 @@ module.exports = {
     "@babel/preset-typescript",
   ],
 };
+
+export default babelConfig;
