@@ -5,11 +5,8 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  setupFilesAfterEnv: [
-    "@testing-library/jest-dom", // Zaktualizowano do poprawnej ścieżki
-    "<rootDir>/jest.setup.js", // Dodatkowy plik setup (opcjonalnie)
-  ],
-  testEnvironment: "jest-fixed-jsdom",
+  setupFilesAfterEnv: ["@testing-library/jest-dom", "<rootDir>/jest.setup.js"],
+  testEnvironment: "jest-environment-jsdom",
   testEnvironmentOptions: {
     customExportConditions: [""],
   },

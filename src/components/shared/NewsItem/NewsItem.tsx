@@ -11,28 +11,28 @@ import { NewsContent } from "../NewsContent/NewsContent";
 import { truncateText } from "@/utils";
 
 import { Asset, News } from "@/../payload-types";
-import {
-  convertLexicalToPlaintext,
-  PlaintextConverters,
-} from "@payloadcms/richtext-lexical/plaintext";
-import {
-  DefaultNodeTypes,
-  SerializedBlockNode,
-} from "@payloadcms/richtext-lexical";
+// import {
+//   convertLexicalToPlaintext,
+//   PlaintextConverters,
+// } from "@payloadcms/richtext-lexical/plaintext";
+// import {
+//   DefaultNodeTypes,
+//   SerializedBlockNode,
+// } from "@payloadcms/richtext-lexical";
 
 interface Props {
   // post: Post;
   post: News;
 }
 
-const converters: PlaintextConverters<
-  DefaultNodeTypes | SerializedBlockNode<any>
-> = {
-  blocks: { textBlock: ({ node }) => node.fields.text ?? "" },
-  link: ({ node }) => node.fields.url ?? "",
-};
+// const converters: PlaintextConverters<
+//   DefaultNodeTypes | SerializedBlockNode<any>
+// > = {
+//   blocks: { textBlock: ({ node }) => node.fields.text ?? "" },
+//   link: ({ node }) => node.fields.url ?? "",
+// };
 
-export const NewsItem = async ({
+export const NewsItem = ({
   // post: { id, title, date, featured_media, excerpt },
   post: { id, title, teaser, createdAt, heroImage },
 }: Props) => {
