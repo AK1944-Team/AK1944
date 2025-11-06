@@ -86,7 +86,7 @@ export const volunteersData: Volunteer[] = [
   },
   {
     name: "Jakub Wąsik",
-    role: "Frontend Developer",
+    role: "Software Engineer",
     photo: "/images/volunteers/J.Wasik.jpg",
     linkedin: "https://www.linkedin.com/in/jacob-wasik/",
   },
