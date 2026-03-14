@@ -1,5 +1,5 @@
 import { AK_DATA } from "@/data/akData";
-// import { DonateModal } from "../DonateModal";
+import { DonateModal } from "../DonateModal";
 import { CardHeader } from "../SupportCard/CardHeader";
 import { SupportCard } from "../SupportCard";
 
@@ -15,6 +15,6 @@ export const DonationCard = () => (
         <strong className="select-all">{AK_DATA.bank.accountNumber}</strong>
       </p>
     </div>
-    {/* <DonateModal /> */}
+    <DonateModal />
   </SupportCard>
 );

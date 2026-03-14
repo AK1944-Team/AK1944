@@ -1,9 +1,9 @@
 import { Button } from "@/components/shared/Button/Button";
-import IconX from "@/icons/IconX";
+import IconXCircle from "@/icons/IconXCircle";
 
 export const PaymentError = () => (
   <div className="flex flex-col items-center gap-6 text-center">
-    <IconX className="size-16 text-redError" />
+    <IconXCircle className="size-16 text-redError" />
     <div className="space-y-2">
       <h1 className="text-2xl font-bold">Wystąpił błąd podczas płatności</h1>
       <p className="text-lg text-grayDate">

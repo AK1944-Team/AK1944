@@ -49,10 +49,12 @@ export const donateAction = async (
 
   const { amount, email, signature } = result.data;
 
+
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: amount * 100,
     currency: "pln",
-    payment_method_types: ["card", "blik", "p24", "link"],
+    payment_method_types: ["card", "blik", "p24"],
     receipt_email: email,
     metadata: {
       signature,
