@@ -2,6 +2,7 @@ import { Heading } from "@/components/shared/Heading/Heading";
 import { genesisSection } from "@/data/historyData";
 import { commandersSection } from "@/data/historyData";
 import Image from "next/image";
+import Link from "next/link";
 
 const { genesisTitle, content } = genesisSection;
 const firstPart = content.slice(0, 1);
@@ -56,17 +57,16 @@ export const GenesisSection = () => (
               {index !== people.length - 1 && (
                 <div className="absolute left-0 top-4 h-full w-[2px] bg-greenC" />
               )}
-              <a
+              <Link
                 href={commander.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex underline"
+                className="inline-flex w-fit items-center gap-2 underline"
               >
                 <span className="absolute left-[1px] top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-greenMain" />
-                <p>{commander.name}</p>{" "}
-              </a>
-
-              <p>{commander.date}</p>
+                <span>{commander.name}</span>
+              </Link>
+              <span>{commander.date}</span>
             </li>
           ))}
         </ul>
