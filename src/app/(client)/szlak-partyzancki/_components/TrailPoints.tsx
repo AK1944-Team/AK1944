@@ -49,22 +49,29 @@ export const TrailPoints = ({ activeTrail }: TrailPointsProps) => {
         ))}
       </div>
 
-      <Modal isOpen={activeIndex !== null} onClose={closeModal}>
+      <Modal
+        isOpen={activeIndex !== null}
+        onClose={closeModal}
+        className="desktop:min-h-[520px]"
+      >
         {activeIndex !== null && (
-          <div className="min-h-[500px] max-w-[600px] px-2 tablet:px-5 desktop:min-h-[400px]">
+          <div className="flex min-h-[500px] max-w-[600px] flex-col px-2 tablet:px-5 desktop:min-h-[420px]">
             <Heading variant="h3" color="white" contrast="yellow">
               {points[activeIndex].point}
             </Heading>
-            <p className="pb-6 pt-4 text-white">
-              {points[activeIndex].description}
-            </p>
-            <div className="mx-auto flex flex-col items-center justify-center gap-5 pt-5 tablet:flex-row tablet:justify-between tablet:gap-0">
+            <div className="mt-4 overflow-y-auto pr-2">
+              <p className="pb-6 text-white">
+                {points[activeIndex].description}
+              </p>
+            </div>
+            <div className="mx-auto mt-auto flex flex-col gap-5 tablet:flex-row tablet:justify-between">
               <Button
                 label="Poprzedni punkt"
                 ariaDescription="Zobacz poprzedni punkt szlaku"
                 variant="secondary"
                 onClick={goToPrev}
                 disabled={activeIndex === 0}
+                className="w-[175px]"
               />
               <Button
                 label="Następny punkt"
@@ -72,6 +79,7 @@ export const TrailPoints = ({ activeTrail }: TrailPointsProps) => {
                 variant="primary"
                 onClick={goToNext}
                 disabled={activeIndex === points.length - 1}
+                className="w-[175px]"
               />
             </div>
           </div>
