@@ -69,26 +69,32 @@ export const commandersSection = {
     {
       name: "ppłk Aleksander Ehrbar",
       date: "(19.06.1919 - 22.02.1924)",
+      link: "https://pl.wikipedia.org/wiki/Aleksander_Ehrbar",
     },
     {
       name: "płk Adam Rozwadowski",
       date: "(22.02.1924 - 22.02.1927)",
+      link: "https://pl.wikipedia.org/wiki/Adam_Rozwadowski",
     },
     {
       name: "ppłk Jan Kanty Olszewski",
       date: "(22.02.1927-28.01.1928)",
+      link: "https://pl.wikipedia.org/wiki/Jan_Kanty_Olszewski",
     },
     {
       name: "płk dypl. Juliusz Kleeberg",
       date: "(28.01.1928 - 31.01.1930)",
+      link: "https://pl.wikipedia.org/wiki/Juliusz_Kleeberg",
     },
     {
       name: "ppłk Ignacy Kowalczewski",
       date: "(31.01.1930 - 04.1938)",
+      link: "https://pl.wikipedia.org/wiki/Ignacy_Kowalczewski",
     },
     {
       name: "płk Kazimierz Kosiarski",
       date: "(04.1938 - 20.09.1939)",
+      link: "https://pl.wikipedia.org/wiki/5_Pu%C5%82k_Strzelc%C3%B3w_Konnych_(II_RP)#Kadra_pu%C5%82ku",
     },
   ],
 } as const;
