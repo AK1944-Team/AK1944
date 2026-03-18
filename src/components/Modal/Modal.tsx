@@ -55,7 +55,7 @@ export const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex h-screen items-center justify-center overflow-y-auto bg-slate-900/20 backdrop-blur"
+      className="bg-slate-900/20 fixed inset-0 z-50 flex h-screen items-center justify-center overflow-y-auto backdrop-blur"
       role="dialog"
       aria-modal="true"
       ref={modalRef}
@@ -64,7 +64,7 @@ export const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
       <div
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          "desktop:py-15 relative m-auto flex animate-modalAnimation flex-col items-center rounded bg-greenMain px-3 py-12 text-white desktop:px-10",
+          "desktop:py-15 relative m-auto flex animate-modalAnimation flex-col items-center rounded bg-greenMain px-3 py-12 text-white shadow-2xl shadow-white desktop:px-10",
           className,
         )}
       >
