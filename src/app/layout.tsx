@@ -46,6 +46,7 @@ export default function RootLayout({
       lang="pl"
       data-lt-installed="true"
       className="scroll-pt-20 scroll-smooth tablet:scroll-pt-[136px]"
+      suppressHydrationWarning
     >
       <body
         className={cn(
@@ -54,6 +55,7 @@ export default function RootLayout({
           sourceSans.variable,
           "bg-backgroundMain text-textDarkGreen antialiased",
         )}
+        suppressHydrationWarning
       >
         <div className="flex min-h-screen flex-col">
           <ThemeProvider>
