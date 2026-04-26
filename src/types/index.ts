@@ -72,3 +72,15 @@ export type PageProps = {
 export type SearchParamsProps = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+export interface GalleryData {
+  id: string;
+  subtitle: string;
+  date: string;
+  images: GalleryImage[];
+}

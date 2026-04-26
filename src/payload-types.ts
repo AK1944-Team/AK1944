@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     news: News;
     galleries: Gallery;
+    rallies: Rally;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     galleries: GalleriesSelect<false> | GalleriesSelect<true>;
+    rallies: RalliesSelect<false> | RalliesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -238,6 +240,116 @@ export interface Gallery {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rallies".
+ */
+export interface Rally {
+  id: string;
+  title: string;
+  /**
+   * Generowany automatycznie na podstawie tytułu.
+   */
+  slug?: string | null;
+  /**
+   * Np. '10 lutego, 2024'
+   */
+  date?: string | null;
+  /**
+   * Opis wyświetlany na liście rajdów
+   */
+  description?: string | null;
+  featuredImage?: (string | null) | Media;
+  /**
+   * Pełny tekst zaproszenia na rajd
+   */
+  invite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  purpose?: string | null;
+  purposeList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  rulesList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  adviceList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  rewards?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  transportHeader?: string | null;
+  transportList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  warning?: string | null;
+  programList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  organizators?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  partners?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskInfo?: string | null;
+  tasks?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  relation?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Galeria zdjęć z rajdu
+   */
+  linkedGallery?: (string | null) | Gallery;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -275,6 +387,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'galleries';
         value: string | Gallery;
+      } | null)
+    | ({
+        relationTo: 'rallies';
+        value: string | Rally;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -400,6 +516,86 @@ export interface GalleriesSelect<T extends boolean = true> {
         caption?: T;
         id?: T;
       };
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rallies_select".
+ */
+export interface RalliesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  date?: T;
+  description?: T;
+  featuredImage?: T;
+  invite?: T;
+  purpose?: T;
+  purposeList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  rulesList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  adviceList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  rewards?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  transportHeader?: T;
+  transportList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  warning?: T;
+  programList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  organizators?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  partners?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  taskInfo?: T;
+  tasks?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  relation?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  linkedGallery?: T;
   publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;

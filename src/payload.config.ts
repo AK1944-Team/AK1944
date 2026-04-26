@@ -10,6 +10,7 @@ import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { News } from "./collections/News";
 import { Galleries } from "./collections/Galleries";
+import { Rallies } from "./collections/Rallies";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -30,7 +31,7 @@ export default buildConfig({
     fallbackLanguage: "pl",
     supportedLanguages: { pl },
   },
-  collections: [Users, Media, News, Galleries],
+  collections: [Users, Media, News, Galleries, Rallies],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],
   }),
