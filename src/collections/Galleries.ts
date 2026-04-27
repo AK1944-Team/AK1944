@@ -41,12 +41,6 @@ export const Galleries: CollectionConfig = {
       label: "Opis",
     },
     {
-      name: "coverImage",
-      type: "upload",
-      label: "Zdjęcie okładkowe",
-      relationTo: "media",
-    },
-    {
       name: "sourceType",
       type: "select",
       label: "Źródło galerii",
@@ -73,8 +67,14 @@ export const Galleries: CollectionConfig = {
       },
     },
     {
+      name: "publishedAt",
+      type: "date",
+      label: "Data publikacji",
+    },
+    {
       name: "images",
       type: "array",
+      label: "Zdjęcia",
       labels: {
         singular: "Zdjęcie",
         plural: "Zdjęcia",
@@ -93,11 +93,6 @@ export const Galleries: CollectionConfig = {
           label: "Podpis",
         },
       ],
-    },
-    {
-      name: "publishedAt",
-      type: "date",
-      label: "Data publikacji",
     },
   ],
 };

@@ -31,7 +31,7 @@ export default async function ArchivePage({ searchParams }: PageProps) {
       >
         <div className="mb-10">
           <Breadcrumbs />
-          <Heading variant="h2" color="green" contrast="yellow" className="m-0">
+          <Heading variant="h2" color="green" contrast="yellow" className="mt-6">
             Archiwum
           </Heading>
         </div>

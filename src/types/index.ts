@@ -49,6 +49,7 @@ export interface PlaceDetails {
   descriptionContinuation?: string;
   image?: string;
 }
+
 export interface ContainerProps {
   children: ReactNode;
   className?: string;
@@ -73,6 +74,7 @@ export type SearchParamsProps = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
+// Gallery types
 export interface GalleryImage {
   src: string;
   alt: string;

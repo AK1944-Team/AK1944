@@ -21,6 +21,7 @@ export const NewsItem = ({ newsItem }: NewsItemProps) => {
           featuredImage={newsItem.featuredImage}
           fallbackAlt={newsItem.title}
           fill
+          sizes="(min-width: 1280px) 20rem, (min-width: 768px) 22rem, 100vw"
           className="object-cover"
         />
       </div>

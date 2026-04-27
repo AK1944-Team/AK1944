@@ -16,7 +16,7 @@ export const Card = ({ newsItem }: { newsItem: News }) => {
   const newsContent = getExcerpt(extractedText, EXCERPT_WORD_LIMIT);
 
   return (
-    <li className="border-b-4 border-greenMain pb-10">
+    <li className="w-full border-b-4 border-greenMain pb-10">
       <div className="grid gap-6 tablet:grid-cols-[22rem_minmax(0,1fr)] tablet:gap-x-10 tablet:gap-y-6 desktop:grid-cols-[26rem_minmax(0,1fr)]">
         <h2 className="font-lora text-28 font-bold leading-none tablet:col-start-2 tablet:row-start-1 tablet:text-32">
           {newsItem.title}
@@ -26,6 +26,7 @@ export const Card = ({ newsItem }: { newsItem: News }) => {
             featuredImage={newsItem.featuredImage}
             fallbackAlt={newsItem.title}
             fill
+            sizes="(min-width: 1280px) 26rem, (min-width: 768px) 22rem, 100vw"
             className="object-cover"
           />
         </div>

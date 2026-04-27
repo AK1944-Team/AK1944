@@ -3,8 +3,10 @@ import Container from "@/components/shared/Container";
 import { FeaturedImage } from "@/components/shared/FeaturedImage/FeaturedImage";
 import { Heading } from "@/components/shared/Heading/Heading";
 import { fetchBySlug } from "@/dataAccess/fetchPayloadCollection";
+import { getGalleryByNewsId } from "@/dataAccess/galleries";
 import { converters } from "@/utils/richtext/converters";
 import { RichText } from "@payloadcms/richtext-lexical/react";
+import { GallerySection } from "@/components/Gallery/GallerySection";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -14,6 +16,8 @@ export default async function ArchivePage({ params }: PageProps) {
   const { slug } = await params;
   const { doc: post } = await fetchBySlug("news", slug);
 
+  const gallery = post?.id ? await getGalleryByNewsId(post.id) : null;
+
   return (
     <section>
       <Container
@@ -22,7 +26,7 @@ export default async function ArchivePage({ params }: PageProps) {
       >
         <div className="mb-10">
           <Breadcrumbs />
-          <Heading variant="h2" color="green" contrast="yellow" className="m-0">
+          <Heading variant="h2" color="green" contrast="yellow" className="mt-6">
             {post?.title || "Nie znaleziono artykułu"}
           </Heading>
           <article className="mt-6 flow-root">
@@ -31,6 +35,7 @@ export default async function ArchivePage({ params }: PageProps) {
                 featuredImage={post?.featuredImage}
                 fallbackAlt="Zdjęcie główne"
                 fill
+                sizes="(min-width: 1280px) 500px, (min-width: 1024px) 420px, (min-width: 640px) 320px, 100vw"
                 className="object-cover"
               />
             </div>
@@ -40,6 +45,14 @@ export default async function ArchivePage({ params }: PageProps) {
               className="min-w-0"
             />
           </article>
+
+          {gallery && (
+            <GallerySection
+              title={gallery.title}
+              date={gallery.date}
+              images={gallery.images}
+            />
+          )}
         </div>
       </Container>
     </section>

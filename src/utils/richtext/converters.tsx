@@ -33,7 +33,7 @@ export const converters = {
     const children = nodesToJSX({ nodes: node.children });
 
     return (
-      <blockquote className="relative my-8 flex flex-col rounded-md bg-greenLight px-16 py-7 font-courier text-sm leading-relaxed">
+      <blockquote className="relative my-8 flex flex-col rounded-md bg-greenLight px-16 py-7 font-courier text-sm leading-relaxed text-gray-800 contrast:bg-yellowContrast contrast:text-black00">
         <div
           style={{
             left: "-10px",
