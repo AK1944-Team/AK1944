@@ -78,7 +78,6 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
           }}
         >
           {images.map((image, id) => {
-            const slideIndex = Math.floor(id / visibleSlides);
             return (
               <div
                 key={id}

@@ -2,7 +2,7 @@ import { Button } from "@/components/shared/Button/Button";
 import { Heading } from "@/components/shared/Heading/Heading";
 import Image from "next/image";
 import { getRallies } from "@/dataAccess/rallies";
-import { Pagination } from "../../../../../components/shared/Pagination";
+import { Pagination } from "@/components/shared/Pagination";
 import { PageProps } from "@/types";
 
 export const RallyList = async ({ currentPage }: PageProps) => {

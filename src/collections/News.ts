@@ -19,7 +19,7 @@ export const News: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      async ({ doc, req, operation, previousDoc }) => {
+      async ({ doc, req, operation }) => {
         if (operation === "create" || operation === "update") {
           if (doc.createGallery && doc.galleryImages && doc.galleryImages.length > 0) {
             if (!doc.linkedGallery) {

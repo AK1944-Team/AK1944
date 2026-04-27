@@ -1,6 +1,14 @@
 import { Rally } from "@/app/(client)/szlak-partyzancki/rajdy/_models/rally";
 import { RallyData } from "@/app/(client)/szlak-partyzancki/rajdy/_models/rallyData";
 import type { GalleryImage } from "@/types";
+import { extractTextFromRichText } from "@/utils";
+
+type RichTextNode = {
+  [key: string]: unknown;
+  text?: string;
+  root?: RichTextNode | null;
+  children?: RichTextNode[] | null;
+};
 
 const PAYLOAD_API_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL;
 
@@ -40,7 +48,7 @@ interface PayloadRally {
 }
 
 interface PayloadRallyDetailed extends PayloadRally {
-  invite?: any; // richText
+  invite?: RichTextNode;
   purpose?: string;
   purposeList?: PayloadArrayItem[];
   rulesList?: PayloadArrayItem[];
@@ -142,21 +150,6 @@ interface PayloadDetailedResponse {
   totalPages: number;
   page: number;
 }
-
-const extractTextFromRichText = (richText: any): string => {
-  if (!richText || !richText.root || !richText.root.children) {
-    return "";
-  }
-  
-  return richText.root.children
-    .map((node: any) => {
-      if (node.children) {
-        return node.children.map((child: any) => child.text || "").join("");
-      }
-      return "";
-    })
-    .join(" ");
-};
 
 const mapPayloadRallyToRallyData = (rally: PayloadRallyDetailed): RallyData => {
   return {
