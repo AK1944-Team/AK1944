@@ -5,12 +5,15 @@ import { NewsItem } from "../shared/NewsItem/NewsItem";
 import { fetchCollection } from "@/dataAccess/fetchPayloadCollection";
 import { Routes } from "@/routes";
 import { CalendarCard } from "@/components/shared/CalendarCard/CalendarCard";
+import { getTodayEvent } from "@/dataAccess/calendar";
 
 export const NewsLanding = async () => {
   const { docs: posts } = await fetchCollection({
     collection: "news",
     query: { limit: 2 },
   });
+
+  const eventForToday = await getTodayEvent();
 
   return (
     <section>
@@ -22,7 +25,7 @@ export const NewsLanding = async () => {
       <div className="flex flex-col items-center justify-center gap-10 bg-greenMain py-10">
         <Container className="flex flex-col items-center justify-center gap-10 tablet:px-11 desktop:flex-row-reverse desktop:gap-36 desktop:px-32">
           <div>
-            <CalendarCard withButton />
+            <CalendarCard withButton eventForToday={eventForToday} />
           </div>
           <div className="flex w-full flex-col items-center justify-center gap-5 tablet:gap-10">
             {posts.map((post) => (

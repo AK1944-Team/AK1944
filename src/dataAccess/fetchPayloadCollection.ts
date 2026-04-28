@@ -2,7 +2,7 @@ import config from "@payload-config";
 import type { Config } from "@/payload-types";
 import { getPayload, type FindArgs } from "payload";
 
-type CollectionMap = Pick<Config["collections"], "news">;
+type CollectionMap = Pick<Config["collections"], "calendar" | "news">;
 type CollectionQuery = Pick<
   FindArgs,
   "limit" | "page" | "pagination" | "sort" | "where"

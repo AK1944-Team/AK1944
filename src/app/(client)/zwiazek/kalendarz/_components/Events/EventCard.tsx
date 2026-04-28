@@ -1,24 +1,18 @@
-import Image from "next/image";
 import { Heading } from "@/components/shared/Heading/Heading";
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import { converters } from "@/utils/richtext/converters";
+import type { CalendarEvent } from "@/dataAccess/calendar";
+import { FeaturedImage } from "@/components/shared/FeaturedImage/FeaturedImage";
 
 interface CardProps {
   anchorId?: string;
-  title: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  date: string;
-  description: string;
-  isLast: boolean;
+  isLast?: boolean;
+  calendar: CalendarEvent;
 }
 
 export const EventCard = ({
   anchorId,
-  title,
-  image,
-  date,
-  description,
+  calendar: { title, featuredImage, date, description },
   isLast,
 }: CardProps) => (
   <div
@@ -26,12 +20,11 @@ export const EventCard = ({
     className={`flex w-full flex-col items-start gap-2 pb-10 tablet:flex-row tablet:gap-11 ${isLast ? "last:border-b-0" : "border-b-4 border-b-textDarkGreen"} `}
   >
     <div className="relative flex aspect-square h-52 w-52 items-center justify-center self-center tablet:h-52 tablet:w-52">
-      <Image
-        alt={image.alt}
-        src={image.src}
+      <FeaturedImage
+        featuredImage={featuredImage}
+        fallbackAlt={title}
         fill
-        className="rounded object-cover"
-        objectFit="cover"
+        className="object-cover"
       />
     </div>
     <div className="col-span-2 flex flex-col items-start gap-2">
@@ -46,7 +39,13 @@ export const EventCard = ({
       <p className="text-18 tablet:font-lora tablet:text-24 tablet:font-bold">
         {date}
       </p>
-      <p className="text-20 leading-6">{description}</p>
+      {description && (
+        <RichText
+          data={description}
+          converters={converters}
+          className="min-w-0"
+        />
+      )}
     </div>
   </div>
 );

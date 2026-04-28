@@ -1,16 +1,16 @@
 import { Routes } from "@/routes";
 import { BackgroundImage } from "@/components/shared/BackgroundImage/BackgroundImage";
 import { Button } from "@/components/shared/Button/Button";
-import { getEventForToday } from "@/app/(client)/zwiazek/kalendarz/_utils/getEventsForToday";
 import Container from "@/components/shared/Container";
 import { getTodaysNameDays } from "@/app/(client)/zwiazek/kalendarz/_components/Events/dataNameDays";
+import type { CalendarEvent } from "@/dataAccess/calendar";
 
 interface Props {
   withButton?: boolean;
+  eventForToday?: CalendarEvent;
 }
 
-export const CalendarCard = ({ withButton = false }: Props) => {
-  const eventForToday = getEventForToday();
+export const CalendarCard = ({ withButton = false, eventForToday }: Props) => {
   const [, , eventYear] = eventForToday?.date.split(".") || [""];
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString("pl-PL", { month: "long" });

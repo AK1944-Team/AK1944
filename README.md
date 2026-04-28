@@ -84,7 +84,7 @@ cp .env.example .env.local
 
 | Variable       | Description                               | Required |
 | -------------- | ----------------------------------------- | -------- |
-| `DATABASE_URI` | MongoDB connection string or database URL | ✅ Yes   |
+| `DATABASE_URL` | MongoDB connection string or database URL | ✅ Yes   |
 
 #### Security Configuration
 
@@ -115,7 +115,7 @@ If you're using Vercel Analytics and Speed Insights:
 
 ```bash
 # Database Configuration
-DATABASE_URI=mongodb://localhost:27017/ak1944
+DATABASE_URL=mongodb://localhost:27017/ak1944
 
 # Security Configuration
 PAYLOAD_SECRET=your_payload_secret_key_here
@@ -129,7 +129,7 @@ STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 
 For production environment, remember to:
 
-- Use production database URL for `DATABASE_URI`
+- Use production database URL for `DATABASE_URL`
 - Generate a secure random string for `PAYLOAD_SECRET` (minimum 32 characters)
 - Use live Stripe keys (`pk_live_...` and `sk_live_...`)
 - Configure variables in your hosting platform (Vercel, Netlify, etc.)
@@ -158,7 +158,7 @@ openssl rand -base64 32
 3. Copy the publishable key to `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 4. Copy the secret key to `STRIPE_SECRET_KEY`
 
-> ⚠️ **Security Warning**: Never commit the `.env.local` file to your repository. It's automatically ignored by `.gitignore`. Keep your `DATABASE_URI`, `PAYLOAD_SECRET`, and `STRIPE_SECRET_KEY` confidential.
+> ⚠️ **Security Warning**: Never commit the `.env.local` file to your repository. It's automatically ignored by `.gitignore`. Keep your `DATABASE_URL`, `PAYLOAD_SECRET`, and `STRIPE_SECRET_KEY` confidential.
 
 ### Verifying Configuration
 

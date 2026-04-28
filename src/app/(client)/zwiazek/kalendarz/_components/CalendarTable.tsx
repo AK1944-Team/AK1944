@@ -1,23 +1,22 @@
 import { CalendarHeader } from "@/app/(client)/zwiazek/kalendarz/_components/CalendarHeader";
-import { data } from "@/app/(client)/zwiazek/kalendarz/_components/Events/data";
 import { weekdays } from "@/app/(client)/zwiazek/kalendarz/_utils/Dates/Dates";
 import { generateCalendar } from "@/app/(client)/zwiazek/kalendarz/_utils/generateCalendar";
 import { CalendarTableCell } from "@/app/(client)/zwiazek/kalendarz/_components/CalendarTableCell";
 
 type CalendarTableProps = {
   currentDate: Date;
+  eventsDates: string[];
   prevMonth: () => void;
   nextMonth: () => void;
 };
 
 export const CalendarTable = ({
   currentDate,
+  eventsDates,
   prevMonth,
   nextMonth,
 }: CalendarTableProps) => {
   const calendarDays = generateCalendar(currentDate);
-
-  const eventsDates = data.map((card) => card.date);
 
   return (
     <div className="flex flex-col items-center gap-5 font-lora tablet:rounded tablet:border-2 tablet:border-textLightGreen tablet:px-10 tablet:py-10 desktop:px-18">

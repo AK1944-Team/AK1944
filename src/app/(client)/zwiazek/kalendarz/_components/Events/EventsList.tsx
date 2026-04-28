@@ -1,28 +1,20 @@
-import { data } from "@/app/(client)/zwiazek/kalendarz/_components/Events/data";
 import { EventCard } from "@/app/(client)/zwiazek/kalendarz/_components/Events/EventCard";
+import type { CalendarEvent } from "@/dataAccess/calendar";
 
 interface Props {
-  currentDate: Date;
+  events: CalendarEvent[];
 }
 
-const getHistoricalEvents = (currentMonth: number) =>
-  data.filter((card) => {
-    const [, month] = card.date.split(".").map(Number);
-    return month - 1 === currentMonth;
-  });
-
-export const EventsList = ({ currentDate }: Props) => {
-  const historicalEvents = getHistoricalEvents(currentDate.getMonth());
-
+export const EventsList = ({ events }: Props) => {
   return (
     <article className="flex w-full flex-col items-center gap-10">
-      {historicalEvents.map((card, index, filteredCards) => {
+      {events.map((card, index, filteredCards) => {
         const [day, month] = card.date.split(".");
         return (
           <EventCard
             key={index}
             anchorId={`event-${day}-${month}`}
-            {...card}
+            calendar={card}
             isLast={index === filteredCards.length - 1}
           />
         );
