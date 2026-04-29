@@ -2,10 +2,10 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs/Breadcrumbs";
 import Container from "@/components/shared/Container";
 import { Heading } from "@/components/shared/Heading/Heading";
 import { ImageSlider } from "./ImageSlider";
-import { Rally } from "../_models/rally";
+import { RallyRelationData } from "@/dataAccess/rallies";
 
 interface RallyRelationProps {
-  rally: Rally;
+  rally: RallyRelationData;
 }
 
 export const RallyRelation = ({ rally }: RallyRelationProps) => {
@@ -32,10 +32,7 @@ export const RallyRelation = ({ rally }: RallyRelationProps) => {
 
         {rally.images && rally.images.length > 0 && (
           <ImageSlider
-            images={rally.images.map((img) => ({
-              src: `/images/${img.src}`,
-              alt: img.alt,
-            }))}
+            images={rally.images}
           />
         )}
       </Container>

@@ -73,6 +73,7 @@ export interface Config {
     galleries: Gallery;
     calendar: Calendar;
     literature: Literature;
+    rallies: Rally;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     galleries: GalleriesSelect<false> | GalleriesSelect<true>;
     calendar: CalendarSelect<false> | CalendarSelect<true>;
     literature: LiteratureSelect<false> | LiteratureSelect<true>;
+    rallies: RalliesSelect<false> | RalliesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -301,6 +303,127 @@ export interface Literature {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rallies".
+ */
+export interface Rally {
+  id: string;
+  title: string;
+  /**
+   * Generowany automatycznie na podstawie tytułu.
+   */
+  slug?: string | null;
+  /**
+   * Np. '10 lutego, 2024'
+   */
+  date?: string | null;
+  /**
+   * Opis wyświetlany na liście rajdów
+   */
+  description?: string | null;
+  featuredImage?: (string | null) | Media;
+  /**
+   * Pełny tekst zaproszenia wyświetlany na początku strony rajdu
+   */
+  invite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Tekst wyświetlany przed listą celów
+   */
+  purpose?: string | null;
+  purposeList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  rulesList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  adviceList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  rewards?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tekst wyświetlany przed listą informacji o transporcie
+   */
+  transportHeader?: string | null;
+  transportList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Ważne ostrzeżenia lub informacje dla uczestników
+   */
+  warning?: string | null;
+  programList?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  organizators?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  partners?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tekst wyświetlany przed listą zadań przedrajdowych
+   */
+  taskInfo?: string | null;
+  tasks?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  relation?:
+    | {
+        item?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Galeria zdjęć z rajdu
+   */
+  linkedGallery?: (string | null) | Gallery;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -346,6 +469,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'literature';
         value: string | Literature;
+      } | null)
+    | ({
+        relationTo: 'rallies';
+        value: string | Rally;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -509,6 +636,85 @@ export interface LiteratureSelect<T extends boolean = true> {
         id?: T;
       };
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rallies_select".
+ */
+export interface RalliesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  date?: T;
+  description?: T;
+  featuredImage?: T;
+  invite?: T;
+  purpose?: T;
+  purposeList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  rulesList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  adviceList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  rewards?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  transportHeader?: T;
+  transportList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  warning?: T;
+  programList?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  organizators?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  partners?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  taskInfo?: T;
+  tasks?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  relation?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  linkedGallery?: T;
   updatedAt?: T;
   createdAt?: T;
 }

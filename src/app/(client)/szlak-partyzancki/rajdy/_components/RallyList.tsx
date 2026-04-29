@@ -1,11 +1,12 @@
 import { Button } from "@/components/shared/Button/Button";
 import { Heading } from "@/components/shared/Heading/Heading";
 import Image from "next/image";
-import { allRallies } from "../data/rallyPageData";
-import { Pagination } from "../../../../../components/shared/Pagination";
+import { getRallies } from "@/dataAccess/rallies";
+import { Pagination } from "@/components/shared/Pagination";
 import { PageProps } from "@/types";
 
-export const RallyList = ({ currentPage }: PageProps) => {
+export const RallyList = async ({ currentPage }: PageProps) => {
+  const allRallies = await getRallies();
   const ITEMS_PER_PAGE = 4;
   const start = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedRallies = allRallies.slice(start, start + ITEMS_PER_PAGE);

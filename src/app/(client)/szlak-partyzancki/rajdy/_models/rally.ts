@@ -1,5 +1,5 @@
 export type Rally = {
-  id?: number;
+  id: string;
   slug?: string;
   title: string;
   date?: string;
