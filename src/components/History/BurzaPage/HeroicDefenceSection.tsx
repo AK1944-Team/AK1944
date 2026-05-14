@@ -1,5 +1,6 @@
 import { heroicDefenceSection } from "@/data/historyData";
 import { Heading } from "@/components/shared/Heading/Heading";
+import { FootnoteReferenceText } from "./FootnoteReferenceText";
 import Image from "next/image";
 
 const { heroicDefenceTitle, content } = heroicDefenceSection;
@@ -14,7 +15,9 @@ export const HeroicDefenceSection = () => (
     <div className="flex flex-col gap-6 desktop:flex-row">
       <div className="flex flex-col gap-6 desktop:w-1/2">
         {firstPart.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>
+            <FootnoteReferenceText text={paragraph} />
+          </p>
         ))}
       </div>
       <Image
@@ -26,7 +29,9 @@ export const HeroicDefenceSection = () => (
       />
       <div className="flex flex-col gap-6 desktop:w-1/2">
         {secondPart.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>
+            <FootnoteReferenceText text={paragraph} />
+          </p>
         ))}
       </div>
     </div>

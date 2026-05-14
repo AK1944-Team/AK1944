@@ -202,7 +202,7 @@ export const regulationsData: {
           ],
         },
         "Administrator rozpatrzy reklamację w terminie do 14 dni roboczych od daty jej otrzymania i powiadomi Użytkownika o wyniku rozpatrzenia drogą mailową lub pisemną.",
-        "W przypadku sporu, który nie zostanie rozwiązany polubownie, Użytkownik ma prawo skorzystać z pozasądowych sposobów rozpatrywania sporów (np. mediacja, arbitra) lub wystąpić na drogę sądową zgodnie z przepisami Kodeksu postępowania cywilnego.",
+        "W przypadku sporu, który nie zostanie rozwiązany polubownie, Użytkownik ma prawo skorzystać z pozasądowych sposobów rozpatrywania sporów (np. mediacja, arbitraż) lub wystąpić na drogę sądową zgodnie z przepisami Kodeksu postępowania cywilnego.",
       ],
     },
     {

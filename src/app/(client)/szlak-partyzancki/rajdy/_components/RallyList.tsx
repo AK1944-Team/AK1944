@@ -6,6 +6,7 @@ import { Pagination } from "@/components/shared/Pagination";
 import { PageProps } from "@/types";
 
 const ITEMS_PER_PAGE = 4;
+const RALLIES_LIST_ID = "rallies-list";
 
 export const RallyList = async ({ currentPage }: PageProps) => {
   const { rallies, totalPages } = await getRallies({
@@ -15,7 +16,7 @@ export const RallyList = async ({ currentPage }: PageProps) => {
   });
 
   return (
-    <div className="px-4 desktop:px-8">
+    <div id={RALLIES_LIST_ID} className="px-4 desktop:px-8">
       {rallies.map((rally) => (
         <div
           key={rally.id}
@@ -80,6 +81,7 @@ export const RallyList = async ({ currentPage }: PageProps) => {
         currentPage={currentPage}
         totalPages={totalPages}
         basePath="/szlak-partyzancki/rajdy"
+        scrollTargetId={RALLIES_LIST_ID}
       />
     </div>
   );

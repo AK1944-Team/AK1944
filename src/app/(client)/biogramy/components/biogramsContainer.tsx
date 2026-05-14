@@ -4,13 +4,16 @@ import { SearchBar } from "./searchBar";
 import { BiogramsList } from "./biogramsList";
 import { useFilteredBiograms } from "../hooks/useFilteredBiograms";
 import { Pagination } from "@/components/shared/Pagination";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type BiogramsContainerProps = {
   biograms: Biogram[];
 };
 
+const BIOGRAMS_LIST_ID = "biograms-list";
+
 export const BiogramsContainer = ({ biograms }: BiogramsContainerProps) => {
+  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -30,14 +33,32 @@ export const BiogramsContainer = ({ biograms }: BiogramsContainerProps) => {
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  const resetListHistoryEntry = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("q");
+    params.delete("page");
+
+    const nextSearch = params.toString();
+    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+
+    window.history.replaceState(window.history.state, "", nextUrl);
+  };
+
   return (
     <div className="w-full">
       <SearchBar searchQuery={searchQuery} onSearch={onSearch} />
 
       {paginatedBiograms.length > 0 ? (
-        <div>
-          <BiogramsList people={paginatedBiograms} />
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
+        <div id={BIOGRAMS_LIST_ID}>
+          <BiogramsList
+            people={paginatedBiograms}
+            onBiogramSelect={resetListHistoryEntry}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            scrollTargetId={BIOGRAMS_LIST_ID}
+          />
         </div>
       ) : (
         searchQuery && (

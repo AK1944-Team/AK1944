@@ -1,6 +1,7 @@
 import { Heading } from "@/components/shared/Heading/Heading";
 import { fetchCollection } from "@/dataAccess/fetchPayloadCollection";
 import type { Media } from "@/payload-types";
+import { BIOGRAM_BG_IMAGE } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,18 +35,30 @@ export default async function MorePeopleBiograms({
           const portraitUrl =
             portrait && typeof portrait === "object"
               ? ((portrait as Media).url ?? "/images/placeholder_image.webp")
-              : "/images/placeholder_image.webp";
+              : "/images/biogramy/BiogramPlaceholderImage.webp";
 
           return (
             <div key={id} className="flex flex-col items-center rounded p-4">
               <Link href={`/biogramy/${slug}`}>
-                <Image
-                  src={portraitUrl}
-                  alt={name}
-                  width={300}
-                  height={200}
-                  className="h-[400px] w-96 cursor-pointer rounded object-cover transition-opacity hover:opacity-80 tablet:h-[500px]"
-                />
+                <div className="relative h-[350px] w-[288px]">
+                  <Image
+                    src={portraitUrl}
+                    alt={name}
+                    width={288}
+                    height={350}
+                    className="h-[350px] w-[288px] cursor-pointer rounded object-cover p-4 transition-opacity hover:opacity-80 tablet:h-[350px]"
+                  />
+                  {portraitUrl !==
+                    "/images/biogramy/BiogramPlaceholderImage.webp" && (
+                    <Image
+                      src={BIOGRAM_BG_IMAGE}
+                      alt={"tło za portretem"}
+                      aria-hidden="true"
+                      fill
+                      className="absolute left-0 top-0 -z-10 h-full w-full rounded object-cover transition-opacity hover:opacity-80"
+                    />
+                  )}
+                </div>
               </Link>
               <Heading
                 variant="h4"

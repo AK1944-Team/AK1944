@@ -192,8 +192,7 @@ AK1944/
 ├── node_modules/          # Dependencies
 ├── public/                # Static assets
 │   ├── images/            # Image files
-│   ├── favicon.ico        # Site favicon
-│   └── vercel.svg         # Vercel logo
+│   └── favicon.ico        # Site favicon
 ├── src/                   # Source code
 │   ├── app/               # Next.js App Router
 │   ├── components/        # Reusable UI components

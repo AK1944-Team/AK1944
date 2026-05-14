@@ -1,5 +1,6 @@
 import { districtSection } from "@/data/historyData";
 import { Heading } from "@/components/shared/Heading/Heading";
+import { FootnoteReferenceText } from "./FootnoteReferenceText";
 import Image from "next/image";
 
 const { districtTitle, content } = districtSection;
@@ -11,7 +12,9 @@ export const DistrictSection = () => (
         {districtTitle}
       </Heading>
       {content.map((paragraph, index) => (
-        <p key={index}>{paragraph}</p>
+        <p key={index}>
+          <FootnoteReferenceText text={paragraph} />
+        </p>
       ))}
     </div>
     <Image

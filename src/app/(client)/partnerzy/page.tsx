@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function PartnersPage() {
   return (
-    <div className="text-textDarkGreen tablet:pb-20 desktop:pb-150">
+    <div className="text-textDarkGreen tablet:pb-20">
       <Container as="main" className="space-y-10">
         <Breadcrumbs />
 
@@ -33,7 +33,7 @@ export default function PartnersPage() {
         </h2>
 
         <div className="flex flex-col items-center desktop:flex-row desktop:gap-20">
-          <div className="space-y-8">
+          <div className="w-full space-y-8">
             <Paragraph title="Dziękujemy za wsparcie">
               Nasza misja –{" "}
               <strong>upamiętnianie bohaterów Armii Krajowej</strong> – nie

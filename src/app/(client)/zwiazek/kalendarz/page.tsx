@@ -3,6 +3,8 @@ import { CalendarMain } from "@/app/(client)/zwiazek/kalendarz/_components/Calen
 import Container from "@/components/shared/Container";
 import { getCalendarMonthData, getTodayEvent } from "@/dataAccess/calendar";
 
+export const revalidate = 3600;
+
 type PageProps = {
   searchParams: Promise<{
     month?: string;
@@ -34,7 +36,10 @@ const getCalendarParams = async (searchParams: PageProps["searchParams"]) => {
 export default async function CalendarPage({ searchParams }: PageProps) {
   const { month, year, page } = await getCalendarParams(searchParams);
   const [{ allEvents, events, currentPage, totalPages }, eventForToday] =
-    await Promise.all([getCalendarMonthData({ month, page }), getTodayEvent()]);
+    await Promise.all([
+      getCalendarMonthData({ month, year, page }),
+      getTodayEvent(),
+    ]);
 
   return (
     <Container className="flex flex-col items-center gap-5 p-0 tablet:gap-16 tablet:pb-20 desktop:max-w-full desktop:px-0 desktop:pb-150">

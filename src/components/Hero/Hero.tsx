@@ -4,11 +4,13 @@ import { Heading } from "../shared/Heading/Heading";
 import LogoAK from "@/icons/LogoAK";
 
 export const Hero = () => (
-  <section className="h-[597px] tablet:h-[614px] desktop:h-[651px]">
+  <section className="relative h-[597px] overflow-hidden tablet:h-[614px] desktop:h-[651px]">
     <BackgroundImage
       alt="background image"
       src="/images/hero_background.webp"
       priority
+      quality={100}
+      className="object-center contrast:hidden tablet:object-[80%]"
     >
       <Container className="mx-auto flex h-full flex-col items-center justify-center gap-6 pb-5 pt-20 text-center text-white tablet:pt-32 desktop:pt-28">
         <Heading

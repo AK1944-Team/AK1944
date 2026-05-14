@@ -1,5 +1,6 @@
 import { partisanSection } from "@/data/historyData";
 import { Heading } from "@/components/shared/Heading/Heading";
+import { FootnoteReferenceText } from "./FootnoteReferenceText";
 import Image from "next/image";
 
 const { partisanTitle, content } = partisanSection;
@@ -21,7 +22,9 @@ export const PartisanSection = () => (
       </div>
       <div className="flex flex-col gap-6 desktop:w-1/2">
         {content.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
+          <p key={index}>
+            <FootnoteReferenceText text={paragraph} />
+          </p>
         ))}
       </div>
     </div>
