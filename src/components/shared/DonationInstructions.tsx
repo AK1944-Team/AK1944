@@ -1,7 +1,7 @@
 import { AK_DATA } from "@/data/akData";
 
 export const DonationInstructions = () => (
-  <div className="text-greenMain max-md:max-w-full desktop:text-xl">
+  <div className="text-greenMain contrast:text-yellowContrast max-md:max-w-full desktop:text-xl">
     <p>W swoim rocznym zeznaniu podatkowym (PIT)</p>
     <ul
       aria-label="Instrukcja przekazania 1,5% podatku"

@@ -21,7 +21,7 @@ export const VolunteerGallery = ({ volunteers }: Props) => {
           Zespół sercem zaangażowany w pamięć
         </Heading>
       </div>
-      <div className="mb-20 max-w-3xl text-20 text-greenMain">
+      <div className="mb-20 max-w-3xl text-20 text-greenMain contrast:text-yellowContrast">
         <p className="mb-8">
           Z ogromną wdzięcznością przedstawiamy wolontariuszy, którzy pomogli
           nam opowiedzieć historię Armii Krajowej w nowoczesny, dostępny
@@ -67,7 +67,7 @@ export const VolunteerGallery = ({ volunteers }: Props) => {
               )}
             </div>
             <p className="mt-3 text-18">{person.name}</p>
-            <p className="text-18 text-greenMain">{person.role}</p>
+            <p className="text-18">{person.role}</p>
           </div>
         ))}
       </div>

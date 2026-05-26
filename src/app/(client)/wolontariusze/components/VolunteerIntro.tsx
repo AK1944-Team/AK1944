@@ -8,12 +8,20 @@ export const VolunteerIntro = () => (
     id="volunteer-main-section"
     title="Zostań wolontariuszem"
     card={
-      <VolunteerCard buttonText="Wypełnij formularz" href={Routes.VOLUNTEER_FORM} />
+      <VolunteerCard
+        buttonText="Wypełnij formularz"
+        href={Routes.VOLUNTEER_FORM}
+      />
     }
   >
     <div className="space-y-6">
       <div className="mt-5 space-y-4">
-        <Heading color="green" contrast="yellow" variant="h3" className="mb-10">
+        <Heading
+          color="green"
+          contrast="yellow"
+          variant="h3"
+          className="mb-10 leading-8"
+        >
           Dlaczego warto zostać wolontariuszem ŚZŻAK?
         </Heading>
         <p>

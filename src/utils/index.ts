@@ -143,3 +143,4 @@ export const formatBiogramDate = (dateString?: string | null): string => {
   // Jeśli nie udało się przekonwertować, zwróć oryginalny tekst bez miejsca
   return dateOnly;
 };
+

@@ -49,8 +49,6 @@ export const donateAction = async (
 
   const { amount, email, signature } = result.data;
 
-
-
   const paymentIntent = await stripe.paymentIntents.create({
     amount: amount * 100,
     currency: "pln",
@@ -68,7 +66,12 @@ export const donateAction = async (
     };
   }
 
-  redirect(
-    `/wesprzyj/platnosc?clientSecret=${paymentIntent.client_secret}&intentId=${paymentIntent.id}`,
-  );
+  const params = new URLSearchParams({
+    clientSecret: paymentIntent.client_secret,
+    intentId: paymentIntent.id,
+    name: signature,
+    email,
+  });
+
+  redirect(`/wesprzyj/platnosc?${params.toString()}`);
 };

@@ -33,15 +33,11 @@ export const converters = {
     const children = nodesToJSX({ nodes: node.children });
 
     return (
-      <blockquote className="relative my-8 flex flex-col rounded-md bg-greenLight px-16 py-7 font-courier text-sm leading-relaxed text-gray-800 contrast:bg-yellowContrast contrast:text-black00">
-        <div
-          style={{
-            left: "-10px",
-          }}
-          className="absolute"
-        >
+      <blockquote className="text-gray-800 relative my-8 flex flex-col rounded-md bg-greenLight px-3 pb-5 pt-16 font-courier text-sm leading-relaxed contrast:bg-yellowContrast contrast:text-black00 desktop:px-14 desktop:py-7">
+        <div className="absolute left-3 top-3 desktop:-left-[10px]">
           <QuotationIcon />
         </div>
+
         {children}
       </blockquote>
     );

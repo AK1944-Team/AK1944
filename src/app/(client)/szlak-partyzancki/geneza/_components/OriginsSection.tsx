@@ -9,7 +9,7 @@ export const OriginsSection = ({ title, content }: Paragraph) => {
       <Heading
         contrast="yellow"
         color="green"
-        className="py-6 !text-28 tablet:!text-32"
+        className="py-6 !text-28 leading-8 tablet:!text-32"
       >
         {title}
       </Heading>

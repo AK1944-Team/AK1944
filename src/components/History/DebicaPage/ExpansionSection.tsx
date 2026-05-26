@@ -38,7 +38,9 @@ export const ExpansionSection = () => (
         </div>
         <div>
           {secondPart.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p className="desktop:first:mb-5" key={paragraph}>
+              {paragraph}
+            </p>
           ))}
         </div>
       </div>

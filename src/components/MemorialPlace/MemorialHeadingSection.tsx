@@ -14,10 +14,10 @@ export const MemorialHeadingSection = ({
       <Breadcrumbs />
     </div>
     <Heading
-      variant="h1"
+      variant="h3"
       contrast="yellow"
       color="green"
-      className="mb-8 mt-16 text-3xl font-bold"
+      className="mb-8 mt-16 font-bold desktop:text-32"
     >
       {name}
     </Heading>
