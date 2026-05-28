@@ -1,6 +1,6 @@
 import { Heading } from "@/components/shared/Heading/Heading";
 import { IconBullet } from "@/icons/IconBullet";
-import Image from "next/image";
+import { VolunteersPagePeople } from "@/icons/VolunteersPagePeople";
 
 export const VolunteerSupport = () => (
   <section className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
@@ -37,12 +37,7 @@ export const VolunteerSupport = () => (
     </div>
 
     <div className="flex items-center justify-center">
-      <Image
-        src="/images/volunteers/volunteers.png"
-        alt="Ludzie"
-        width={480}
-        height={280}
-      />
+      <VolunteersPagePeople />
     </div>
   </section>
 );

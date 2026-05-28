@@ -26,11 +26,19 @@ export const Biograms: CollectionConfig = {
       name: "birthDate",
       type: "text",
       label: "Data urodzenia",
+      admin: {
+        description:
+          "Format daty wygląda następująco: 1 stycznia 1900, Miejsce urodzenia(jeśli jest znane)",
+      },
     },
     {
       name: "deathDate",
       type: "text",
       label: "Data śmierci",
+      admin: {
+        description:
+          "Format daty wygląda następująco: 1 stycznia 1900, Miejsce śmierci(jeśli jest znane)",
+      },
     },
     {
       name: "burialPlace",

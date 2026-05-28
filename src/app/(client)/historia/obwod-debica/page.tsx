@@ -12,7 +12,7 @@ export default function DebicaDistrictPage() {
     <div>
       <Container
         as="article"
-        className="flex flex-col gap-10 pb-6 tablet:gap-14 tablet:pb-20 desktop:pb-150"
+        className="flex flex-col gap-10 pb-6 tablet:gap-14 tablet:pb-20 desktop:px-24 desktop:pb-150"
       >
         <Breadcrumbs />
         <Heading variant="h3" color="green" contrast="yellow" className="mb-6">

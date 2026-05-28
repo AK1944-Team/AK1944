@@ -6,6 +6,7 @@ import { Pagination } from "@/components/shared/Pagination";
 import { fetchCollection } from "@/dataAccess/fetchPayloadCollection";
 
 const ITEMS_PER_PAGE = 5;
+const ARCHIVE_LIST_ID = "archive-list";
 
 type PageProps = {
   searchParams: Promise<{
@@ -19,7 +20,7 @@ export default async function ArchivePage({ searchParams }: PageProps) {
 
   const { docs: posts, totalPages } = await fetchCollection({
     collection: "news",
-    query: { limit: ITEMS_PER_PAGE, pagination: true, page: currentPage},
+    query: { limit: ITEMS_PER_PAGE, pagination: true, page: currentPage },
   });
 
   return (
@@ -39,12 +40,15 @@ export default async function ArchivePage({ searchParams }: PageProps) {
             Archiwum
           </Heading>
         </div>
-        <List data={posts} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          basePath="/archiwum"
-        />
+        <div id={ARCHIVE_LIST_ID}>
+          <List data={posts} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            basePath="/archiwum"
+            scrollTargetId={ARCHIVE_LIST_ID}
+          />
+        </div>
       </Container>
     </section>
   );

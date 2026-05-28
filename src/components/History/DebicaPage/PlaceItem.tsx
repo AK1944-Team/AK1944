@@ -35,7 +35,7 @@ export const PlaceItem = ({ place }: { place: Props }) => {
         aria-expanded={openDescription.has(place.id) ? "true" : "false"}
         aria-controls={`place-description-${place.id}`}
       >
-        <div className="h-4 w-4 flex-shrink-0 rounded-full bg-redMain" />
+        <div className="h-4 w-4 flex-shrink-0 rounded-full bg-redMain contrast:bg-yellowContrast" />
         <p className="text-start text-lg">
           {place.name}
           <span className="hidden md:inline">{" " + place.description}</span>

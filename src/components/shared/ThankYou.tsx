@@ -8,7 +8,7 @@ interface Props {
 export const ThankYou = ({ title }: Props) => (
   <section
     aria-labelledby="gratitude-heading"
-    className="flex flex-col items-center justify-center gap-y-6 tablet:gap-y-8 desktop:gap-y-10"
+    className="flex flex-col items-center justify-center gap-y-6 pb-10 tablet:gap-y-8 desktop:gap-y-10 desktop:pb-0"
   >
     <Heading
       id="gratitude-heading"

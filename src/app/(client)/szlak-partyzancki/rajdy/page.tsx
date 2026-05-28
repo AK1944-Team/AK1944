@@ -24,8 +24,10 @@ export default function RalliesPage({ searchParams }: SearchParamsProps) {
         <Heading variant="h2" color="green" contrast="yellow">
           Rajdy
         </Heading>
-        <p className="py-3 font-sourceSans text-18">{mainTextFirst}</p>
-        <p className="py-3 font-sourceSans text-18">{mainTextTwo}</p>
+        <div>
+          <p className="py-3 font-sourceSans text-18">{mainTextFirst}</p>
+          <p className="font-sourceSans text-18">{mainTextTwo}</p>
+        </div>
         <Button
           label="Zapisz się na rajd"
           href={Routes.SIGN_TO_RALLY}

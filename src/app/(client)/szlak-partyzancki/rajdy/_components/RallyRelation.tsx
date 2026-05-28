@@ -22,12 +22,16 @@ export const RallyRelation = ({ rally }: RallyRelationProps) => {
           {rally.title}
         </Heading>
         <p className="font-lora text-xl font-bold">{rally.date}</p>
-        {rally.relation && (
+        {rally.relation ? (
           <RichText
             data={rally.relation}
             converters={converters}
             className="min-w-0"
           />
+        ) : (
+          <p className="font-lora text-xl">
+            Relacja z wydarzenia zostanie dodana wkrótce.
+          </p>
         )}
 
         {rally.images && rally.images.length > 0 && (

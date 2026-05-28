@@ -51,7 +51,7 @@ export const volunteersData: Volunteer[] = [
   {
     name: "Julia Luksa",
     role: "UX/UI Designer",
-    photo: "/images/volunteers/J.Luksa.jpg",
+    photo: "/images/volunteers/J.Luksa.webp",
     linkedin: "hhttps://www.linkedin.com/in/julia-luksa/",
   },
   {
@@ -69,7 +69,7 @@ export const volunteersData: Volunteer[] = [
   {
     name: "Olga Skibińska",
     role: "UX/UI Designer",
-    photo: "/images/volunteers/O.Skibinska.jpg",
+    photo: "/images/volunteers/O.Skibinska.webp",
     linkedin: "https://www.linkedin.com/in/olga-skibinska/",
   },
   {

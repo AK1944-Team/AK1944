@@ -27,15 +27,15 @@ export const SearchBar = ({ searchQuery, onSearch }: SearchBarProps) => {
           name="search"
           type="text"
           placeholder="Wyszukaj..."
-          className="w-[80%] bg-transparent rounded placeholder-greenMain border border-greenMain py-2 pl-10 pr-4 text-sm focus:border-greenMain focus:outline-none"
+          className="bg-transparent w-[80%] rounded border border-greenMain py-2 pl-10 pr-4 text-sm text-textDarkGreen placeholder:text-greenMain focus:border-greenMain focus:outline-none focus:ring-2 focus:ring-greenMain contrast:border-black00 contrast:bg-yellowContrast contrast:text-black00 contrast:placeholder:text-black00 contrast:focus:border-black00 contrast:focus:ring-black00"
           value={searchQuery}
           onChange={handleInputChange}
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-greenMain contrast:text-black00"
         >
-          <SearchIcon />
+          <SearchIcon className="h-6 w-6" />
         </div>
       </div>
     </form>

@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode } from "react";
+import { useTheme } from "next-themes";
 import { Elements } from "@stripe/react-stripe-js";
 import {
   loadStripe,
@@ -9,65 +10,102 @@ import {
 } from "@stripe/stripe-js";
 
 const COLORS = {
-  primary: "#163020",
-  danger: "#D31828",
-  background: "#FFFFFF",
-  placeholder: "#D9D9D9",
+  normal: {
+    text: "#163020",
+    background: "#FFFFFF",
+    placeholder: "#D9D9D9",
+    danger: "#D31828",
+  },
+  contrast: {
+    text: "#FFF205",
+    background: "#000000",
+    placeholder: "rgba(255, 242, 5, 0.5)",
+    danger: "#0080ff",
+  },
 } as const;
 
-const TYPOGRAPHY = {
-  fontFamily: "figtree, sans-serif",
-  fontSizeSm: "0.875rem",
-} as const;
+const FONT_FAMILY = "figtree, sans-serif";
+const FONT_SIZE_SM = "0.875rem";
 
-const STRIPE_APPEARANCE: StripeElementsOptions["appearance"] = {
-  labels: "above",
-  theme: "flat",
-  variables: {
-    colorText: COLORS.primary,
-    colorDanger: COLORS.danger,
-    colorBackground: COLORS.background,
-    colorPrimary: COLORS.primary,
-    colorTextPlaceholder: COLORS.placeholder,
-    fontFamily: TYPOGRAPHY.fontFamily,
-    fontSizeSm: TYPOGRAPHY.fontSizeSm,
-    borderRadius: "0.375rem",
-    focusOutline: "none",
-    focusBoxShadow: "none",
-  },
-  rules: {
-    ".Input": {
-      border: "none",
-      padding: "0.375rem 0.75rem",
-      transition: "color 200ms ease-in-out",
-      boxShadow: `inset 0 0 0 1px ${COLORS.placeholder}`,
+const buildAppearance = (
+  isContrast: boolean,
+): StripeElementsOptions["appearance"] => {
+  const c = isContrast ? COLORS.contrast : COLORS.normal;
+
+  return {
+    labels: "above",
+    theme: "flat",
+    variables: {
+      colorText: c.text,
+      colorDanger: c.danger,
+      colorBackground: c.background,
+      colorPrimary: c.text,
+      colorTextPlaceholder: c.placeholder,
+      fontFamily: FONT_FAMILY,
+      fontSizeSm: FONT_SIZE_SM,
+      borderRadius: "0.375rem",
+      focusOutline: "none",
+      focusBoxShadow: "none",
     },
-    ".Input:focus": {
-      boxShadow: `inset 0 0 0 2px ${COLORS.primary}`,
+    rules: {
+      ".Input": {
+        border: "none",
+        padding: "0.375rem 0.75rem",
+        transition: "color 200ms ease-in-out",
+        boxShadow: `inset 0 0 0 1px ${c.placeholder}`,
+      },
+      ".Input:focus": {
+        boxShadow: `inset 0 0 0 2px ${c.text}`,
+      },
+      ".Input--invalid": {
+        color: c.danger,
+        boxShadow: `inset 0 0 0 1px ${c.danger}`,
+      },
+      ".Input--invalid:focus": {
+        boxShadow: `inset 0 0 0 2px ${c.danger}`,
+      },
+      ".Label": {
+        color: c.text,
+        fontSize: FONT_SIZE_SM,
+        lineHeight: "1.5rem",
+        fontWeight: "500",
+      },
+      ".Error": {
+        color: c.danger,
+        fontSize: FONT_SIZE_SM,
+        lineHeight: "1.5rem",
+        marginTop: "0.25rem",
+      },
+      ".Tab": {
+        border: "none",
+        boxShadow: `inset 0 0 0 1px ${c.placeholder}`,
+        backgroundColor: c.background,
+        color: c.text,
+      },
+      ".Tab--selected": {
+        backgroundColor: isContrast ? "#FFF205" : c.background,
+        color: isContrast ? "#000000" : c.text,
+        boxShadow: isContrast
+          ? "inset 0 0 0 2px #000000"
+          : `inset 0 0 0 2px ${c.text}`,
+      },
+      ".Tab:hover": {
+        boxShadow: `inset 0 0 0 1px ${c.text}`,
+      },
+      ".TabLabel": {
+        color: "inherit",
+      },
+      ".RedirectText": {
+        color: c.text,
+      },
+      ".TermsText": {
+        color: c.text,
+      },
+      ".TermsLink": {
+        color: c.text,
+      },
     },
-    ".Input--invalid": {
-      color: COLORS.danger,
-      boxShadow: `inset 0 0 0 1px ${COLORS.danger}`,
-    },
-    ".Input--invalid:focus": {
-      boxShadow: `inset 0 0 0 2px ${COLORS.danger}`,
-    },
-    ".Label": {
-      color: COLORS.primary,
-      fontSize: TYPOGRAPHY.fontSizeSm,
-      lineHeight: "1.5rem",
-      fontWeight: "500",
-    },
-    ".Error": {
-      color: COLORS.danger,
-      fontSize: TYPOGRAPHY.fontSizeSm,
-      lineHeight: "1.5rem",
-      marginTop: "0.25rem",
-    },
-    ".Tab": {
-      backgroundColor: COLORS.placeholder,
-    },
-  },
+  };
 };
 
 let stripePromise: Promise<Stripe | null>;
@@ -89,11 +127,16 @@ interface Props {
   children: ReactNode;
 }
 
-export const StripeElementsWrapper = ({ clientSecret, children }: Props) => (
-  <Elements
-    stripe={getStripePromise()}
-    options={{ clientSecret, appearance: STRIPE_APPEARANCE }}
-  >
-    {children}
-  </Elements>
-);
+export const StripeElementsWrapper = ({ clientSecret, children }: Props) => {
+  const { resolvedTheme } = useTheme();
+  const appearance = buildAppearance(resolvedTheme === "contrast");
+
+  return (
+    <Elements
+      stripe={getStripePromise()}
+      options={{ clientSecret, appearance }}
+    >
+      {children}
+    </Elements>
+  );
+};

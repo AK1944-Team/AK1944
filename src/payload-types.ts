@@ -253,6 +253,7 @@ export interface Calendar {
   id: string;
   title: string;
   date: string;
+  isEveryYear?: boolean | null;
   description?: {
     root: {
       type: string;
@@ -443,7 +444,13 @@ export interface Biogram {
   id: string;
   name: string;
   pseudonym?: string | null;
+  /**
+   * Format daty wygląda następująco: 1 stycznia 1900, Miejsce urodzenia(jeśli jest znane)
+   */
   birthDate?: string | null;
+  /**
+   * Format daty wygląda następująco: 1 stycznia 1900, Miejsce śmierci(jeśli jest znane)
+   */
   deathDate?: string | null;
   burialPlace?: string | null;
   biography?: string | null;
@@ -711,6 +718,7 @@ export interface GalleriesSelect<T extends boolean = true> {
 export interface CalendarSelect<T extends boolean = true> {
   title?: T;
   date?: T;
+  isEveryYear?: T;
   description?: T;
   featuredImage?: T;
   updatedAt?: T;

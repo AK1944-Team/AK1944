@@ -15,7 +15,7 @@ export const VolunteerJoin = () => (
           dołącz do nas!
         </Heading>
       </div>
-      <p className="font-lora">
+      <p className="font-lora contrast:text-yellowContrast">
         Razem możemy więcej niż tylko opowiadać historię – możemy ją przeżywać,
         przekazywać dalej i sprawić, by nigdy nie została zapomniana.
       </p>

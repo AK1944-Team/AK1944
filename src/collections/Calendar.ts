@@ -23,6 +23,11 @@ export const Calendar: CollectionConfig = {
       required: true,
     },
     {
+      name: "isEveryYear",
+      type: "checkbox",
+      label: "Czy wydarzenie powtarza się co roku?",
+    },
+    {
       name: "description",
       type: "richText",
       label: "Opis wydarzenia",

@@ -17,18 +17,17 @@ export const HistoryBiogramComponent = () => (
     className="absolute object-fill contrast:hidden"
     aria-hidden="true"
   >
-    <Container className="relative py-10 contrast:border-2 contrast:border-yellowContrast">
+    <Container className="relative py-10 contrast:border-2 contrast:border-yellowContrast desktop:px-10">
       <Heading variant="h3" contrast="yellow" color="green">
         {title}
       </Heading>
       <div className="md:flex">
         <p className="my-6 font-courier text-lg md:w-2/3">{content}</p>
-        <div className="relative m-auto aspect-[0.89] w-[300px] max-w-[300px]">
+        <div className="relative m-auto flex h-[300px] w-full max-w-[300px] items-center">
           <Image
             src="/images/history/main/veteran.webp"
             alt="Zdjęcie weterana Armii Krajowej"
             fill
-            sizes="(max-width: 768px) 100vw, 300px"
             className="object-cover"
           />
         </div>
