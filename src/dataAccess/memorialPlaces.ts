@@ -2,12 +2,17 @@ import type { PlaceDetails } from "@/types";
 import type { MemorialPlace } from "@/payload-types";
 import { fetchCollection, fetchBySlug } from "./fetchPayloadCollection";
 import { extractTextFromRichText } from "@/utils";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
-const mapPayloadMemorialPlaceToPlaceDetails = (place: MemorialPlace): PlaceDetails => {
-  const imageUrl =
+const mapPayloadMemorialPlaceToPlaceDetails = (
+  place: MemorialPlace,
+): PlaceDetails => {
+  const rawImageUrl =
     typeof place.featuredImage === "object" && place.featuredImage?.url
       ? place.featuredImage.url
       : undefined;
+
+  const imageUrl = getMediaUrl(rawImageUrl) ?? undefined;
 
   const highlight = place.highlight?.map((h) => ({
     text: h.text || "",

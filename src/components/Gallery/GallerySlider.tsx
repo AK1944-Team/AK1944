@@ -5,26 +5,13 @@ import Image from "next/image";
 import clsx from "clsx";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import type { GalleryImage } from "@/types";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 interface GallerySliderProps {
   images: GalleryImage[];
   onImageClick: (index: number) => void;
 }
 
-const CMS_URL =
-  process.env.NEXT_PUBLIC_PAYLOAD_URL ?? "https://cms.ak1944.pl";
-
-const getMediaUrl = (url?: string | null) => {
-  if (!url) return "";
-
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return url;
-  }
-
-  const normalizedUrl = url.startsWith("/") ? url : `/${url}`;
-
-  return `${CMS_URL}${normalizedUrl}`;
-};
 
 export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
   const [index, setIndex] = useState(0);

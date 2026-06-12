@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ModalCloseIcon } from "@/icons/ModalCloseIcon";
 import type { GalleryImage } from "@/types";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -11,21 +12,6 @@ interface ImageModalProps {
   images: GalleryImage[];
   initialIndex: number;
 }
-
-const CMS_URL =
-  process.env.NEXT_PUBLIC_PAYLOAD_URL ?? "https://cms.ak1944.pl";
-
-const getMediaUrl = (url?: string | null) => {
-  if (!url) return "";
-
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return url;
-  }
-
-  const normalizedUrl = url.startsWith("/") ? url : `/${url}`;
-
-  return `${CMS_URL}${normalizedUrl}`;
-};
 
 export const ImageModal = ({
   isOpen,
@@ -96,7 +82,7 @@ export const ImageModal = ({
         className="relative mx-auto flex h-[90vh] w-[90vw] max-w-7xl flex-col items-center justify-center"
       >
         <button
-          className="absolute right-4 top-4 z-30 text-white hover:text-gray-300"
+          className="hover:text-gray-300 absolute right-4 top-4 z-30 text-white"
           aria-label="Zamknij modal"
           onClick={onClose}
         >
@@ -105,7 +91,7 @@ export const ImageModal = ({
 
         <button
           onClick={handlePrev}
-          className="absolute left-4 z-20 rounded-sm bg-greenB p-3 hover:bg-green-800 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+          className="hover:bg-green-800 contrast:hover:bg-yellow-400 absolute left-4 z-20 rounded-sm bg-greenB p-3 contrast:bg-yellowContrast"
           aria-label="Poprzednie zdjęcie"
         >
           <Image
@@ -137,7 +123,7 @@ export const ImageModal = ({
 
         <button
           onClick={handleNext}
-          className="absolute right-4 z-20 rounded-sm bg-greenB p-3 hover:bg-green-800 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+          className="hover:bg-green-800 contrast:hover:bg-yellow-400 absolute right-4 z-20 rounded-sm bg-greenB p-3 contrast:bg-yellowContrast"
           aria-label="Następne zdjęcie"
         >
           <Image

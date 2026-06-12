@@ -6,6 +6,7 @@ import type { GalleryImage } from "@/types";
 import { extractTextFromRichText } from "@/utils";
 import { fetchCollection, fetchBySlug } from "./fetchPayloadCollection";
 import { getPayload } from "payload";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 const mapPayloadRallyToRally = (rally: PayloadRally): Rally => {
   const media =
@@ -17,7 +18,7 @@ const mapPayloadRallyToRally = (rally: PayloadRally): Rally => {
     title: rally.title,
     date: rally.date || undefined,
     description: rally.description || undefined,
-    imageUrl: media?.url || undefined,
+    imageUrl: getMediaUrl(media?.url) ?? undefined,
   };
 };
 
@@ -104,7 +105,6 @@ export const getRallyDataBySlug = async (
   return doc ? mapPayloadRallyToRallyData(doc) : null;
 };
 
-// Rally relation data (for relation pages)
 export interface RallyRelationData {
   id: string;
   slug: string;
@@ -114,23 +114,32 @@ export interface RallyRelationData {
   images: GalleryImage[];
 }
 
+const mapPayloadRallyGalleryImages = (
+  gallery: Exclude<PayloadRally["linkedGallery"], string> | null | undefined,
+): GalleryImage[] => {
+  return (gallery?.images || [])
+    .map((item) => {
+      const media = typeof item.image === "string" ? null : item.image;
+
+      if (!media) return null;
+
+      const imageUrl = getMediaUrl(media.url);
+
+      if (!imageUrl) return null;
+
+      return {
+        src: imageUrl,
+        alt: media.alt || item.caption || gallery?.title || "",
+      };
+    })
+    .filter((img): img is GalleryImage => img !== null);
+};
+
 const mapPayloadRallyToRelationData = (
   rally: PayloadRally,
 ): RallyRelationData => {
   const gallery =
     typeof rally.linkedGallery === "string" ? null : rally.linkedGallery;
-
-  const images: GalleryImage[] = (gallery?.images || [])
-    .map((item) => {
-      const media = typeof item.image === "string" ? null : item.image;
-      if (!media) return null;
-
-      return {
-        src: media.url || "",
-        alt: media.alt || item.caption || gallery?.title || "",
-      };
-    })
-    .filter((img): img is GalleryImage => img !== null);
 
   return {
     id: rally.id,
@@ -138,7 +147,7 @@ const mapPayloadRallyToRelationData = (
     title: rally.title,
     date: rally.date || undefined,
     relation: rally.relation || null,
-    images,
+    images: mapPayloadRallyGalleryImages(gallery),
   };
 };
 
@@ -147,6 +156,7 @@ export const getRallyRelationBySlug = async (
 ): Promise<RallyRelationData | null> => {
   try {
     const payload = await getPayload({ config });
+
     const result = await payload.find({
       collection: "rallies",
       where: {
