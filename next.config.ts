@@ -1,5 +1,4 @@
 import { withPayload } from "@payloadcms/next/withPayload";
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -7,8 +6,21 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   images: {
-    remotePatterns: [{ hostname: "ak1944.pl" }, { hostname: "wp.ak1944.pl" }],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ak1944.pl",
+      },
+      {
+        protocol: "https",
+        hostname: "wp.ak1944.pl",
+      },
+      {
+        protocol: "https",
+        hostname: "cms.ak1944.pl",
+      },
+    ],
   },
 };
 
-export default withPayload(withPayload(withPayload(withPayload(nextConfig))));
+export default withPayload(nextConfig);
