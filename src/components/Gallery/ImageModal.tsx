@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ModalCloseIcon } from "@/icons/ModalCloseIcon";
 import type { GalleryImage } from "@/types";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -46,6 +47,7 @@ export const ImageModal = ({
     if (isOpen) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
+
       if (modalRef.current) {
         modalRef.current.focus();
       }
@@ -59,7 +61,12 @@ export const ImageModal = ({
     };
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen) return null;
+  if (!isOpen || images.length === 0) return null;
+
+  const currentImage = images[currentIndex];
+  const currentImageSrc = getMediaUrl(currentImage?.src);
+
+  if (!currentImageSrc) return null;
 
   return (
     <div
@@ -75,7 +82,7 @@ export const ImageModal = ({
         className="relative mx-auto flex h-[90vh] w-[90vw] max-w-7xl flex-col items-center justify-center"
       >
         <button
-          className="absolute right-4 top-4 z-30 text-white hover:text-gray-300"
+          className="hover:text-gray-300 absolute right-4 top-4 z-30 text-white"
           aria-label="Zamknij modal"
           onClick={onClose}
         >
@@ -84,12 +91,13 @@ export const ImageModal = ({
 
         <button
           onClick={handlePrev}
-          className="absolute left-4 z-20 rounded-sm bg-greenB p-3 hover:bg-green-800 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+          className="hover:bg-green-800 contrast:hover:bg-yellow-400 absolute left-4 z-20 rounded-sm bg-greenB p-3 contrast:bg-yellowContrast"
           aria-label="Poprzednie zdjęcie"
         >
           <Image
             src="/images/icons/left-arrow-alt.svg"
-            alt="Strzałka w lewo"
+            alt=""
+            aria-hidden="true"
             className="h-6 w-6 contrast:brightness-0"
             width={24}
             height={24}
@@ -99,8 +107,8 @@ export const ImageModal = ({
         <div className="relative flex h-full w-full items-center justify-center px-20">
           <div className="relative h-[70%] w-full">
             <Image
-              src={images[currentIndex].src}
-              alt={images[currentIndex].alt}
+              src={currentImageSrc}
+              alt={currentImage.alt}
               fill
               sizes="90vw"
               className="object-contain"
@@ -115,12 +123,13 @@ export const ImageModal = ({
 
         <button
           onClick={handleNext}
-          className="absolute right-4 z-20 rounded-sm bg-greenB p-3 hover:bg-green-800 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+          className="hover:bg-green-800 contrast:hover:bg-yellow-400 absolute right-4 z-20 rounded-sm bg-greenB p-3 contrast:bg-yellowContrast"
           aria-label="Następne zdjęcie"
         >
           <Image
             src="/images/icons/right-arrow-alt.svg"
-            alt="Strzałka w prawo"
+            alt=""
+            aria-hidden="true"
             className="h-6 w-6 contrast:brightness-0"
             width={24}
             height={24}
