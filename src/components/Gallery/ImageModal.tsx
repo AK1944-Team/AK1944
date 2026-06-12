@@ -12,6 +12,21 @@ interface ImageModalProps {
   initialIndex: number;
 }
 
+const CMS_URL =
+  process.env.NEXT_PUBLIC_PAYLOAD_URL ?? "https://cms.ak1944.pl";
+
+const getMediaUrl = (url?: string | null) => {
+  if (!url) return "";
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  const normalizedUrl = url.startsWith("/") ? url : `/${url}`;
+
+  return `${CMS_URL}${normalizedUrl}`;
+};
+
 export const ImageModal = ({
   isOpen,
   onClose,
@@ -46,6 +61,7 @@ export const ImageModal = ({
     if (isOpen) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
+
       if (modalRef.current) {
         modalRef.current.focus();
       }
@@ -59,7 +75,12 @@ export const ImageModal = ({
     };
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen) return null;
+  if (!isOpen || images.length === 0) return null;
+
+  const currentImage = images[currentIndex];
+  const currentImageSrc = getMediaUrl(currentImage?.src);
+
+  if (!currentImageSrc) return null;
 
   return (
     <div
@@ -89,7 +110,8 @@ export const ImageModal = ({
         >
           <Image
             src="/images/icons/left-arrow-alt.svg"
-            alt="Strzałka w lewo"
+            alt=""
+            aria-hidden="true"
             className="h-6 w-6 contrast:brightness-0"
             width={24}
             height={24}
@@ -99,8 +121,8 @@ export const ImageModal = ({
         <div className="relative flex h-full w-full items-center justify-center px-20">
           <div className="relative h-[70%] w-full">
             <Image
-              src={images[currentIndex].src}
-              alt={images[currentIndex].alt}
+              src={currentImageSrc}
+              alt={currentImage.alt}
               fill
               sizes="90vw"
               className="object-contain"
@@ -120,7 +142,8 @@ export const ImageModal = ({
         >
           <Image
             src="/images/icons/right-arrow-alt.svg"
-            alt="Strzałka w prawo"
+            alt=""
+            aria-hidden="true"
             className="h-6 w-6 contrast:brightness-0"
             width={24}
             height={24}

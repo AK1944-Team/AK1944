@@ -11,15 +11,30 @@ interface GallerySliderProps {
   onImageClick: (index: number) => void;
 }
 
+const CMS_URL =
+  process.env.NEXT_PUBLIC_PAYLOAD_URL ?? "https://cms.ak1944.pl";
+
+const getMediaUrl = (url?: string | null) => {
+  if (!url) return "";
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  const normalizedUrl = url.startsWith("/") ? url : `/${url}`;
+
+  return `${CMS_URL}${normalizedUrl}`;
+};
+
 export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
   const [index, setIndex] = useState(0);
-  
+
   const isDesktop = useMediaQuery("(min-width: 1280px)", false);
   const isTablet = useMediaQuery("(min-width: 768px)", false);
-  
+
   const visibleSlides = isDesktop ? 4 : isTablet ? 3 : 2;
   const showArrows = isTablet;
-  
+
   const pageCount = Math.ceil(images.length / visibleSlides);
 
   const handleNext = () => {
@@ -29,6 +44,8 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
   const handlePrev = () => {
     setIndex((prev) => Math.max(prev - 1, 0));
   };
+
+  if (images.length === 0) return null;
 
   return (
     <div className="relative w-full overflow-hidden py-6">
@@ -42,7 +59,8 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
           >
             <Image
               src="/images/icons/left-arrow-alt.svg"
-              alt="Strzałka w lewo"
+              alt=""
+              aria-hidden="true"
               className="h-6 w-6 contrast:brightness-0"
               width={20}
               height={20}
@@ -61,7 +79,8 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
           >
             <Image
               src="/images/icons/right-arrow-alt.svg"
-              alt="Strzałka w prawo"
+              alt=""
+              aria-hidden="true"
               className="h-6 w-6 contrast:brightness-0"
               width={20}
               height={20}
@@ -70,7 +89,12 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
         </div>
       )}
 
-      <div className={clsx("w-full overflow-hidden", showArrows ? "px-12" : "px-0")}>
+      <div
+        className={clsx(
+          "w-full overflow-hidden",
+          showArrows ? "px-12" : "px-0",
+        )}
+      >
         <div
           className="flex transition-transform duration-300 ease-out"
           style={{
@@ -78,6 +102,10 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
           }}
         >
           {images.map((image, id) => {
+            const imageSrc = getMediaUrl(image.src);
+
+            if (!imageSrc) return null;
+
             return (
               <div
                 key={id}
@@ -90,7 +118,7 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
                 >
                   <div className="relative aspect-square w-full bg-gray-200">
                     <Image
-                      src={image.src}
+                      src={imageSrc}
                       alt={image.alt}
                       fill
                       sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
@@ -104,19 +132,21 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center gap-1">
-        {Array.from({ length: pageCount }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={clsx(
-              "h-2 w-2 rounded-full transition-colors",
-              index === i ? "bg-greenMain" : "bg-greenLight",
-            )}
-            aria-label={`Przejdź do slajdu ${i + 1}`}
-          />
-        ))}
-      </div>
+      {pageCount > 1 && (
+        <div className="mt-6 flex justify-center gap-1">
+          {Array.from({ length: pageCount }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={clsx(
+                "h-2 w-2 rounded-full transition-colors",
+                index === i ? "bg-greenMain" : "bg-greenLight",
+              )}
+              aria-label={`Przejdź do slajdu ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
