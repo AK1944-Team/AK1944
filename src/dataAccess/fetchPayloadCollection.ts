@@ -4,7 +4,12 @@ import { getPayload, type FindArgs } from "payload";
 
 type CollectionMap = Pick<
   Config["collections"],
-  "calendar" | "news" | "literature" | "rallies" | "biograms" | "memorial-places"
+  | "calendar"
+  | "news"
+  | "literature"
+  | "rallies"
+  | "biograms"
+  | "memorial-places"
 >;
 type CollectionQuery = Pick<
   FindArgs,
@@ -27,6 +32,7 @@ export async function fetchCollection<K extends keyof CollectionMap>({
     const payload = await getPayload({ config });
     const result = await payload.find({
       collection,
+      sort: "-publishedAt",
       ...(query ?? {}),
     });
 

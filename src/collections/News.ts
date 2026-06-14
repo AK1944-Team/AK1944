@@ -130,6 +130,11 @@ export const News: CollectionConfig = {
     {
       name: "publishedAt",
       type: "date",
+      admin: {
+        date: {
+          displayFormat: "dd/MM/yyyy",
+        },
+      },
       label: "Data publikacji",
       defaultValue: () => new Date(),
     },

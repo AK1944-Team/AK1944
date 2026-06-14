@@ -16,7 +16,7 @@ const mapPayloadRallyToRally = (rally: PayloadRally): Rally => {
     id: rally.id,
     slug: rally.slug || "",
     title: rally.title,
-    date: rally.date || undefined,
+    date: rally.rallyDate || undefined,
     description: rally.description || undefined,
     imageUrl: getMediaUrl(media?.url) ?? undefined,
   };
@@ -33,7 +33,7 @@ export const getRallies = async (options?: {
       limit: options?.limit ?? 100,
       page: options?.page,
       pagination: options?.pagination,
-      sort: "-publishedAt",
+      sort: "-rallyDate",
     },
   });
 
@@ -64,7 +64,7 @@ const mapPayloadRallyToRallyData = (rally: PayloadRally): RallyData => {
     id: rally.id,
     slug: rally.slug || "",
     title: rally.title,
-    date: rally.date || undefined,
+    date: rally.rallyDate || undefined,
     invite: rally.invite ? extractTextFromRichText(rally.invite) : undefined,
     purpose: rally.purpose || undefined,
     purposeList: rally.purposeList
@@ -145,7 +145,7 @@ const mapPayloadRallyToRelationData = (
     id: rally.id,
     slug: rally.slug || "",
     title: rally.title,
-    date: rally.date || undefined,
+    date: rally.rallyDate || undefined,
     relation: rally.relation || null,
     images: mapPayloadRallyGalleryImages(gallery),
   };

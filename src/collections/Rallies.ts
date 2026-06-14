@@ -36,10 +36,13 @@ export const Rallies: CollectionConfig = {
       unique: true,
     },
     {
-      name: "date",
-      type: "text",
+      name: "rallyDate",
+      type: "date",
       label: "Data rajdu",
       admin: {
+        date: {
+          displayFormat: "dd/MM/yyyy",
+        },
         description: "Np. '10 lutego, 2024'",
       },
     },

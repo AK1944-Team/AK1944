@@ -5,12 +5,15 @@ import { converters } from "@/utils/richtext/converters";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { ImageSlider } from "./ImageSlider";
 import { RallyRelationData } from "@/dataAccess/rallies";
+import { formatRallyDate } from "../utils/formatRalliesDate";
 
 interface RallyRelationProps {
   rally: RallyRelationData;
 }
 
 export const RallyRelation = ({ rally }: RallyRelationProps) => {
+  const rallyDate = formatRallyDate(rally.date);
+
   return (
     <div className="pb-20">
       <Container
@@ -21,7 +24,7 @@ export const RallyRelation = ({ rally }: RallyRelationProps) => {
         <Heading variant="h2" color="green" contrast="yellow">
           {rally.title}
         </Heading>
-        <p className="font-lora text-xl font-bold">{rally.date}</p>
+        <p className="font-lora text-xl font-bold">{rallyDate}</p>
         {rally.relation ? (
           <RichText
             data={rally.relation}
