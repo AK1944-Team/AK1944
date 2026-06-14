@@ -320,7 +320,7 @@ export interface Rally {
   /**
    * Np. '10 lutego, 2024'
    */
-  date?: string | null;
+  rallyDate?: string | null;
   /**
    * Opis wyświetlany na liście rajdów
    */
@@ -757,7 +757,7 @@ export interface LiteratureSelect<T extends boolean = true> {
 export interface RalliesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  date?: T;
+  rallyDate?: T;
   description?: T;
   featuredImage?: T;
   invite?: T;
