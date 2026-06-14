@@ -30,22 +30,26 @@ const formatDate = (dateString: string): string => {
 };
 
 const mapGalleryImages = (gallery: Gallery): GalleryImage[] => {
-  return (gallery.images || [])
-    .map((item) => {
-      const media = typeof item.image === "string" ? null : item.image;
+  return (gallery.images || []).flatMap((item) => {
+    const images = item.image || [];
 
-      if (!media) return null;
+    return images
+      .map((imgItem) => {
+        const media = typeof imgItem === "string" ? null : imgItem;
 
-      const imageUrl = getMediaUrl(media.url);
+        if (!media) return null;
 
-      if (!imageUrl) return null;
+        const imageUrl = getMediaUrl(media.url);
 
-      return {
-        src: imageUrl,
-        alt: media.alt || item.caption || gallery.title,
-      };
-    })
-    .filter((img): img is GalleryImage => img !== null);
+        if (!imageUrl) return null;
+
+        return {
+          src: imageUrl,
+          alt: media.alt || item.caption || gallery.title,
+        };
+      })
+      .filter((img): img is GalleryImage => img !== null);
+  });
 };
 
 const mapGalleryToGalleryData = (gallery: Gallery): GalleryData => {
