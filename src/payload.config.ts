@@ -25,6 +25,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      actions: ["@/components/PayloadBackButton"],
+    },
   },
   localization: {
     defaultLocale: "pl",
@@ -44,7 +47,7 @@ export default buildConfig({
     Literature,
     Rallies,
     Biograms,
-    MemorialPlaces
+    MemorialPlaces,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],

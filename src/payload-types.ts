@@ -211,7 +211,7 @@ export interface News {
   gallerySlug?: string | null;
   galleryImages?:
     | {
-        image: string | Media;
+        image: (string | Media)[];
         caption?: string | null;
         id?: string | null;
       }[]
@@ -237,7 +237,7 @@ export interface Gallery {
   publishedAt?: string | null;
   images?:
     | {
-        image: string | Media;
+        image: (string | Media)[];
         caption?: string | null;
         id?: string | null;
       }[]
