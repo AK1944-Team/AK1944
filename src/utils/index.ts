@@ -33,6 +33,8 @@ export const slugify = (text?: string): string | undefined =>
   !text?.trim()
     ? undefined
     : text
+        .replace(/Ł/g, "L")
+        .replace(/ł/g, "l")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^\w\s-]/g, "")
@@ -127,7 +129,9 @@ export const formatBiogramDate = (dateString?: string | null): string => {
   const dateOnly = dateString.split(",")[0].trim();
 
   // Szukaj wzorca: dzień miesiąc_słownie rok (z obsługą polskich znaków)
-  const match = dateOnly.match(/(\d{1,2})\s+([\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+)\s+(\d{4})/);
+  const match = dateOnly.match(
+    /(\d{1,2})\s+([\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+)\s+(\d{4})/,
+  );
 
   if (match) {
     const day = match[1].padStart(2, "0");
@@ -143,4 +147,3 @@ export const formatBiogramDate = (dateString?: string | null): string => {
   // Jeśli nie udało się przekonwertować, zwróć oryginalny tekst bez miejsca
   return dateOnly;
 };
-
