@@ -117,26 +117,22 @@ export interface RallyRelationData {
 const mapPayloadRallyGalleryImages = (
   gallery: Exclude<PayloadRally["linkedGallery"], string> | null | undefined,
 ): GalleryImage[] => {
-  return (gallery?.images || []).flatMap((item) => {
-    const images = item.image || [];
+  return (gallery?.images || [])
+    .map((item) => {
+      const media = typeof item.image === "string" ? null : item.image;
 
-    return images
-      .map((imgItem) => {
-        const media = typeof imgItem === "string" ? null : imgItem;
+      if (!media) return null;
 
-        if (!media) return null;
+      const imageUrl = getMediaUrl(media.url);
 
-        const imageUrl = getMediaUrl(media.url);
+      if (!imageUrl) return null;
 
-        if (!imageUrl) return null;
-
-        return {
-          src: imageUrl,
-          alt: media.alt || item.caption || "",
-        };
-      })
-      .filter((img): img is GalleryImage => img !== null);
-  });
+      return {
+        src: imageUrl,
+        alt: media.alt || item.caption || gallery?.title || "",
+      };
+    })
+    .filter((img): img is GalleryImage => img !== null);
 };
 
 const mapPayloadRallyToRelationData = (
