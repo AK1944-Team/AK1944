@@ -86,7 +86,6 @@ export const Galleries: CollectionConfig = {
           label: "Zdjęcie",
           relationTo: "media",
           required: true,
-          hasMany: true,
         },
         {
           name: "caption",

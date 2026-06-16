@@ -14,7 +14,6 @@ export const Media: CollectionConfig = {
       name: "alt",
       type: "text",
       label: "Tekst alternatywny",
-      required: true,
     },
   ],
   upload: true,

@@ -1,3 +1,7 @@
+import {
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 
 export const Calendar: CollectionConfig = {
@@ -31,6 +35,12 @@ export const Calendar: CollectionConfig = {
       name: "description",
       type: "richText",
       label: "Opis wydarzenia",
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+        ],
+      }),
     },
     {
       name: "featuredImage",

@@ -162,7 +162,7 @@ export interface User {
  */
 export interface Media {
   id: string;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -211,7 +211,7 @@ export interface News {
   gallerySlug?: string | null;
   galleryImages?:
     | {
-        image: (string | Media)[];
+        image: string | Media;
         caption?: string | null;
         id?: string | null;
       }[]
@@ -237,7 +237,7 @@ export interface Gallery {
   publishedAt?: string | null;
   images?:
     | {
-        image: (string | Media)[];
+        image: string | Media;
         caption?: string | null;
         id?: string | null;
       }[]

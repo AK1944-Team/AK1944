@@ -11,7 +11,11 @@ interface GallerySectionProps {
   images: GalleryImage[];
 }
 
-export const GallerySection = ({ title, date, images }: GallerySectionProps) => {
+export const GallerySection = ({
+  title,
+  date,
+  images,
+}: GallerySectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
