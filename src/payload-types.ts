@@ -204,18 +204,6 @@ export interface News {
    */
   slug?: string | null;
   createGallery?: boolean | null;
-  galleryTitle?: string | null;
-  /**
-   * Generowany automatycznie na podstawie tytułu galerii.
-   */
-  gallerySlug?: string | null;
-  galleryImages?:
-    | {
-        image: string | Media;
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   linkedGallery?: (string | null) | Gallery;
   updatedAt: string;
   createdAt: string;
@@ -232,16 +220,10 @@ export interface Gallery {
    */
   slug?: string | null;
   description?: string | null;
-  sourceType: 'manual' | 'news';
+  sourceType?: ('manual' | 'news') | null;
   sourceNews?: (string | null) | News;
   publishedAt?: string | null;
-  images?:
-    | {
-        image: string | Media;
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  images?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -677,15 +659,6 @@ export interface NewsSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   createGallery?: T;
-  galleryTitle?: T;
-  gallerySlug?: T;
-  galleryImages?:
-    | T
-    | {
-        image?: T;
-        caption?: T;
-        id?: T;
-      };
   linkedGallery?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -701,13 +674,7 @@ export interface GalleriesSelect<T extends boolean = true> {
   sourceType?: T;
   sourceNews?: T;
   publishedAt?: T;
-  images?:
-    | T
-    | {
-        image?: T;
-        caption?: T;
-        id?: T;
-      };
+  images?: T;
   updatedAt?: T;
   createdAt?: T;
 }

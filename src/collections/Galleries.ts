@@ -1,5 +1,4 @@
 import type { CollectionConfig } from "payload";
-
 import { slugify } from "@/utils";
 
 const formatSlug = (value?: string, fallback?: string) =>
@@ -14,6 +13,7 @@ export const Galleries: CollectionConfig = {
   access: {
     read: () => true,
   },
+
   fields: [
     {
       name: "title",
@@ -21,78 +21,57 @@ export const Galleries: CollectionConfig = {
       label: "Tytuł",
       required: true,
     },
+
     {
       name: "slug",
       type: "text",
       label: "Slug",
-      admin: {
-        description: "Generowany automatycznie na podstawie tytułu.",
-      },
+      unique: true,
       hooks: {
         beforeValidate: [
           ({ value, siblingData }) => formatSlug(value, siblingData?.title),
         ],
       },
-      unique: true,
+      admin: {
+        description: "Generowany automatycznie na podstawie tytułu.",
+      },
     },
+
     {
       name: "description",
       type: "textarea",
       label: "Opis",
     },
+
     {
       name: "sourceType",
       type: "select",
       label: "Źródło galerii",
-      required: true,
       defaultValue: "manual",
       options: [
-        {
-          label: "Ręcznie",
-          value: "manual",
-        },
-        {
-          label: "Z aktualności",
-          value: "news",
-        },
+        { label: "Ręcznie", value: "manual" },
+        { label: "Z aktualności", value: "news" },
       ],
     },
+
     {
       name: "sourceNews",
       type: "relationship",
-      label: "Źródłowa aktualność",
       relationTo: "news",
-      admin: {
-        condition: (_, siblingData) => siblingData?.sourceType === "news",
-      },
+      label: "Źródłowa aktualność",
     },
+
     {
       name: "publishedAt",
       type: "date",
       label: "Data publikacji",
     },
+
     {
       name: "images",
-      type: "array",
+      type: "upload",
+      relationTo: "media",
       label: "Zdjęcia",
-      labels: {
-        singular: "Zdjęcie",
-        plural: "Zdjęcia",
-      },
-      fields: [
-        {
-          name: "image",
-          type: "upload",
-          label: "Zdjęcie",
-          relationTo: "media",
-          required: true,
-        },
-        {
-          name: "caption",
-          type: "text",
-          label: "Podpis",
-        },
-      ],
     },
   ],
 };
