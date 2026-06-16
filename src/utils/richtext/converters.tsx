@@ -3,13 +3,43 @@ import {
   defaultJSXConverters,
   type JSXConverters,
 } from "@payloadcms/richtext-lexical/react";
+import { getMediaUrl } from "@/utils/getMediaUrl";
+import Image from "next/image";
+import type { Media } from "../../payload-types";
 
 export const converters = {
   ...defaultJSXConverters,
 
+  upload: ({ node }) => {
+    const url =
+      typeof node.value === "object" && node.value !== null
+        ? (node.value as Media).url
+        : node.fields?.url;
+    const src = getMediaUrl(url);
+
+    if (!src) return null;
+
+    const alt =
+      typeof node.value === "object" && node.value !== null
+        ? (node.value as Media).alt
+        : (node.fields?.alt ?? "");
+
+    return (
+      <div className="flex max-w-[600px] items-center justify-center">
+        <Image
+          alt={alt}
+          src={src}
+          width={300}
+          height={300}
+          className="my-6 w-full rounded-lg object-cover"
+          loading="lazy"
+        />
+      </div>
+    );
+  },
+
   paragraph: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children });
-
     return <p className="text-gray-800 mb-5 leading-7">{children}</p>;
   },
 

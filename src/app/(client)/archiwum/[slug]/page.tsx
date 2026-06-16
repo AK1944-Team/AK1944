@@ -17,6 +17,7 @@ export default async function ArchivePage({ params }: PageProps) {
   const { doc: post } = await fetchBySlug("news", slug);
 
   const gallery = post?.id ? await getGalleryByNewsId(post.id) : null;
+  console.log("Fetched gallery:", gallery);
 
   return (
     <section>
@@ -26,7 +27,12 @@ export default async function ArchivePage({ params }: PageProps) {
       >
         <div className="mb-10">
           <Breadcrumbs />
-          <Heading variant="h2" color="green" contrast="yellow" className="mt-6">
+          <Heading
+            variant="h2"
+            color="green"
+            contrast="yellow"
+            className="mt-6"
+          >
             {post?.title || "Nie znaleziono artykułu"}
           </Heading>
           <article className="mt-6 flow-root">

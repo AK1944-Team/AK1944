@@ -1,6 +1,10 @@
 import type { CollectionConfig } from "payload";
 
 import { slugify } from "@/utils";
+import {
+  lexicalEditor,
+  FixedToolbarFeature,
+} from "@payloadcms/richtext-lexical";
 
 const formatSlug = (value?: string, fallback?: string) =>
   slugify(value || fallback) || value;
@@ -64,6 +68,12 @@ export const Rallies: CollectionConfig = {
       name: "invite",
       type: "richText",
       label: "Zaproszenie na rajd",
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+        ],
+      }),
       admin: {
         description:
           "Pełny tekst zaproszenia wyświetlany na początku strony rajdu",

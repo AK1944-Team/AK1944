@@ -1,4 +1,8 @@
 import { formatSlug } from "@/utils";
+import {
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 
 export const News: CollectionConfig = {
@@ -119,6 +123,12 @@ export const News: CollectionConfig = {
       name: "content",
       type: "richText",
       label: "Treść",
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+        ],
+      }),
       required: true,
     },
     {
@@ -199,7 +209,6 @@ export const News: CollectionConfig = {
           label: "Zdjęcie",
           relationTo: "media",
           required: true,
-          hasMany: true,
         },
         {
           name: "caption",
