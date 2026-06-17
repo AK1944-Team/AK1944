@@ -1,5 +1,4 @@
 import type { CollectionConfig } from "payload";
-
 import { slugify } from "@/utils";
 import {
   lexicalEditor,
@@ -11,6 +10,9 @@ const formatSlug = (value?: string, fallback?: string) =>
 
 export const Rallies: CollectionConfig = {
   slug: "rallies",
+  admin: {
+    useAsTitle: "title",
+  },
   labels: {
     singular: "Rajd",
     plural: "Rajdy",
@@ -18,6 +20,79 @@ export const Rallies: CollectionConfig = {
   access: {
     read: () => true,
   },
+
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        if (
+          (operation === "create" || operation === "update") &&
+          doc.galleryOption === "create" &&
+          doc.galleryImages &&
+          Array.isArray(doc.galleryImages) &&
+          doc.galleryImages.length > 0
+        ) {
+          try {
+            const existingGalleries = await req.payload.find({
+              collection: "galleries",
+              where: {
+                sourceRally: {
+                  equals: doc.id,
+                },
+              },
+              limit: 1,
+            });
+
+            let galleryId: string;
+
+            if (existingGalleries.docs.length > 0) {
+              const existingGallery = existingGalleries.docs[0];
+              const result = await req.payload.update({
+                collection: "galleries",
+                id: existingGallery.id,
+                data: {
+                  title: doc.galleryTitle || doc.title,
+                  description: doc.galleryDescription,
+                  sourceType: "rally" as const,
+                  sourceRally: doc.id,
+                  publishedAt: doc.rallyDate || new Date().toISOString(),
+                  images: doc.galleryImages,
+                },
+                depth: 0,
+              });
+              galleryId = result.id;
+            } else {
+              const result = await req.payload.create({
+                collection: "galleries",
+                data: {
+                  title: doc.galleryTitle || doc.title,
+                  description: doc.galleryDescription,
+                  sourceType: "rally" as const,
+                  sourceRally: doc.id,
+                  publishedAt: doc.rallyDate || new Date().toISOString(),
+                  images: doc.galleryImages,
+                },
+              });
+              galleryId = result.id;
+            }
+
+            if (!doc.linkedGallery) {
+              await req.payload.update({
+                collection: "rallies",
+                id: doc.id,
+                data: {
+                  linkedGallery: galleryId,
+                },
+                depth: 0,
+              });
+            }
+          } catch (error) {
+            console.error("Error creating gallery from rally:", error);
+          }
+        }
+      },
+    ],
+  },
+
   fields: [
     {
       name: "title",
@@ -261,12 +336,53 @@ export const Rallies: CollectionConfig = {
       label: "Relacja z rajdu",
     },
     {
+      name: "galleryOption",
+      type: "radio",
+      label: "Opcje galerii",
+      options: [
+        { label: "Stwórz nową galerię", value: "create" },
+        { label: "Wybierz z istniejących", value: "select" },
+      ],
+      defaultValue: "create",
+    },
+    {
+      name: "galleryImages",
+      type: "upload",
+      relationTo: "media",
+      label: "Zdjęcia do galerii",
+      hasMany: true,
+      admin: {
+        condition: (values) => values.galleryOption === "create",
+      },
+    },
+    {
+      name: "galleryTitle",
+      type: "text",
+      label: "Tytuł galerii",
+      admin: {
+        description: "Opcjonalnie - domyślnie używany będzie tytuł rajdu",
+        condition: (values) => values.galleryOption === "create",
+      },
+    },
+    {
+      name: "galleryDescription",
+      type: "textarea",
+      label: "Opis galerii",
+      admin: {
+        description: "Opcjonalnie",
+        condition: (values) => values.galleryOption === "create",
+      },
+    },
+    {
       name: "linkedGallery",
       type: "relationship",
-      label: "Powiązana galeria",
       relationTo: "galleries",
+      label: "Wybierz istniejącą galerię",
+      hasMany: false,
       admin: {
-        description: "Galeria zdjęć z rajdu",
+        placeholder: "Wybierz galerię z listy...",
+        condition: (values) => values.galleryOption === "select",
+        sortOptions: "title",
       },
     },
   ],

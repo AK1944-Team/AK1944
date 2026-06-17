@@ -1,12 +1,15 @@
+import type { CollectionConfig } from "payload";
 import { formatSlug } from "@/utils";
 import {
   FixedToolbarFeature,
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
-import type { CollectionConfig } from "payload";
 
 export const News: CollectionConfig = {
   slug: "news",
+  admin: {
+    useAsTitle: "title",
+  },
   labels: {
     singular: "Aktualność",
     plural: "Aktualności",
@@ -14,104 +17,80 @@ export const News: CollectionConfig = {
   access: {
     read: () => true,
   },
+
   hooks: {
     afterChange: [
-      async ({ doc, req, operation }) => {
-        if (operation === "create" || operation === "update") {
-          if (
-            doc.createGallery &&
-            doc.galleryImages &&
-            doc.galleryImages.length > 0
-          ) {
-            if (!doc.linkedGallery) {
-              try {
-                const newGallery = await req.payload.create({
-                  collection: "galleries",
-                  data: {
-                    title: doc.galleryTitle || `${doc.title} - Galeria`,
-                    slug: doc.gallerySlug || `${doc.slug}-galeria`,
-                    description: `Galeria zdjęć z aktualności: ${doc.title}`,
-                    sourceType: "news",
-                    sourceNews: doc.id,
-                    images: doc.galleryImages,
-                    publishedAt: doc.publishedAt || new Date().toISOString(),
-                  },
-                });
+      async ({ doc, operation, req }) => {
+        if (
+          (operation === "create" || operation === "update") &&
+          doc.createGallery === true &&
+          doc.galleryOption === "create" &&
+          doc.galleryImages &&
+          Array.isArray(doc.galleryImages) &&
+          doc.galleryImages.length > 0
+        ) {
+          try {
+            const existingGalleries = await req.payload.find({
+              collection: "galleries",
+              where: {
+                sourceNews: {
+                  equals: doc.id,
+                },
+              },
+              limit: 1,
+            });
 
-                await req.payload.update({
-                  collection: "news",
-                  id: doc.id,
-                  data: {
-                    linkedGallery: newGallery.id,
-                  },
-                  depth: 0,
-                });
-              } catch (error) {
-                req.payload.logger.error(
-                  `Failed to create gallery for news ${doc.id}: ${error}`,
-                );
-              }
+            let galleryId: string;
+
+            if (existingGalleries.docs.length > 0) {
+              const existingGallery = existingGalleries.docs[0];
+              const result = await req.payload.update({
+                collection: "galleries",
+                id: existingGallery.id,
+                data: {
+                  title: doc.galleryTitle || doc.title,
+                  description: doc.galleryDescription,
+                  sourceType: "news",
+                  sourceNews: doc.id,
+                  publishedAt: doc.publishedAt || new Date().toISOString(),
+                  images: doc.galleryImages,
+                },
+                depth: 0,
+              });
+              galleryId = result.id;
             } else {
-              try {
-                await req.payload.update({
-                  collection: "galleries",
-                  id: doc.linkedGallery,
-                  data: {
-                    title: doc.galleryTitle || `${doc.title} - Galeria`,
-                    slug: doc.gallerySlug || `${doc.slug}-galeria`,
-                    images: doc.galleryImages,
-                    publishedAt: doc.publishedAt,
-                  },
-                  depth: 0,
-                });
-              } catch (error) {
-                req.payload.logger.error(
-                  `Failed to update gallery ${doc.linkedGallery} for news ${doc.id}: ${error}`,
-                );
-              }
+              const result = await req.payload.create({
+                collection: "galleries",
+                data: {
+                  title: doc.galleryTitle || doc.title,
+                  description: doc.galleryDescription,
+                  sourceType: "news" as const,
+                  sourceNews: doc.id,
+                  publishedAt: doc.publishedAt || new Date().toISOString(),
+                  images: doc.galleryImages,
+                },
+              });
+              galleryId = result.id;
             }
-          } else if (!doc.createGallery && doc.linkedGallery) {
-            try {
+
+            if (!doc.linkedGallery) {
               await req.payload.update({
                 collection: "news",
                 id: doc.id,
                 data: {
-                  linkedGallery: null,
+                  linkedGallery: galleryId,
                 },
                 depth: 0,
               });
-            } catch (error) {
-              req.payload.logger.error(
-                `Failed to unlink gallery from news ${doc.id}: ${error}`,
-              );
             }
+          } catch (error) {
+            console.error("Error creating gallery from news:", error);
           }
-        }
-      },
-    ],
-    beforeDelete: [
-      async ({ req, id }) => {
-        try {
-          const news = await req.payload.findByID({
-            collection: "news",
-            id,
-            depth: 0,
-          });
-
-          if (news.linkedGallery && typeof news.linkedGallery === "string") {
-            await req.payload.delete({
-              collection: "galleries",
-              id: news.linkedGallery,
-            });
-          }
-        } catch (error) {
-          req.payload.logger.error(
-            `Failed to delete linked gallery for news ${id}: ${error}`,
-          );
         }
       },
     ],
   },
+
   fields: [
     {
       name: "title",
@@ -119,6 +98,7 @@ export const News: CollectionConfig = {
       label: "Tytuł",
       required: true,
     },
+
     {
       name: "content",
       type: "richText",
@@ -131,28 +111,31 @@ export const News: CollectionConfig = {
       }),
       required: true,
     },
+
     {
       name: "featuredImage",
       type: "upload",
-      label: "Obraz tytułowy",
       relationTo: "media",
+      label: "Obraz tytułowy",
     },
+
     {
       name: "publishedAt",
       type: "date",
+      label: "Data publikacji",
+      defaultValue: () => new Date(),
       admin: {
         date: {
           displayFormat: "dd/MM/yyyy",
         },
       },
-      label: "Data publikacji",
-      defaultValue: () => new Date(),
     },
 
     {
       name: "slug",
       type: "text",
       label: "Slug",
+      unique: true,
       admin: {
         description: "Generowany automatycznie na podstawie tytułu.",
       },
@@ -161,69 +144,66 @@ export const News: CollectionConfig = {
           ({ value, siblingData }) => formatSlug(value, siblingData?.title),
         ],
       },
-      unique: true,
     },
+
     {
       name: "createGallery",
       type: "checkbox",
-      label: "Utwórz galerię",
+      label: "Czy stworzyć galerię?",
       defaultValue: false,
+    },
+    {
+      name: "galleryOption",
+      type: "radio",
+      label: "Opcje galerii",
+      options: [
+        { label: "Stwórz nową galerię", value: "create" },
+        { label: "Wybierz z istniejących", value: "select" },
+      ],
+      admin: {
+        condition: (values) => values.createGallery === true,
+      },
     },
     {
       name: "galleryTitle",
       type: "text",
       label: "Tytuł galerii",
       admin: {
-        condition: (_, siblingData) => Boolean(siblingData?.createGallery),
+        condition: (values) =>
+          values.createGallery === true && values.galleryOption === "create",
       },
     },
     {
-      name: "gallerySlug",
-      type: "text",
-      label: "Slug galerii",
+      name: "galleryDescription",
+      type: "textarea",
+      label: "Opis galerii",
       admin: {
-        description: "Generowany automatycznie na podstawie tytułu galerii.",
-        condition: (_, siblingData) => Boolean(siblingData?.createGallery),
-      },
-      hooks: {
-        beforeValidate: [
-          ({ value, siblingData }) =>
-            formatSlug(value, siblingData?.galleryTitle),
-        ],
+        description: "Dodatkowy opis galerii, opcjonalnie",
+        condition: (values) =>
+          values.createGallery === true && values.galleryOption === "create",
       },
     },
     {
       name: "galleryImages",
-      type: "array",
-      labels: {
-        singular: "Zdjęcie galerii",
-        plural: "Zdjęcia galerii",
-      },
+      type: "upload",
+      relationTo: "media",
+      label: "Zdjęcia do galerii",
+      hasMany: true,
       admin: {
-        condition: (_, siblingData) => Boolean(siblingData?.createGallery),
+        condition: (values) =>
+          values.createGallery === true && values.galleryOption === "create",
       },
-      fields: [
-        {
-          name: "image",
-          type: "upload",
-          label: "Zdjęcie",
-          relationTo: "media",
-          required: true,
-        },
-        {
-          name: "caption",
-          type: "text",
-          label: "Podpis",
-        },
-      ],
     },
     {
       name: "linkedGallery",
       type: "relationship",
-      label: "Powiązana galeria",
       relationTo: "galleries",
+      label: "Wybierz istniejącą galerię",
+      hasMany: false,
       admin: {
-        hidden: true,
+        placeholder: "Wybierz galerię z listy...",
+        condition: (values) =>
+          values.createGallery === true && values.galleryOption === "select",
       },
     },
   ],

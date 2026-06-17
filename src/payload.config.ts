@@ -20,6 +20,7 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+  serverURL: "https://cms.ak1944.pl",
   admin: {
     user: Users.slug,
     importMap: {

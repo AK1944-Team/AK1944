@@ -119,7 +119,7 @@ const mapPayloadRallyGalleryImages = (
 ): GalleryImage[] => {
   return (gallery?.images || [])
     .map((item) => {
-      const media = typeof item.image === "string" ? null : item.image;
+      const media = typeof item === "string" ? null : item;
 
       if (!media) return null;
 
@@ -129,7 +129,7 @@ const mapPayloadRallyGalleryImages = (
 
       return {
         src: imageUrl,
-        alt: media.alt || item.caption || gallery?.title || "",
+        alt: media.alt || gallery?.title || "",
       };
     })
     .filter((img): img is GalleryImage => img !== null);
