@@ -10,8 +10,52 @@ export const Galleries: CollectionConfig = {
     singular: "Galeria",
     plural: "Galerie",
   },
+  admin: {
+    useAsTitle: "title",
+  },
   access: {
     read: () => true,
+  },
+
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        if (operation === "update" && doc.images?.length > 0) {
+          try {
+            if (doc.sourceType === "news" && doc.sourceNews) {
+              await req.payload.update({
+                collection: "news",
+                id:
+                  typeof doc.sourceNews === "object"
+                    ? doc.sourceNews.id
+                    : doc.sourceNews,
+                data: {
+                  linkedGallery: doc.id,
+                },
+                depth: 0,
+              });
+            } else if (doc.sourceType === "rally" && doc.sourceRally) {
+              await req.payload.update({
+                collection: "rallies",
+                id:
+                  typeof doc.sourceRally === "object"
+                    ? doc.sourceRally.id
+                    : doc.sourceRally,
+                data: {
+                  linkedGallery: doc.id,
+                },
+                depth: 0,
+              });
+            }
+          } catch (error) {
+            console.error(
+              "Error updating source document from gallery:",
+              error,
+            );
+          }
+        }
+      },
+    ],
   },
 
   fields: [
@@ -51,6 +95,7 @@ export const Galleries: CollectionConfig = {
       options: [
         { label: "Ręcznie", value: "manual" },
         { label: "Z aktualności", value: "news" },
+        { label: "Z rajdu", value: "rally" },
       ],
     },
 
@@ -59,6 +104,19 @@ export const Galleries: CollectionConfig = {
       type: "relationship",
       relationTo: "news",
       label: "Źródłowa aktualność",
+      admin: {
+        condition: (values) => values.sourceType === "news",
+      },
+    },
+
+    {
+      name: "sourceRally",
+      type: "relationship",
+      relationTo: "rallies",
+      label: "Źródłowy rajd",
+      admin: {
+        condition: (values) => values.sourceType === "rally",
+      },
     },
 
     {
@@ -72,6 +130,7 @@ export const Galleries: CollectionConfig = {
       type: "upload",
       relationTo: "media",
       label: "Zdjęcia",
+      hasMany: true,
     },
   ],
 };

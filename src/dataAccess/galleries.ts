@@ -32,7 +32,8 @@ const formatDate = (dateString: string): string => {
 const mapGalleryImages = (gallery: Gallery): GalleryImage[] => {
   return (gallery.images || [])
     .map((item) => {
-      const media = typeof item.image === "string" ? null : item.image;
+      // When hasMany is true, item is directly string | Media (not wrapped in { image: ... })
+      const media = typeof item === "string" ? null : item;
 
       if (!media) return null;
 
@@ -42,7 +43,7 @@ const mapGalleryImages = (gallery: Gallery): GalleryImage[] => {
 
       return {
         src: imageUrl,
-        alt: media.alt || item.caption || gallery.title,
+        alt: media.alt || gallery.title,
       };
     })
     .filter((img): img is GalleryImage => img !== null);

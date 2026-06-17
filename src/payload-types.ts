@@ -204,6 +204,13 @@ export interface News {
    */
   slug?: string | null;
   createGallery?: boolean | null;
+  galleryOption?: ('create' | 'select') | null;
+  galleryTitle?: string | null;
+  /**
+   * Dodatkowy opis galerii, opcjonalnie
+   */
+  galleryDescription?: string | null;
+  galleryImages?: (string | Media)[] | null;
   linkedGallery?: (string | null) | Gallery;
   updatedAt: string;
   createdAt: string;
@@ -220,71 +227,11 @@ export interface Gallery {
    */
   slug?: string | null;
   description?: string | null;
-  sourceType?: ('manual' | 'news') | null;
+  sourceType?: ('manual' | 'news' | 'rally') | null;
   sourceNews?: (string | null) | News;
+  sourceRally?: (string | null) | Rally;
   publishedAt?: string | null;
-  images?: (string | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "calendar".
- */
-export interface Calendar {
-  id: string;
-  title: string;
-  date: string;
-  isEveryYear?: boolean | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  featuredImage?: (string | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "literature".
- */
-export interface Literature {
-  id: string;
-  title: string;
-  author: string;
-  aboutAuthor?: string | null;
-  publisher?: string | null;
-  isbn?: string | null;
-  format?: string | null;
-  /**
-   * Rodzaj okładki (np. miękka, twarda).
-   */
-  cover?: string | null;
-  coverImage?: (string | null) | Media;
-  edition?: string | null;
-  language?: string | null;
-  numberOfPages?: number | null;
-  chapters?:
-    | {
-        chapterTitle?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Generowany automatycznie na podstawie tytułu.
-   */
-  slug?: string | null;
+  images?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -411,10 +358,78 @@ export interface Rally {
     };
     [k: string]: unknown;
   } | null;
+  galleryOption?: ('create' | 'select') | null;
+  galleryImages?: (string | Media)[] | null;
   /**
-   * Galeria zdjęć z rajdu
+   * Opcjonalnie - domyślnie używany będzie tytuł rajdu
    */
+  galleryTitle?: string | null;
+  /**
+   * Opcjonalnie
+   */
+  galleryDescription?: string | null;
   linkedGallery?: (string | null) | Gallery;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "calendar".
+ */
+export interface Calendar {
+  id: string;
+  title: string;
+  date: string;
+  isEveryYear?: boolean | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  featuredImage?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "literature".
+ */
+export interface Literature {
+  id: string;
+  title: string;
+  author: string;
+  aboutAuthor?: string | null;
+  publisher?: string | null;
+  isbn?: string | null;
+  format?: string | null;
+  /**
+   * Rodzaj okładki (np. miękka, twarda).
+   */
+  cover?: string | null;
+  coverImage?: (string | null) | Media;
+  edition?: string | null;
+  language?: string | null;
+  numberOfPages?: number | null;
+  chapters?:
+    | {
+        chapterTitle?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Generowany automatycznie na podstawie tytułu.
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -659,6 +674,10 @@ export interface NewsSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   createGallery?: T;
+  galleryOption?: T;
+  galleryTitle?: T;
+  galleryDescription?: T;
+  galleryImages?: T;
   linkedGallery?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -673,6 +692,7 @@ export interface GalleriesSelect<T extends boolean = true> {
   description?: T;
   sourceType?: T;
   sourceNews?: T;
+  sourceRally?: T;
   publishedAt?: T;
   images?: T;
   updatedAt?: T;
@@ -787,6 +807,10 @@ export interface RalliesSelect<T extends boolean = true> {
         id?: T;
       };
   relation?: T;
+  galleryOption?: T;
+  galleryImages?: T;
+  galleryTitle?: T;
+  galleryDescription?: T;
   linkedGallery?: T;
   updatedAt?: T;
   createdAt?: T;
