@@ -24,7 +24,6 @@ export const Rallies: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ doc, operation, req }) => {
-        // Only create gallery when option is "create" and images are provided
         if (
           (operation === "create" || operation === "update") &&
           doc.galleryOption === "create" &&
@@ -33,7 +32,6 @@ export const Rallies: CollectionConfig = {
           doc.galleryImages.length > 0
         ) {
           try {
-            // Check if gallery already exists for this rally
             const existingGalleries = await req.payload.find({
               collection: "galleries",
               where: {
@@ -47,7 +45,6 @@ export const Rallies: CollectionConfig = {
             let galleryId: string;
 
             if (existingGalleries.docs.length > 0) {
-              // Update existing gallery
               const existingGallery = existingGalleries.docs[0];
               const result = await req.payload.update({
                 collection: "galleries",
@@ -64,7 +61,6 @@ export const Rallies: CollectionConfig = {
               });
               galleryId = result.id;
             } else {
-              // Create new gallery
               const result = await req.payload.create({
                 collection: "galleries",
                 data: {
@@ -79,7 +75,6 @@ export const Rallies: CollectionConfig = {
               galleryId = result.id;
             }
 
-            // Update the rally doc with the linked gallery ID (if not already linked to another)
             if (!doc.linkedGallery) {
               await req.payload.update({
                 collection: "rallies",
