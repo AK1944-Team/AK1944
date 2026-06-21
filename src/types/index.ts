@@ -85,4 +85,6 @@ export interface GalleryData {
   subtitle: string;
   date: string;
   images: GalleryImage[];
+  link?: string;
+  sourceType?: "manual" | "news" | "rally";
 }
