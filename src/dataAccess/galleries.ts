@@ -50,11 +50,27 @@ const mapGalleryImages = (gallery: Gallery): GalleryImage[] => {
 };
 
 const mapGalleryToGalleryData = (gallery: Gallery): GalleryData => {
+  let link: string | undefined;
+
+  if (gallery.sourceType === "news" && gallery.sourceNews) {
+    const newsDoc =
+      typeof gallery.sourceNews === "object" ? gallery.sourceNews : null;
+    const slug = newsDoc?.slug;
+    if (slug) link = `/archiwum/${slug}`;
+  } else if (gallery.sourceType === "rally" && gallery.sourceRally) {
+    const rallyDoc =
+      typeof gallery.sourceRally === "object" ? gallery.sourceRally : null;
+    const slug = rallyDoc?.slug;
+    if (slug) link = `/rajdy/${slug}`;
+  }
+
   return {
     id: gallery.id,
     subtitle: gallery.title,
     date: formatDate(gallery.publishedAt || gallery.createdAt),
     images: mapGalleryImages(gallery),
+    link,
+    sourceType: gallery.sourceType ?? undefined,
   };
 };
 

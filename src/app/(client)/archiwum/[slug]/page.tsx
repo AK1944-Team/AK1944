@@ -17,7 +17,6 @@ export default async function ArchivePage({ params }: PageProps) {
   const { doc: post } = await fetchBySlug("news", slug);
 
   const gallery = post?.id ? await getGalleryByNewsId(post.id) : null;
-  console.log("Fetched gallery:", gallery);
 
   return (
     <section>

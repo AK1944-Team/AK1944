@@ -51,6 +51,7 @@ export const Gallery = ({
               subtitle={gallery.subtitle}
               date={gallery.date}
               images={gallery.images}
+              link={gallery.link}
               onImageClick={(index) => handleImageClick(gallery.images, index)}
             />
           ))}
