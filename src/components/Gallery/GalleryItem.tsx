@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { GallerySlider } from "./GallerySlider";
-import type { GalleryImage, GalleryData } from "@/types";
+import type { GalleryImage} from "@/types";
 
 interface GalleryItemProps {
   subtitle: string;

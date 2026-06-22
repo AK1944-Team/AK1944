@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -12,9 +12,9 @@ interface GallerySliderProps {
   onImageClick: (index: number) => void;
 }
 
-
 export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
   const [index, setIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const isDesktop = useMediaQuery("(min-width: 1280px)", false);
   const isTablet = useMediaQuery("(min-width: 768px)", false);
@@ -32,15 +32,36 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
     setIndex((prev) => Math.max(prev - 1, 0));
   };
 
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const distance = touchStartX.current - e.changedTouches[0].screenX;
+    if (distance > minSwipeDistance) {
+      handleNext();
+    } else if (distance < -minSwipeDistance) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+  };
+
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full overflow-hidden py-6">
+    <div
+      className="relative w-full overflow-hidden py-6"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {showArrows && (
         <div className="absolute left-0 top-1/2 z-10 -translate-y-1/2">
           <button
             onClick={handlePrev}
-            className="rounded-sm bg-greenB p-3 hover:bg-green-800 disabled:opacity-50 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+            className="hover:bg-green-800 contrast:hover:bg-yellow-400 rounded-sm bg-greenB p-3 disabled:opacity-50 contrast:bg-yellowContrast"
             aria-label="Poprzednie zdjęcia"
             disabled={index === 0}
           >
@@ -60,7 +81,7 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
         <div className="absolute right-0 top-1/2 z-10 -translate-y-1/2">
           <button
             onClick={handleNext}
-            className="rounded-sm bg-greenB p-3 hover:bg-green-800 disabled:opacity-50 contrast:bg-yellowContrast contrast:hover:bg-yellow-400"
+            className="hover:bg-green-800 contrast:hover:bg-yellow-400 rounded-sm bg-greenB p-3 disabled:opacity-50 contrast:bg-yellowContrast"
             aria-label="Następne zdjęcia"
             disabled={index === pageCount - 1}
           >
@@ -103,7 +124,7 @@ export const GallerySlider = ({ images, onImageClick }: GallerySliderProps) => {
                   onClick={() => onImageClick(id)}
                   className="h-full w-full cursor-pointer transition-opacity hover:opacity-80"
                 >
-                  <div className="relative aspect-square w-full bg-gray-200">
+                  <div className="bg-gray-200 relative aspect-square w-full">
                     <Image
                       src={imageSrc}
                       alt={image.alt}
