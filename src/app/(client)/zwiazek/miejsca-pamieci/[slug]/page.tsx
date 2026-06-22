@@ -1,9 +1,12 @@
-import { getMemorialPlaces, getMemorialPlaceBySlug } from "@/dataAccess/memorialPlaces";
-import { notFound } from "next/navigation";
+import {
+  getMemorialPlaces,
+  getMemorialPlaceBySlug,
+} from "@/dataAccess/memorialPlaces";
 import Container from "@/components/shared/Container";
 import { MemorialHeadingSection } from "@/components/MemorialPlace/MemorialHeadingSection";
 import { MemorialContentSection } from "@/components/MemorialPlace/MemorialContentSection";
 import { MemorialRelatedPlaces } from "@/components/MemorialPlace/MemorialRelatedPlaces";
+import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;

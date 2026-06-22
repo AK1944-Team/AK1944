@@ -1,6 +1,6 @@
-import { ComingSoon } from "@/components/ComingSoon/ComingSoon";
 import { ParticipationRules } from "../_components/ParticipationRules";
 import { getRallyDataBySlug, getRallies } from "@/dataAccess/rallies";
+import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -17,9 +17,8 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const rally = await getRallyDataBySlug(slug || "");
 
-  // Jeśli brak danych, ale ścieżka istnieje => pokaż ComingSoon
   if (!rally) {
-    return <ComingSoon />;
+    return notFound();
   }
 
   return <ParticipationRules rally={rally} />;

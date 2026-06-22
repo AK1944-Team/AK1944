@@ -7,6 +7,7 @@ import { getGalleryByNewsId } from "@/dataAccess/galleries";
 import { converters } from "@/utils/richtext/converters";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { GallerySection } from "@/components/Gallery/GallerySection";
+import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -17,6 +18,10 @@ export default async function ArchivePage({ params }: PageProps) {
   const { doc: post } = await fetchBySlug("news", slug);
 
   const gallery = post?.id ? await getGalleryByNewsId(post.id) : null;
+
+  if (!post) {
+    return notFound();
+  }
 
   return (
     <section>
