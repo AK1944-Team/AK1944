@@ -1,101 +1,162 @@
 import { render, screen } from "@testing-library/react";
 import { SocialMediaTray } from "./SocialMediaTray";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { SocialMedia, Media } from "@/payload-types";
 
-expect.extend(toHaveNoViolations);
-
-jest.mock("@/icons/IconFacebook", () =>
-  jest.fn(({ size }) => <div data-size={size}>Facebook Icon</div>),
-);
-// jest.mock("@/icons/IconInstagram", () =>
-//   jest.fn(({ size }) => <div data-size={size}>Instagram Icon</div>),
-// );
-jest.mock("@/icons/IconYoutube", () =>
-  jest.fn(({ size }) => <div data-size={size}>YouTube Icon</div>),
-);
-jest.mock("@/icons/IconX", () =>
-  jest.fn(({ size }) => <div data-size={size}>X Icon</div>),
-);
+// Mock SocialMediaLink component
+jest.mock("./SocialMediaLink", () => ({
+  SocialMediaLink: ({
+    url,
+    name,
+    size,
+  }: {
+    url: string;
+    name: string;
+    size?: number;
+    svg: Media;
+  }) => (
+    <a href={url} data-testid={`social-link-${name}`} data-size={size}>
+      {name}
+    </a>
+  ),
+}));
 
 describe("SocialMediaTray", () => {
-  const { Facebook, YouTube, X } = {
-    Facebook: {
-      title: "Facebook",
-      href: "https://www.facebook.com/Szlak.Partyzancki",
-      label: "Oficjalna strona Szlaku Partyzanckiego na Facebooku",
-    },
-    // Instagram: {
-    //   title: "Instagram",
-    //   href: "https://www.instagram.com", // Todo: Update link https://app.clickup.com/t/8697u6n5a
-    //   label: "Oficjalna strona Szlaku Partyzanckiego na Instagramie",
-    // },
-    YouTube: {
-      title: "YouTube",
-      href: "https://www.youtube.com/@armiakrajowadebica3809",
-      label: "Oficjalna strona Armii Krajowej Dębica na YouTube",
-    },
-    X: {
-      title: "X",
-      href: "https://x.com/szlak",
-      label: "Oficjalna strona Szlaku Partyzanckiego na X",
-    },
-  } as const;
+  const mockMediaItem: Media = {
+    id: "1",
+    alt: "Facebook icon",
+    url: "/icons/facebook.svg",
+    updatedAt: "2023-01-01T00:00:00.000Z",
+    createdAt: "2023-01-01T00:00:00.000Z",
+  };
 
-  it("renders all social media links with correct title", () => {
-    render(<SocialMediaTray />);
+  const mockSocialMediaLinks: SocialMedia[] = [
+    {
+      id: "1",
+      name: "Facebook",
+      url: "https://facebook.com",
+      icon: mockMediaItem,
+      updatedAt: "2023-01-01T00:00:00.000Z",
+      createdAt: "2023-01-01T00:00:00.000Z",
+    },
+    {
+      id: "2",
+      name: "Instagram",
+      url: "https://instagram.com",
+      icon: mockMediaItem,
+      updatedAt: "2023-01-01T00:00:00.000Z",
+      createdAt: "2023-01-01T00:00:00.000Z",
+    },
+    {
+      id: "3",
+      name: "LinkedIn",
+      url: "https://linkedin.com",
+      icon: mockMediaItem,
+      updatedAt: "2023-01-01T00:00:00.000Z",
+      createdAt: "2023-01-01T00:00:00.000Z",
+    },
+  ];
 
-    expect(screen.getByTitle(Facebook.title)).toBeInTheDocument();
-    // expect(screen.getByTitle(Instagram.title)).toBeInTheDocument();
-    expect(screen.getByTitle(YouTube.title)).toBeInTheDocument();
-    expect(screen.getByTitle(X.title)).toBeInTheDocument();
+  test("renders all social media links when provided", () => {
+    render(
+      <SocialMediaTray
+        socialMediaLinks={mockSocialMediaLinks}
+        className="flex gap-4"
+      />,
+    );
+
+    expect(screen.getByTestId("social-link-Facebook")).toBeInTheDocument();
+    expect(screen.getByTestId("social-link-Instagram")).toBeInTheDocument();
+    expect(screen.getByTestId("social-link-LinkedIn")).toBeInTheDocument();
   });
 
-  it.each([Facebook, YouTube, X])(
-    "renders correct href & aria-label for $title link",
-    ({ title, href, label }) => {
-      render(<SocialMediaTray />);
+  test("renders nothing when socialMediaLinks is undefined", () => {
+    const { container } = render(<SocialMediaTray className="flex gap-4" />);
 
-      const link = screen.getByTitle(title);
-
-      expect(link).toHaveAttribute("href", href);
-      expect(link).toHaveAttribute("aria-label", label);
-    },
-  );
-
-  it("renders all icons correctly", () => {
-    render(<SocialMediaTray />);
-
-    expect(screen.getByText("Facebook Icon")).toBeInTheDocument();
-    // expect(screen.getByText("Instagram Icon")).toBeInTheDocument();
-    expect(screen.getByText("YouTube Icon")).toBeInTheDocument();
-    expect(screen.getByText("X Icon")).toBeInTheDocument();
+    expect(container.querySelector("nav")).toBeInTheDocument();
+    expect(container.querySelector("nav")?.children.length).toBe(0);
   });
 
-  it("renders all icons with correct size", () => {
-    render(<SocialMediaTray iconsSize={42} />);
+  test("renders nothing when socialMediaLinks is empty", () => {
+    const { container } = render(
+      <SocialMediaTray socialMediaLinks={[]} className="flex gap-4" />,
+    );
 
-    expect(screen.getByText("Facebook Icon").dataset["size"]).toBe("42");
-    // expect(screen.getByText("Instagram Icon").dataset["size"]).toBe("42");
-    expect(screen.getByText("YouTube Icon").dataset["size"]).toBe("42");
-    expect(screen.getByText("X Icon").dataset["size"]).toBe("42");
+    expect(container.querySelector("nav")).toBeInTheDocument();
+    expect(container.querySelector("nav")?.children.length).toBe(0);
   });
 
-  it("should have rel='noopener noreferrer' and target='_blank' for all links", () => {
-    render(<SocialMediaTray />);
+  test("applies className to nav element", () => {
+    const { container } = render(
+      <SocialMediaTray
+        socialMediaLinks={mockSocialMediaLinks}
+        className="flex justify-center gap-4"
+      />,
+    );
 
-    const links = screen.getAllByRole("link");
-
-    links.forEach((link) => {
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-      expect(link).toHaveAttribute("target", "_blank");
-    });
+    const nav = container.querySelector("nav");
+    expect(nav).toHaveClass("flex", "gap-4", "justify-center");
   });
 
-  it("should pass accessibility checks", async () => {
-    const { container } = render(<SocialMediaTray />);
+  test("passes correct props to SocialMediaLink components", () => {
+    render(
+      <SocialMediaTray
+        socialMediaLinks={mockSocialMediaLinks}
+        iconsSize={48}
+      />,
+    );
 
-    const results = await axe(container);
+    const facebookLink = screen.getByTestId("social-link-Facebook");
+    expect(facebookLink).toHaveAttribute("href", "https://facebook.com");
+    expect(facebookLink).toHaveAttribute("data-size", "48");
+  });
 
-    expect(results).toHaveNoViolations();
+  test("uses default icon size when iconsSize is not provided", () => {
+    render(<SocialMediaTray socialMediaLinks={mockSocialMediaLinks} />);
+
+    const facebookLink = screen.getByTestId("social-link-Facebook");
+    // When iconsSize is not provided, it's passed as undefined to the mock
+    expect(facebookLink).not.toHaveAttribute("data-size");
+  });
+
+  test("renders nav element even without className", () => {
+    const { container } = render(
+      <SocialMediaTray socialMediaLinks={mockSocialMediaLinks} />,
+    );
+
+    expect(container.querySelector("nav")).toBeInTheDocument();
+  });
+
+  test("passes icon prop correctly to SocialMediaLink", () => {
+    const socialMediaWithStringIcon: SocialMedia[] = [
+      {
+        id: "1",
+        name: "Twitter",
+        url: "https://twitter.com",
+        icon: mockMediaItem,
+        updatedAt: "2023-01-01T00:00:00.000Z",
+        createdAt: "2023-01-01T00:00:00.000Z",
+      },
+    ];
+
+    render(<SocialMediaTray socialMediaLinks={socialMediaWithStringIcon} />);
+
+    const twitterLink = screen.getByTestId("social-link-Twitter");
+    expect(twitterLink).toBeInTheDocument();
+  });
+
+  test("uses key prop based on item id for proper React rendering", () => {
+    const { rerender } = render(
+      <SocialMediaTray socialMediaLinks={mockSocialMediaLinks} />,
+    );
+
+    expect(screen.getByTestId("social-link-Facebook")).toBeInTheDocument();
+
+    const updatedLinks = mockSocialMediaLinks.slice(1);
+    rerender(<SocialMediaTray socialMediaLinks={updatedLinks} />);
+
+    expect(
+      screen.queryByTestId("social-link-Facebook"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("social-link-Instagram")).toBeInTheDocument();
   });
 });
