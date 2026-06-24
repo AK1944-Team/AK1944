@@ -3,6 +3,7 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 export const Calendar: CollectionConfig = {
   slug: "calendar",
@@ -12,6 +13,18 @@ export const Calendar: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        await revalidatePayloadCollection("calendar");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("calendar");
+      },
+    ],
   },
   fields: [
     {

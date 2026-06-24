@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { slugify } from "@/utils";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 import {
   lexicalEditor,
   FixedToolbarFeature,
@@ -89,6 +90,14 @@ export const Rallies: CollectionConfig = {
             console.error("Error creating gallery from rally:", error);
           }
         }
+      },
+      async () => {
+        await revalidatePayloadCollection("rallies");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("rallies");
       },
     ],
   },

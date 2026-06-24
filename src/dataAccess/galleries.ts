@@ -3,6 +3,11 @@ import type { Gallery } from "@/payload-types";
 import type { GalleryData, GalleryImage } from "@/types";
 import { getMediaUrl } from "@/utils/getMediaUrl";
 import { getPayload } from "payload";
+import { unstable_cache } from "next/cache";
+import {
+  getPayloadCollectionCacheTag,
+  PAYLOAD_GLOBAL_CACHE_TAG,
+} from "@/dataAccess/cacheTags";
 
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -89,16 +94,28 @@ export const getGalleries = async ({
   totalPages: number;
 }> => {
   try {
-    const payload = await getPayload({ config });
+    const result = await unstable_cache(
+      async () => {
+        const payload = await getPayload({ config });
 
-    const result = await payload.find({
-      collection: "galleries",
-      limit,
-      page: pagination ? page : undefined,
-      pagination,
-      sort: "-publishedAt",
-      depth: 2,
-    });
+        return payload.find({
+          collection: "galleries",
+          limit,
+          page: pagination ? page : undefined,
+          pagination,
+          sort: "-publishedAt",
+          depth: 2,
+        });
+      },
+      [`galleries:${limit}:${page}:${pagination}`],
+      {
+        tags: [
+          PAYLOAD_GLOBAL_CACHE_TAG,
+          getPayloadCollectionCacheTag("galleries"),
+        ],
+        revalidate: 3600,
+      },
+    )();
 
     const galleries = result.docs.map(mapGalleryToGalleryData);
     const totalPages = result.totalPages || 1;
@@ -128,18 +145,31 @@ export const getGalleryByNewsId = async (
   newsId: string,
 ): Promise<NewsGallery | null> => {
   try {
-    const payload = await getPayload({ config });
+    const result = await unstable_cache(
+      async () => {
+        const payload = await getPayload({ config });
 
-    const result = await payload.find({
-      collection: "galleries",
-      where: {
-        sourceNews: {
-          equals: newsId,
-        },
+        return payload.find({
+          collection: "galleries",
+          where: {
+            sourceNews: {
+              equals: newsId,
+            },
+          },
+          limit: 1,
+          depth: 2,
+        });
       },
-      limit: 1,
-      depth: 2,
-    });
+      [`gallery-news:${newsId}`],
+      {
+        tags: [
+          PAYLOAD_GLOBAL_CACHE_TAG,
+          getPayloadCollectionCacheTag("galleries"),
+          getPayloadCollectionCacheTag("news"),
+        ],
+        revalidate: 3600,
+      },
+    )();
 
     if (result.docs.length === 0) {
       return null;

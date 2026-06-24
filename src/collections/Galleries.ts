@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { slugify } from "@/utils";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 const formatSlug = (value?: string, fallback?: string) =>
   slugify(value || fallback) || value;
@@ -54,6 +55,14 @@ export const Galleries: CollectionConfig = {
             );
           }
         }
+      },
+      async () => {
+        await revalidatePayloadCollection("galleries");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("galleries");
       },
     ],
   },
