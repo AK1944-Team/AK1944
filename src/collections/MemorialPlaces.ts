@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 import { slugify } from "@/utils";
 import {
@@ -17,6 +18,18 @@ export const MemorialPlaces: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        await revalidatePayloadCollection("memorial-places");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("memorial-places");
+      },
+    ],
   },
   fields: [
     {

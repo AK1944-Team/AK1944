@@ -1,6 +1,11 @@
 import config from "@payload-config";
 import type { Calendar } from "@/payload-types";
 import { getPayload } from "payload";
+import { unstable_cache } from "next/cache";
+import {
+  getPayloadCollectionCacheTag,
+  PAYLOAD_GLOBAL_CACHE_TAG,
+} from "@/dataAccess/cacheTags";
 
 export type CalendarEvent = Omit<Calendar, "date"> & {
   date: string;
@@ -90,12 +95,25 @@ export async function getCalendarMonthData({
   year,
   page,
 }: CalendarMonthPageParams) {
-  const payload = await getPayload({ config });
-  const allResult = await payload.find({
-    collection: "calendar",
-    pagination: false,
-    sort: "date",
-  });
+  const allResult = await unstable_cache(
+    async () => {
+      const payload = await getPayload({ config });
+
+      return payload.find({
+        collection: "calendar",
+        pagination: false,
+        sort: "date",
+      });
+    },
+    [`calendar-month:${month}:${year}`],
+    {
+      tags: [
+        PAYLOAD_GLOBAL_CACHE_TAG,
+        getPayloadCollectionCacheTag("calendar"),
+      ],
+      revalidate: 3600,
+    },
+  )();
   const monthDocs = sortEventsByCalendarOrder(
     filterEventsForMonth(allResult.docs as CalendarDoc[], month, year),
   );
@@ -122,12 +140,25 @@ export async function getCalendarMonthData({
 }
 
 export async function getTodayEvent() {
-  const payload = await getPayload({ config });
-  const result = await payload.find({
-    collection: "calendar",
-    pagination: false,
-    sort: "date",
-  });
+  const result = await unstable_cache(
+    async () => {
+      const payload = await getPayload({ config });
+
+      return payload.find({
+        collection: "calendar",
+        pagination: false,
+        sort: "date",
+      });
+    },
+    ["calendar-today"],
+    {
+      tags: [
+        PAYLOAD_GLOBAL_CACHE_TAG,
+        getPayloadCollectionCacheTag("calendar"),
+      ],
+      revalidate: 3600,
+    },
+  )();
 
   const today = new Date();
   const todayDocs = sortEventsByCalendarOrder(

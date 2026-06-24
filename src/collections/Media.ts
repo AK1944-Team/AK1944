@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 export const Media: CollectionConfig = {
   slug: "media",
@@ -8,6 +9,18 @@ export const Media: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        await revalidatePayloadCollection("media");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("media");
+      },
+    ],
   },
   fields: [
     {

@@ -2,7 +2,11 @@ import config from "@payload-config";
 import type { Config } from "@/payload-types";
 import { getPayload, type FindArgs } from "payload";
 import { unstable_cache } from "next/cache";
-import { SOCIAL_MEDIA_CACHE_TAG } from "@/dataAccess/cacheTags";
+import {
+  getPayloadCollectionCacheTag,
+  PAYLOAD_GLOBAL_CACHE_TAG,
+  SOCIAL_MEDIA_CACHE_TAG,
+} from "@/dataAccess/cacheTags";
 
 type CollectionMap = Pick<
   Config["collections"],
@@ -32,12 +36,26 @@ export async function fetchCollection<K extends keyof CollectionMap>({
   query?: CollectionQueries[K];
 }) {
   try {
-    const payload = await getPayload({ config });
-    const result = await payload.find({
-      collection,
-      sort: "-publishedAt",
-      ...(query ?? {}),
-    });
+    const cacheKey = `${collection}:${JSON.stringify(query ?? {})}`;
+    const result = await unstable_cache(
+      async () => {
+        const payload = await getPayload({ config });
+
+        return payload.find({
+          collection,
+          sort: "-publishedAt",
+          ...(query ?? {}),
+        });
+      },
+      [cacheKey],
+      {
+        tags: [
+          PAYLOAD_GLOBAL_CACHE_TAG,
+          getPayloadCollectionCacheTag(collection),
+        ],
+        revalidate: 3600,
+      },
+    )();
 
     return {
       ...result,
@@ -86,9 +104,9 @@ const getSocialMediaLinksCached = unstable_cache(
 
     return data.docs;
   },
-  ["social-media-links"],
+  [SOCIAL_MEDIA_CACHE_TAG],
   {
-    tags: [SOCIAL_MEDIA_CACHE_TAG],
+    tags: [PAYLOAD_GLOBAL_CACHE_TAG, SOCIAL_MEDIA_CACHE_TAG],
     revalidate: 3600,
   },
 );

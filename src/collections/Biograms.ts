@@ -1,5 +1,6 @@
 import { formatSlug } from "@/utils";
 import type { CollectionConfig } from "payload";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 export const Biograms: CollectionConfig = {
   slug: "biograms",
@@ -9,6 +10,18 @@ export const Biograms: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        await revalidatePayloadCollection("biograms");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("biograms");
+      },
+    ],
   },
   fields: [
     {

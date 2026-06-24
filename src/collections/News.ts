@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { formatSlug } from "@/utils";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 import {
   FixedToolbarFeature,
   lexicalEditor,
@@ -87,6 +88,14 @@ export const News: CollectionConfig = {
             console.error("Error creating gallery from news:", error);
           }
         }
+      },
+      async () => {
+        await revalidatePayloadCollection("news");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("news");
       },
     ],
   },

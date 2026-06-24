@@ -7,6 +7,11 @@ import { extractTextFromRichText } from "@/utils";
 import { fetchCollection, fetchBySlug } from "./fetchPayloadCollection";
 import { getPayload } from "payload";
 import { getMediaUrl } from "@/utils/getMediaUrl";
+import { unstable_cache } from "next/cache";
+import {
+  getPayloadCollectionCacheTag,
+  PAYLOAD_GLOBAL_CACHE_TAG,
+} from "@/dataAccess/cacheTags";
 
 const mapPayloadRallyToRally = (rally: PayloadRally): Rally => {
   const media =
@@ -155,18 +160,32 @@ export const getRallyRelationBySlug = async (
   slug: string,
 ): Promise<RallyRelationData | null> => {
   try {
-    const payload = await getPayload({ config });
+    const result = await unstable_cache(
+      async () => {
+        const payload = await getPayload({ config });
 
-    const result = await payload.find({
-      collection: "rallies",
-      where: {
-        slug: {
-          equals: slug,
-        },
+        return payload.find({
+          collection: "rallies",
+          where: {
+            slug: {
+              equals: slug,
+            },
+          },
+          limit: 1,
+          depth: 2,
+        });
       },
-      limit: 1,
-      depth: 2,
-    });
+      [`rally-relation:${slug}`],
+      {
+        tags: [
+          PAYLOAD_GLOBAL_CACHE_TAG,
+          getPayloadCollectionCacheTag("rallies"),
+          getPayloadCollectionCacheTag("galleries"),
+          getPayloadCollectionCacheTag("media"),
+        ],
+        revalidate: 3600,
+      },
+    )();
 
     if (result.docs.length === 0) {
       return null;

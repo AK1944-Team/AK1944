@@ -1,5 +1,6 @@
 import { formatSlug } from "@/utils";
 import type { CollectionConfig } from "payload";
+import { revalidatePayloadCollection } from "@/utils/revalidatePayloadCollection";
 
 export const Literature: CollectionConfig = {
   slug: "literature",
@@ -10,6 +11,18 @@ export const Literature: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        await revalidatePayloadCollection("literature");
+      },
+    ],
+    afterDelete: [
+      async () => {
+        await revalidatePayloadCollection("literature");
+      },
+    ],
   },
   fields: [
     {
