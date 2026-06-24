@@ -6,15 +6,16 @@ import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
 
-import { Users } from "./collections/Users";
-import { Media } from "./collections/Media";
-import { News } from "./collections/News";
-import { Galleries } from "./collections/Galleries";
-import { MemorialPlaces } from "./collections/MemorialPlaces";
-import { Rallies } from "./collections/Rallies";
-import { Calendar } from "./collections/Calendar";
-import { Literature } from "./collections/Literature";
+import { Users } from "@/collections/Users";
+import { Media } from "@/collections/Media";
+import { News } from "@/collections/News";
+import { Galleries } from "@/collections/Galleries";
+import { MemorialPlaces } from "@/collections/MemorialPlaces";
+import { Rallies } from "@/collections/Rallies";
+import { Calendar } from "@/collections/Calendar";
+import { Literature } from "@/collections/Literature";
 import { Biograms } from "@/collections/Biograms";
+import { socialMedia } from "@/collections/SocialMedia";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -49,6 +50,7 @@ export default buildConfig({
     Rallies,
     Biograms,
     MemorialPlaces,
+    socialMedia,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],

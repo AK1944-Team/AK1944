@@ -4,28 +4,36 @@ import { SocialMediaTray } from "@/components/shared/SocialMedia/SocialMediaTray
 import { FooterNavigation } from "./FooterNavigation";
 import { FooterSupport } from "./FooterSupport";
 import { FooterLegalInfo } from "./FooterLegalInfo";
+import { getSocialMediaLinks } from "@/dataAccess/fetchPayloadCollection";
 
-export const Footer = () => (
-  <footer className="w-full bg-greenMain px-6 py-8 text-white">
-    <Container>
-      <div className="flex flex-col gap-8 md:grid md:grid-cols-[minmax(150px,200px)_1fr] md:gap-4 desktop:grid desktop:grid-cols-[200px_1fr] desktop:items-start desktop:gap-8">
-        <FooterColumn>
-          <Logo />
-          <SocialMediaTray className="flex items-center gap-4" />
-        </FooterColumn>
+export const Footer = async () => {
+  const { data: socialMediaLinks } = await getSocialMediaLinks();
 
-        <FooterColumn>
-          <FooterNavigation />
-          <FooterSupport />
-        </FooterColumn>
-      </div>
+  return (
+    <footer className="w-full bg-greenMain px-6 py-8 text-white">
+      <Container>
+        <div className="flex flex-col gap-8 md:grid md:grid-cols-[minmax(150px,200px)_1fr] md:gap-4 desktop:grid desktop:grid-cols-[200px_1fr] desktop:items-start desktop:gap-8">
+          <FooterColumn>
+            <Logo />
+            <SocialMediaTray
+              className="flex items-center gap-4"
+              socialMediaLinks={socialMediaLinks}
+            />
+          </FooterColumn>
 
-      <Divider />
+          <FooterColumn>
+            <FooterNavigation />
+            <FooterSupport />
+          </FooterColumn>
+        </div>
 
-      <FooterLegalInfo />
-    </Container>
-  </footer>
-);
+        <Divider />
+
+        <FooterLegalInfo />
+      </Container>
+    </footer>
+  );
+};
 
 const FooterColumn = ({ children }: { children: React.ReactNode }) => (
   <div className="flex h-full flex-col items-center justify-between gap-8">

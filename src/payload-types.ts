@@ -76,6 +76,7 @@ export interface Config {
     rallies: Rally;
     biograms: Biogram;
     'memorial-places': MemorialPlace;
+    'social-media': SocialMedia;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     rallies: RalliesSelect<false> | RalliesSelect<true>;
     biograms: BiogramsSelect<false> | BiogramsSelect<true>;
     'memorial-places': MemorialPlacesSelect<false> | MemorialPlacesSelect<true>;
+    'social-media': SocialMediaSelect<false> | SocialMediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -523,6 +525,27 @@ export interface MemorialPlace {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-media".
+ */
+export interface SocialMedia {
+  id: string;
+  /**
+   * Nazwa platformy społecznościowej
+   */
+  name: string;
+  /**
+   * Adres URL profilu na platformie społecznościowej
+   */
+  url: string;
+  /**
+   * Ikona platformy społecznościowej
+   */
+  icon?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -580,6 +603,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'memorial-places';
         value: string | MemorialPlace;
+      } | null)
+    | ({
+        relationTo: 'social-media';
+        value: string | SocialMedia;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -849,6 +876,17 @@ export interface MemorialPlacesSelect<T extends boolean = true> {
         id?: T;
       };
   descriptionContinuation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-media_select".
+ */
+export interface SocialMediaSelect<T extends boolean = true> {
+  name?: T;
+  url?: T;
+  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }

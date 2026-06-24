@@ -8,12 +8,14 @@ import IconXCircle from "@/icons/IconXCircle";
 import { Routes } from "@/routes";
 import { HeaderLogo } from "../HeaderLogo";
 import { HeaderMobileNavigation } from "./HeaderMobileNavigation";
+import type { SocialMedia } from "@/payload-types";
 
 interface Props {
   onClose: () => void;
+  socialMediaLinks: SocialMedia[];
 }
 
-export const HeaderMobileMenu = ({ onClose }: Props) => (
+export const HeaderMobileMenu = ({ onClose, socialMediaLinks }: Props) => (
   <Container>
     <div
       className="relative size-full w-screen bg-greenB"
@@ -40,7 +42,10 @@ export const HeaderMobileMenu = ({ onClose }: Props) => (
         </button>
       </div>
 
-      <SocialMediaTray className="flex items-center justify-center gap-4 py-7" />
+      <SocialMediaTray
+        className="flex items-center justify-center gap-4 py-7"
+        socialMediaLinks={socialMediaLinks}
+      />
 
       <HeaderMobileNavigation />
 
