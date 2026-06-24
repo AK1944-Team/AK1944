@@ -3,8 +3,6 @@ import { NewsLanding } from "@/components/NewsLanding/NewsLanding";
 import { AboutUsLanding } from "@/components/AboutUsLanding/AboutUsLanding";
 import { BecomeDonor } from "@/components/BecomeDonor";
 
-export const revalidate = 3600;
-
 export default function Home() {
   return (
     <>

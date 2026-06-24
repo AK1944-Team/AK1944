@@ -3,8 +3,6 @@ import { CalendarMain } from "@/app/(client)/zwiazek/kalendarz/_components/Calen
 import Container from "@/components/shared/Container";
 import { getCalendarMonthData, getTodayEvent } from "@/dataAccess/calendar";
 
-export const revalidate = 3600;
-
 type PageProps = {
   searchParams: Promise<{
     month?: string;
