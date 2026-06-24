@@ -10,6 +10,7 @@ type CollectionMap = Pick<
   | "rallies"
   | "biograms"
   | "memorial-places"
+  | "social-media"
 >;
 type CollectionQuery = Pick<
   FindArgs,
@@ -71,4 +72,26 @@ export async function fetchBySlug<K extends keyof CollectionMap>(
     doc: docs[0] ?? null,
     error,
   };
+}
+
+export async function getSocialMediaLinks() {
+  try {
+    const payload = await getPayload({ config });
+    const data = await payload.find({
+      collection: "social-media",
+      sort: "-publishedAt",
+    });
+
+    return {
+      data: data.docs,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Failed to fetch social media links", error);
+
+    return {
+      data: [],
+      error: "Błąd podczas pobierania danych.",
+    };
+  }
 }

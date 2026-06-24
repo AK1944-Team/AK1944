@@ -7,12 +7,17 @@ import { useDisclosure } from "@/hooks/useDisclosure";
 import { useKeyPress } from "@/hooks/useKeyPress";
 import HeaderMenuIcon from "@/icons/HeaderMenuIcon";
 import { cn } from "@/utils";
+import type { SocialMedia } from "@/payload-types";
 
 const HeaderMobileMenu = dynamic(() =>
   import("./HeaderMobileMenu").then((mod) => mod.HeaderMobileMenu),
 );
 
-export const HeaderMobileMenuWrapper = () => {
+export const HeaderMobileMenuWrapper = ({
+  socialMediaLinks,
+}: {
+  socialMediaLinks: SocialMedia[];
+}) => {
   const { isOpen, toggle, close } = useDisclosure();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
@@ -53,7 +58,12 @@ export const HeaderMobileMenuWrapper = () => {
           isOpen ? "translate-x-0 overflow-y-auto" : "translate-x-full",
         )}
       >
-        {isOpen && <HeaderMobileMenu onClose={close} />}
+        {isOpen && (
+          <HeaderMobileMenu
+            onClose={close}
+            socialMediaLinks={socialMediaLinks}
+          />
+        )}
       </div>
     </>
   );
