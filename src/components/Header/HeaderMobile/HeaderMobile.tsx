@@ -4,7 +4,7 @@ import { HeaderMobileMenuWrapper } from "./HeaderMobileMenuWrapper";
 
 export const HeaderMobile = async () => {
   const { data: socialMediaLinks } = await getSocialMediaLinks();
-  console.log("socialMediaLinks", socialMediaLinks);
+  
   return (
     <div className="relative h-10 tablet:hidden" data-testid="header-mobile">
       <div className="mt-5 flex content-center justify-around">
