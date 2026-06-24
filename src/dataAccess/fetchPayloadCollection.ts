@@ -1,6 +1,8 @@
 import config from "@payload-config";
 import type { Config } from "@/payload-types";
 import { getPayload, type FindArgs } from "payload";
+import { unstable_cache } from "next/cache";
+import { SOCIAL_MEDIA_CACHE_TAG } from "@/dataAccess/cacheTags";
 
 type CollectionMap = Pick<
   Config["collections"],
@@ -74,16 +76,29 @@ export async function fetchBySlug<K extends keyof CollectionMap>(
   };
 }
 
-export async function getSocialMediaLinks() {
-  try {
+const getSocialMediaLinksCached = unstable_cache(
+  async () => {
     const payload = await getPayload({ config });
     const data = await payload.find({
       collection: "social-media",
       sort: "createdAt",
     });
 
+    return data.docs;
+  },
+  ["social-media-links"],
+  {
+    tags: [SOCIAL_MEDIA_CACHE_TAG],
+    revalidate: 3600,
+  },
+);
+
+export async function getSocialMediaLinks() {
+  try {
+    const data = await getSocialMediaLinksCached();
+
     return {
-      data: data.docs,
+      data,
       error: null,
     };
   } catch (error) {
