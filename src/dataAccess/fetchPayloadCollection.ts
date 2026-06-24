@@ -79,7 +79,7 @@ export async function getSocialMediaLinks() {
     const payload = await getPayload({ config });
     const data = await payload.find({
       collection: "social-media",
-      sort: "-publishedAt",
+      sort: "createdAt",
     });
 
     return {
