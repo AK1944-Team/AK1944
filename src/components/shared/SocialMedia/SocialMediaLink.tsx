@@ -1,6 +1,7 @@
 import type { Media } from "@/payload-types";
 import Image from "next/image";
 import Link from "next/link";
+import { DEFAULT_IMAGE } from "../../../utils/constants";
 
 interface Props {
   size?: number;
@@ -24,7 +25,7 @@ export const SocialMediaLink = ({ size = 32, url, name, svg }: Props) => {
       className="transition-opacity hover:opacity-80"
     >
       <Image
-        src={svg.url}
+        src={svg.url ? svg.url : DEFAULT_IMAGE}
         alt=""
         aria-hidden="true"
         width={size}
