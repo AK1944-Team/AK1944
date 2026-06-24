@@ -1,4 +1,6 @@
 import type { CollectionConfig } from "payload";
+import { revalidateTag } from "next/cache";
+import { SOCIAL_MEDIA_CACHE_TAG } from "@/dataAccess/cacheTags";
 
 export const socialMedia: CollectionConfig = {
   slug: "social-media",
@@ -14,6 +16,19 @@ export const socialMedia: CollectionConfig = {
 
   access: {
     read: () => true,
+  },
+
+  hooks: {
+    afterChange: [
+      async () => {
+        revalidateTag(SOCIAL_MEDIA_CACHE_TAG);
+      },
+    ],
+    afterDelete: [
+      async () => {
+        revalidateTag(SOCIAL_MEDIA_CACHE_TAG);
+      },
+    ],
   },
 
   fields: [
