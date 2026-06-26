@@ -68,7 +68,6 @@ export const CalendarCard = ({ withButton = false, eventForToday }: Props) => {
       <BackgroundMedia
         alt="calendar background"
         src="/images/calendar_background.webp"
-        fill
         className="contrast:hidden"
       >
         <Container className="flex min-h-[400px] w-[284px] flex-col items-center justify-start py-4 font-lora">

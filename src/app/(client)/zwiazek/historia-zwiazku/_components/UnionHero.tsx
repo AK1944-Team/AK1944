@@ -11,7 +11,6 @@ export const UnionHero = ({ paragraph }: Props) => (
   <BackgroundMedia
     src="/images/hero_background.webp"
     alt="Zdjęcie przedstawiające strzelców konnych z biało czerwonymi proporcami"
-    fill
     className="max-h-[1200px] contrast:invisible tablet:h-[640px] tablet:max-h-[660px]"
     aria-hidden="true"
   >

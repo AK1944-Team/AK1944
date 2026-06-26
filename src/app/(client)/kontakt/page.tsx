@@ -17,7 +17,6 @@ export default function ContactPage() {
           alt="Obrazek przedstawiający retro telefon"
           sizes="(max-width: 1280px) 40vw, 595px"
           quality={85}
-          fill
           className="contrast:hidden"
         />
       </div>
@@ -29,7 +28,6 @@ export default function ContactPage() {
             alt="Obrazek przedstawiający retro telefon"
             sizes="80vw"
             quality={70}
-            fill
             className="h-full translate-x-[40%] object-cover object-left contrast:hidden"
           />
         </div>

@@ -10,7 +10,6 @@ export const HistoryBanner = () => (
   <BackgroundMedia
     alt="Historyczne zdjęcie 5. Pułku Strzelców Konnych"
     src="/images/history/main/history_bg.webp"
-    fill
     className="absolute z-0 object-cover contrast:hidden desktop:object-fill"
     priority
   >
