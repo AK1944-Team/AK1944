@@ -1,6 +1,6 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs/Breadcrumbs";
 import Container from "@/components/shared/Container";
-import { BackgroundImage } from "@/components/shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "@/components/shared/BackgroundMedia/BackgroundMedia";
 import { Heading } from "@/components/shared/Heading/Heading";
 
 interface Props {
@@ -8,10 +8,9 @@ interface Props {
 }
 
 export const UnionHero = ({ paragraph }: Props) => (
-  <BackgroundImage
+  <BackgroundMedia
     src="/images/hero_background.webp"
     alt="Zdjęcie przedstawiające strzelców konnych z biało czerwonymi proporcami"
-    fill
     className="max-h-[1200px] contrast:invisible tablet:h-[640px] tablet:max-h-[660px]"
     aria-hidden="true"
   >
@@ -35,5 +34,5 @@ export const UnionHero = ({ paragraph }: Props) => (
         ))}
       </section>
     </Container>
-  </BackgroundImage>
+  </BackgroundMedia>
 );

@@ -1,7 +1,7 @@
 "use client";
 
 import { Routes } from "@/routes";
-import { BackgroundImage } from "@/components/shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "@/components/shared/BackgroundMedia/BackgroundMedia";
 import { Button } from "@/components/shared/Button/Button";
 import Container from "@/components/shared/Container";
 import { getTodaysNameDays } from "@/app/(client)/zwiazek/kalendarz/_components/Events/dataNameDays";
@@ -65,10 +65,9 @@ export const CalendarCard = ({ withButton = false, eventForToday }: Props) => {
 
   return (
     <div className="flex items-center justify-center overflow-hidden px-0 contrast:border-2 contrast:border-b-yellowContrast tablet:px-0 desktop:px-0">
-      <BackgroundImage
+      <BackgroundMedia
         alt="calendar background"
         src="/images/calendar_background.webp"
-        fill
         className="contrast:hidden"
       >
         <Container className="flex min-h-[400px] w-[284px] flex-col items-center justify-start py-4 font-lora">
@@ -117,7 +116,7 @@ export const CalendarCard = ({ withButton = false, eventForToday }: Props) => {
             />
           )}
         </Container>
-      </BackgroundImage>
+      </BackgroundMedia>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { Routes } from "@/routes";
-import { BackgroundImage } from "../shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "../shared/BackgroundMedia/BackgroundMedia";
 import { Button } from "../shared/Button/Button";
 import { Heading } from "../shared/Heading/Heading";
 
 export const BecomeDonor = () => (
   <section className="relative w-full overflow-hidden">
-    <BackgroundImage
+    <BackgroundMedia
       src="/images/become_donor_bg_1.webp"
       alt="Starszy mężczyzna wręcza starszej kobiecie ważne odznaczenie."
       priority
@@ -28,6 +28,6 @@ export const BecomeDonor = () => (
           ariaDescription="Wesprzyj"
         />
       </div>
-    </BackgroundImage>
+    </BackgroundMedia>
   </section>
 );
