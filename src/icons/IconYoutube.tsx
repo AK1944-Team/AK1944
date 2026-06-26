@@ -3,9 +3,7 @@ import { DefaultIconProps } from "@/types";
 interface Props extends DefaultIconProps {
   size?: number;
 }
-// className={className}
-// width={size}
-// height={size}
+
 export default function IconYoutube({ className, size = 32 }: Props) {
   return (
     <svg

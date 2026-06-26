@@ -6,13 +6,13 @@ import { TaxCard } from "@/components/shared/TaxCard/TaxCard";
 import { RallyCard } from "@/components/shared/RallyCard/RallyCard";
 import { ContactInfo } from "./components/ContactInfo";
 import { LegalInfo } from "./components/LegalInfo";
-import { BackgroundImage } from "@/components/shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "@/components/shared/BackgroundMedia/BackgroundMedia";
 
 export default function ContactPage() {
   return (
     <div className="relative isolate min-h-screen overflow-hidden tablet:pb-20 desktop:pb-150">
       <div className="absolute inset-y-0 right-0 hidden h-full w-[40vw] desktop:block">
-        <BackgroundImage
+        <BackgroundMedia
           src="/images/contact-bg.webp"
           alt="Obrazek przedstawiający retro telefon"
           sizes="(max-width: 1280px) 40vw, 595px"
@@ -24,7 +24,7 @@ export default function ContactPage() {
 
       <div className="pointer-events-none absolute inset-0 hidden justify-end tablet:flex desktop:hidden">
         <div className="relative h-full w-[80vw] overflow-hidden">
-          <BackgroundImage
+          <BackgroundMedia
             src="/images/contact-bg.webp"
             alt="Obrazek przedstawiający retro telefon"
             sizes="80vw"

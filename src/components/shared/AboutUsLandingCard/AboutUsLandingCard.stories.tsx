@@ -42,7 +42,7 @@ export const Default: Story = {
   args: {
     image: {
       src: "/images/history_AK.webp",
-      alt: "Historia AK. Zdjęcie grupy żołnierzy: Grupa żołnierzy w mundurach polowych, ustawionych w szeregu. Żołnierze noszą zielone berety, a jeden z nich trzyma sztandar wojskowy i flagę. Tło to miejskie budynki.",
+      alt: "Historia AK. Sanitariuszki szpitala polowego III Zgrupowania.",
       width: 350,
       height: 190,
     },

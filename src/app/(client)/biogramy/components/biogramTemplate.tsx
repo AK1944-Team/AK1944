@@ -1,4 +1,4 @@
-import { BackgroundImage } from "@/components/shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "@/components/shared/BackgroundMedia/BackgroundMedia";
 import { FeaturedImage } from "@/components/shared/FeaturedImage/FeaturedImage";
 import { Heading } from "@/components/shared/Heading/Heading";
 import { StampIcon } from "@/icons/StampIcon";
@@ -18,7 +18,7 @@ export const BiogramHistory = ({ biogram }: { biogram: Biogram }) => {
 
   return (
     <>
-      <BackgroundImage
+      <BackgroundMedia
         alt=""
         src="/images/history/main/paper.png"
         className="absolute object-fill contrast:hidden"
@@ -74,7 +74,7 @@ export const BiogramHistory = ({ biogram }: { biogram: Biogram }) => {
             </div>
           </div>
         </div>
-      </BackgroundImage>
+      </BackgroundMedia>
     </>
   );
 };

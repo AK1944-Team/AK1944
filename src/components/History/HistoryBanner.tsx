@@ -1,13 +1,13 @@
 import { Heading } from "../shared/Heading/Heading";
 import { history } from "@/data/historyData";
-import { BackgroundImage } from "../shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "../shared/BackgroundMedia/BackgroundMedia";
 import Container from "../shared/Container";
 import { Breadcrumbs } from "../shared/Breadcrumbs/Breadcrumbs";
 
 const { title, description } = history;
 
 export const HistoryBanner = () => (
-  <BackgroundImage
+  <BackgroundMedia
     alt="Historyczne zdjęcie 5. Pułku Strzelców Konnych"
     src="/images/history/main/history_bg.webp"
     fill
@@ -30,5 +30,5 @@ export const HistoryBanner = () => (
         ))}
       </div>
     </Container>
-  </BackgroundImage>
+  </BackgroundMedia>
 );

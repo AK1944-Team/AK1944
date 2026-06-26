@@ -1,6 +1,6 @@
 "use client";
 import Container from "../shared/Container";
-import { BackgroundImage } from "../shared/BackgroundImage/BackgroundImage";
+import { BackgroundMedia } from "../shared/BackgroundMedia/BackgroundMedia";
 import { Heading } from "../shared/Heading/Heading";
 import { history } from "@/data/historyData";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { Routes } from "@/routes";
 const { title, content } = history.biograms;
 
 export const HistoryBiogramComponent = () => (
-  <BackgroundImage
+  <BackgroundMedia
     alt=""
     src="/images/history/main/paper.png"
     sizes="(max-width: 768px) 100vw, 540px"
@@ -40,5 +40,5 @@ export const HistoryBiogramComponent = () => (
         href={Routes.BIOGRAMS}
       />
     </Container>
-  </BackgroundImage>
+  </BackgroundMedia>
 );
