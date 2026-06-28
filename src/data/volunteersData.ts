@@ -90,4 +90,16 @@ export const volunteersData: Volunteer[] = [
     photo: "/images/volunteers/B.Jarzylo.webp",
     linkedin: "https://www.linkedin.com/in/bartosz-jarzylo/",
   },
+  {
+    name: "Kacper Mrochen",
+    role: "QA Tester",
+    photo: "/images/volunteers/K.Mrochen.webp",
+    linkedin: "https://www.linkedin.com/in/kacpermrochen/",
+  },
+  {
+    name: "Anna Szczęch",
+    role: "QA Tester",
+    photo: "/images/volunteers/A.Szczęch.webp",
+    linkedin: "https://www.linkedin.com/in/annaszczech/",
+  },
 ];
