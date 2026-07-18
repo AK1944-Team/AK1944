@@ -8,7 +8,7 @@ import { BiogramsContainer } from "./components/biogramsContainer";
 export default async function BiogramsPage() {
   const { docs: biograms } = await fetchCollection({
     collection: "biograms",
-    query: { limit: 0, pagination: false },
+    query: { limit: 0, pagination: false, sort: "name" },
   });
 
   return (

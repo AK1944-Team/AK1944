@@ -9,7 +9,7 @@ export const Routes = {
   BOARD: "/zwiazek/zarzad",
   UNION_HISTORY: "/zwiazek/historia-zwiazku",
   CALENDAR: "/zwiazek/kalendarz",
-  ONGOING_PROJECTS: "/zwiazek/projekty",
+  // ONGOING_PROJECTS: "/zwiazek/projekty",
   MEMORIALS: "/zwiazek/miejsca-pamieci",
   HISTORY: "/historia",
   REGIMENT: "/historia/strzelcy",

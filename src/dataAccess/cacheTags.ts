@@ -10,6 +10,8 @@ export const PAYLOAD_COLLECTION_CACHE_TAGS = {
   "social-media": "payload-social-media",
   galleries: "payload-galleries",
   media: "payload-media",
+  partners: "payload-partners",
+  board: "payload-board",
 } as const;
 
 export type PayloadRevalidatedCollection =

@@ -27,7 +27,7 @@ export const Biograms: CollectionConfig = {
     {
       name: "name",
       type: "text",
-      label: "Imię i nazwisko",
+      label: "Nazwisko i imię",
       required: true,
     },
     {

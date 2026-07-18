@@ -16,7 +16,7 @@ export const homeArmyUnionNavData = [
   { href: Routes.BOARD, label: "Zarząd" },
   { href: Routes.UNION_HISTORY, label: "Historia Związku" },
   { href: Routes.CALENDAR, label: "Kalendarz uroczystości" },
-  { href: Routes.ONGOING_PROJECTS, label: "Realizowane projekty" },
+  // { href: Routes.ONGOING_PROJECTS, label: "Realizowane projekty" },
   { href: Routes.MEMORIALS, label: "Miejsca pamięci" },
 ];
 
@@ -24,7 +24,7 @@ export const historyNavData = [
   { href: Routes.HISTORY, label: "Historia" },
   { href: Routes.REGIMENT, label: "5. Pułk Strzelców Konnych" },
   { href: Routes.DEBICA_DISTRICT, label: "Obwód Dębica SZP-ZWZ-AK" },
-  { href: Routes.OPERATION, label: "Akcja \„Burza\”"},
+  { href: Routes.OPERATION, label: "Akcja \„Burza\”" },
   { href: Routes.LITERATURE, label: "Literatura" },
 ];
 

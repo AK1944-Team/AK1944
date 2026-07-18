@@ -8,7 +8,7 @@ import { PartnerCard } from "./PartnerCard";
 interface Partner {
   id: string;
   name: string;
-  href: string;
+  href?: string | null;
   image?: string;
 }
 

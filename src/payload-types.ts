@@ -77,6 +77,8 @@ export interface Config {
     biograms: Biogram;
     'memorial-places': MemorialPlace;
     'social-media': SocialMedia;
+    partners: Partner;
+    board: Board;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     biograms: BiogramsSelect<false> | BiogramsSelect<true>;
     'memorial-places': MemorialPlacesSelect<false> | MemorialPlacesSelect<true>;
     'social-media': SocialMediaSelect<false> | SocialMediaSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    board: BoardSelect<false> | BoardSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -546,6 +550,75 @@ export interface SocialMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  name: string;
+  href?: string | null;
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "board".
+ */
+export interface Board {
+  id: string;
+  honoraryPresidents?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  presidents?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  boardMembers?:
+    | {
+        name: string;
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  delegates?:
+    | {
+        name: string;
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Np. objaśnienie znacznika * przy nazwiskach członków bez uprawnień kombatanckich.
+   */
+  additionalInfo?: string | null;
+  /**
+   * Informacje regulaminowe dotyczące zarządu. Przykładowe wpisy: Zgodnie z § 43 Statutu ŚZŻAK, Zarząd Koła zwołuje Walne Zebranie Członków Środowiska 5. PSK AK ŚZŻAK w Dębicy.
+   */
+  regulations?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -607,6 +680,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'social-media';
         value: string | SocialMedia;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: string | Partner;
+      } | null)
+    | ({
+        relationTo: 'board';
+        value: string | Board;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -887,6 +968,53 @@ export interface SocialMediaSelect<T extends boolean = true> {
   name?: T;
   url?: T;
   icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  href?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "board_select".
+ */
+export interface BoardSelect<T extends boolean = true> {
+  honoraryPresidents?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  presidents?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  boardMembers?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        id?: T;
+      };
+  delegates?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        id?: T;
+      };
+  additionalInfo?: T;
+  regulations?: T;
   updatedAt?: T;
   createdAt?: T;
 }
