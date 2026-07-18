@@ -26,20 +26,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/admin",
-        destination: "https://cms.ak1944.pl/admin",
-        permanent: false,
-      },
-      {
-        source: "/admin/:path*",
-        destination: "https://cms.ak1944.pl/admin/:path*",
-        permanent: false,
-      },
-    ];
-  },
 };
 
 export default withPayload(nextConfig);
