@@ -17,6 +17,7 @@ type CollectionMap = Pick<
   | "biograms"
   | "memorial-places"
   | "social-media"
+  | "partners"
 >;
 type CollectionQuery = Pick<
   FindArgs,

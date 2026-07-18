@@ -35,7 +35,7 @@ export const BiogramsList = ({
 
       <div className="grid w-full grid-cols-[1fr_auto] items-center gap-x-4 px-4 py-2 pb-6 font-courier text-18 tablet:grid-cols-[1fr_200px_200px] tablet:gap-x-0 desktop:grid-cols-[1fr_280px_280px]">
         <div className="flex min-w-[120px] flex-wrap gap-2 text-left text-xl font-bold tablet:text-14">
-          <span>L.p.</span>
+          <span>Lp.</span>
           <span>Nazwisko i imię</span>
         </div>
 

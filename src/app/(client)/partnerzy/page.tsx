@@ -12,14 +12,10 @@ import { OurPartners } from "./_components/OurPartners";
 import { ThreadIcon } from "@/icons/ThreadIcon";
 
 import { AK_DATA } from "@/data/akData";
-import { partners } from "@/data/partners";
-
-const partnersList = partners
-  .map(({ name, href }) => `- ${name}${href ? `: ${href}` : ""}`)
-  .join("\n");
 
 export const metadata: Metadata = {
-  description: `Dziękujemy partnerom Armii Krajowej:\n${partnersList}`,
+  description:
+    "Dziękujemy partnerom Armii Krajowej za wsparcie naszej misji upamiętniania bohaterów.",
 };
 
 export default function PartnersPage() {

@@ -16,6 +16,7 @@ import { Calendar } from "@/collections/Calendar";
 import { Literature } from "@/collections/Literature";
 import { Biograms } from "@/collections/Biograms";
 import { socialMedia } from "@/collections/SocialMedia";
+import { Partners } from "@/collections/Partners";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,6 +52,7 @@ export default buildConfig({
     Biograms,
     MemorialPlaces,
     socialMedia,
+    Partners,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [...defaultFeatures],
