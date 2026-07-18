@@ -1,11 +1,42 @@
-import { boardData } from "@/app/(client)/zwiazek/zarzad/data/boardData";
+import { fetchCollection } from "@/dataAccess/fetchPayloadCollection";
+import { converters } from "@/utils/richtext/converters";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import LogoAK from "@/icons/LogoAK";
 import Container from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs/Breadcrumbs";
 import { ShowOnTabletAndUp } from "@/components/shared/ShowOnTabletAndUp";
 import { ShowOnMobile } from "@/components/shared/ShowOnMobile";
 
-export default function BoardPage() {
+export default async function BoardPage() {
+  const { docs } = await fetchCollection({
+    collection: "board",
+    query: { limit: 1, sort: "-createdAt" },
+  });
+  const board = docs[0];
+
+  const sections = [
+    {
+      title: "Prezes Honorowy:",
+      names: (board.honoraryPresidents ?? []).map((p) => p.name),
+    },
+    {
+      title: "Prezes:",
+      names: (board.presidents ?? []).map((p) => p.name),
+    },
+    {
+      title: "Skład zarządu:",
+      names: (board.boardMembers ?? []).map((m) =>
+        m.role ? `${m.name} – ${m.role}` : m.name,
+      ),
+    },
+    {
+      title: "Delegaci na Walny Zjazd Okręgu:",
+      names: (board.delegates ?? []).map((d) =>
+        d.role ? `${d.name} – ${d.role}` : d.name,
+      ),
+    },
+  ].filter((s) => s.names.length > 0);
+
   return (
     <section className="flex flex-col justify-center contrast:bg-black00">
       <Container as="section" className="tablet:pb-[64px]">
@@ -25,7 +56,7 @@ export default function BoardPage() {
         </ShowOnTabletAndUp>
 
         <article className="desktop:grid desktop:grid-cols-2">
-          {boardData.members.map((section, index) => (
+          {sections.map((section, index) => (
             <div key={index} className="tablet:px-[88px] desktop:pr-0">
               <h4 className="font-bold">{section.title}</h4>
               <ul className="pb-6">
@@ -37,16 +68,19 @@ export default function BoardPage() {
           ))}
         </article>
 
-        <p className="pb-6 tablet:px-[88px]">{boardData.note}</p>
+        {board.additionalInfo && (
+          <p className="pb-6 tablet:px-[88px]">{board.additionalInfo}</p>
+        )}
       </Container>
 
-      <Container
-        as="section"
-        className="font-16 flex flex-col gap-10 pb-10 pt-6 leading-6 tablet:px-6 tablet:pb-20 desktop:mx-auto desktop:w-[1022px] desktop:px-0 desktop:pb-150"
-      >
-        <p>{boardData.announcement}</p>
-        <p>{boardData.electionInfo}</p>
-      </Container>
+      {board.regulations && (
+        <Container
+          as="section"
+          className="font-16 flex flex-col gap-10 pb-10 pt-6 leading-6 tablet:px-6 tablet:pb-20 desktop:mx-auto desktop:w-[1022px] desktop:px-0 desktop:pb-150"
+        >
+          <RichText data={board.regulations} converters={converters} />
+        </Container>
+      )}
     </section>
   );
 }
