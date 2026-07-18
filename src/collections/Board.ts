@@ -6,7 +6,7 @@ export const Board: CollectionConfig = {
   slug: "board",
   labels: {
     singular: "Zarząd",
-    plural: "Zarządy",
+    plural: "Zarząd",
   },
   access: {
     read: () => true,
