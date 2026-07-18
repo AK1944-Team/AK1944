@@ -14,6 +14,16 @@ export default async function BoardPage() {
   });
   const board = docs[0];
 
+  if (!board) {
+    return (
+      <section className="flex flex-col justify-center contrast:bg-black00">
+        <Container as="section" className="tablet:pb-[64px]">
+          <Breadcrumbs contrastVariant="yellow" />
+        </Container>
+      </section>
+    );
+  }
+
   const sections = [
     {
       title: "Prezes Honorowy:",
