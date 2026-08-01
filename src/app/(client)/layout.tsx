@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "Światowy Związek Żołnierzy Armii Krajowej",
     images: [
       {
-        url: "https://ak1944.pl/public/images/AK_Logo_OG.webp",
+        url: "https://ak1944.pl/images/AK_Logo_OG.webp",
         width: 1200,
         height: 630,
         alt: "Światowy Związek Żołnierzy Armii Krajowej",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Światowy Związek Żołnierzy Armii Krajowej",
     description: "AK1944 - Strona poświęcona działalności Armii Krajowej",
-    images: ["https://ak1944.pl/public/images/AK_Logo_OG.webp"],
+    images: ["https://ak1944.pl/images/AK_Logo_OG.webp"],
   },
 };
 
