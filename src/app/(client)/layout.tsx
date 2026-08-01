@@ -36,6 +36,26 @@ export const metadata: Metadata = {
   keywords:
     "Armia Krajowa, Dębica, AK Dębica, Szlak Partyzancki, Szlak II Zgrupowania, Szlak Partyzancki II Zgrupowania Armii Krajowej Obwodu Dębica, Deser, Adam Lazarowicz, Środowisko 5 Pułku Strzelców Konnych Armii Krajowej, ŚZŻAK, Światowy Związek Żołnierzy AK, 5 Pułk Strzelców Konnych, 5 psk, AK, powiat dębicki, ziemia dębicka, Maciej Małozięć, weterani AK, kombatanci, Polskie Państwo Podziemne, Dziekania, Braciejowa, Gumniska, biogramy żołnierzy, Gdzie Karpat progi, Dziesiątka w akcji, Wojenne losy uczniów",
   icons: { icon: "/favicon.ico", apple: "/favicon.ico" },
+  openGraph: {
+    title: "Światowy Związek Żołnierzy Armii Krajowej",
+    description: "AK1944 - Strona poświęcona działalności Armii Krajowej",
+    url: "https://ak1944.pl",
+    siteName: "Światowy Związek Żołnierzy Armii Krajowej",
+    images: [
+      {
+        url: "https://ak1944.pl/public/images/AK_Logo_OG.webp",
+        width: 1200,
+        height: 630,
+        alt: "Światowy Związek Żołnierzy Armii Krajowej",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Światowy Związek Żołnierzy Armii Krajowej",
+    description: "AK1944 - Strona poświęcona działalności Armii Krajowej",
+    images: ["https://ak1944.pl/public/images/AK_Logo_OG.webp"],
+  },
 };
 
 export default function ClientLayout({
